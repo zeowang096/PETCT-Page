@@ -84,6 +84,23 @@ body{overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","
   .card .summary{font-size:12px;-webkit-line-clamp:3}
   .tab{padding:8px 14px;font-size:12px}
 }
+
+.changelog-group{margin-bottom:28px;border-left:4px solid #16a085;padding-left:20px}
+.changelog-date{font-size:15px;font-weight:600;color:#16a085;margin-bottom:4px}
+.changelog-time{font-size:13px;color:#999;margin-bottom:10px}
+.changelog-title{font-size:16px;font-weight:500;color:#1a2a3a;margin-bottom:12px}
+.changelog-item{display:flex;align-items:baseline;gap:8px;padding:6px 0;border-bottom:1px solid #f0f2f5;font-size:14px;line-height:1.6}
+.changelog-item:last-child{border-bottom:none}
+.changelog-cat{background:#e8f8f5;color:#16a085;border-radius:8px;padding:2px 8px;font-size:11px;white-space:nowrap;flex-shrink:0}
+.changelog-link{color:#2980b9;text-decoration:none;flex:1}
+.changelog-link:hover{text-decoration:underline}
+@media(max-width:768px){
+  .changelog-group{padding-left:14px;border-left-width:3px}
+  .changelog-item{flex-wrap:wrap;gap:4px;font-size:13px}
+  .changelog-date{font-size:14px}
+  .changelog-title{font-size:14px}
+}
+.card.changelog{border-left-color:#16a085}
 </style>
 </head>
 <body>
@@ -234,7 +251,7 @@ const DATA = {
       {
         "title": "AUC for 18F-FDG PET/CT for Initial Staging of Malignant Disease",
         "summary": "SNMMI发布18F-FDG PET/CT在恶性肿瘤初始分期中的合理使用标准(AUC)，描述PET/CT在恶性肿瘤初始分期中的适当使用场景和频率，避免不必要的检查。",
-        "url": "https://snmmi.org/Web/Clinical-Practice/Appropriate-Use-Criteria/Default.aspx",
+        "url": "https://snmmi.org/common/Uploaded%20files/Web/Clinical%20Practice/Appropriate%20Use%20Criteria/AUC%20for%2018F-FDG%20PET_CT%20for%20Initial%20Staging%20of%20Malignant%20Disease%20Updated%20V2-FINAL.pdf",
         "source": "SNMMI",
         "date": "2026-01-23",
         "category": "国际指南"
@@ -274,7 +291,7 @@ const DATA = {
       {
         "title": "EANM/SNMMI Guideline for Paediatric Bone Hybrid Imaging with 99mTc",
         "summary": "EANM与SNMMI联合发布儿童99mTc标记放射性药物骨杂交成像指南，涵盖儿童骨扫描的适应证、采集、处理和解读，重点关注SPECT/CT。",
-        "url": "https://snmmi.org/Web/Web/Clinical-Practice/Procedure-Standards/Default.aspx",
+        "url": "https://link.springer.com/article/10.1007/s00259-025-07022-z",
         "source": "EANM/SNMMI",
         "date": "2025-10-10",
         "category": "国际指南"
@@ -282,7 +299,7 @@ const DATA = {
       {
         "title": "SNMMI/EANM/ACNM Guideline on Molecular Imaging for Renal Mass Characterization",
         "summary": "SNMMI、EANM和ACNM联合发布指南，为核医学医师和放射科医生提供分子影像无创特征化不确定肾肿块的详细指导，涵盖适应证、显像剂选择和结果解读。",
-        "url": "https://snmmi.org/Web/Web/Clinical-Practice/Procedure-Standards/Default.aspx",
+        "url": "https://jnm.snmjournals.org/content/early/2025/10/09/jnumed.125.271332",
         "source": "SNMMI",
         "date": "2025-10-09",
         "category": "国际指南"
@@ -298,7 +315,7 @@ const DATA = {
       {
         "title": "EANM Procedure Guidelines for [18F]FDG PET/CT Tumour Imaging v3.0",
         "summary": "EANM发布FDG PET/CT肿瘤成像程序指南第3版，为成人肿瘤FDG PET/CT成像提供全面操作规范，包括患者准备、采集协议、重建参数、质量控制和定量分析标准。",
-        "url": "https://eanm.org/publications/guidelines/overview/oncology/",
+        "url": "https://link.springer.com/article/10.1007/s00259-024-06678-x",
         "source": "EANM",
         "date": "2025-09-23",
         "category": "国际指南"
@@ -330,7 +347,7 @@ const DATA = {
       {
         "title": "SNMMI/ACNM Guideline for Post-Treatment Imaging of 177Lu-based Radiopharmaceutical Therapies",
         "summary": "SNMMI与ACNM联合发布177Lu放射性药物治疗后的SPECT/CT成像指南，为接受177Lu标记放射性药物治疗的患者建立治疗后成像的具体推荐标准。",
-        "url": "https://snmmi.org/Web/Web/Clinical-Practice/Procedure-Standards/Default.aspx",
+        "url": "https://captions.snmmi.org/common/Uploaded%20files/Web/Clinical%20Practice/Procedure%20Standards/2025/Post%20Treatment%20Imaging%20with%20Lu177-JNM%20Summary.pdf",
         "source": "SNMMI",
         "date": "2025-06-20",
         "category": "国际指南"
@@ -338,7 +355,7 @@ const DATA = {
       {
         "title": "SNMMI/EANM/ASNC/ACNM Guideline for 18F-Flurpiridaz PET Myocardial Perfusion Imaging",
         "summary": "SNMMI联合EANM等发布18F-Flurpiridaz PET心肌灌注成像指南，涵盖患者选择、成像方案和结果解读推荐，为核心脏病学实践提供新显像剂使用标准。",
-        "url": "https://snmmi.org/Web/Web/Clinical-Practice/Procedure-Standards/Default.aspx",
+        "url": "https://jnm.snmjournals.org/content/66/10/1538",
         "source": "SNMMI",
         "date": "2025-05-22",
         "category": "国际指南"
@@ -386,7 +403,7 @@ const DATA = {
       {
         "title": "EANM/EANO/RANO/SNMMI Guideline for PET Imaging of Brain Metastases v1.0",
         "summary": "EANM、EANO、RANO和SNMMI联合发布脑转移瘤PET成像指南，涵盖氨基酸PET和FDG PET在脑转移瘤中的推荐、操作、解读和报告标准，为多学科诊疗提供循证依据。",
-        "url": "https://eanm.org/publications/guidelines/overview/central-nervous-system/",
+        "url": "https://link.springer.com/article/10.1007/s00259-024-06858-5",
         "source": "SNMMI/EANM",
         "date": "2025-01-07",
         "category": "国际指南"
@@ -410,7 +427,7 @@ const DATA = {
       {
         "title": "EANM Guidelines on [18F]FDG PET/CT in Plasma Cell Disorders",
         "summary": "EANM发布18F-FDG PET/CT在浆细胞疾病诊断、分期、预后评估、疗效评价和再分期中的应用指南，为多发性骨髓瘤等浆细胞疾病的PET成像提供标准。",
-        "url": "https://eanm.org/publications/guidelines/overview/oncology/",
+        "url": "https://link.springer.com/article/10.1007/s00259-024-06858-9",
         "source": "EANM",
         "date": "2024-11-05",
         "category": "国际指南"
@@ -426,7 +443,7 @@ const DATA = {
       {
         "title": "SNMMI/EANM Practice Guideline for Brain [18F]FDG PET Imaging v2.0",
         "summary": "SNMMI与EANM联合发布脑18F-FDG PET成像实践指南第2版，为脑FDG PET在神经退行性疾病、癫痫和脑肿瘤中的应用提供更新的操作和解读标准。",
-        "url": "https://eanm.org/publications/guidelines/overview/central-nervous-system/",
+        "url": "https://jnm.snmjournals.org/content/66/Supplement_2/S45.full",
         "source": "EANM/SNMMI",
         "date": "2024-10-17",
         "category": "国际指南"
@@ -434,7 +451,7 @@ const DATA = {
       {
         "title": "EANM/SNMMI Guideline for 18F-FDG Hybrid PET in Infection and Inflammation v2.0",
         "summary": "EANM与SNMMI联合发布18F-FDG混合PET在成人感染和炎症中应用指南第2版，修订和更新了FDG PET/CT在感染和炎症疾病中的适应证和方案。",
-        "url": "https://jnm.snmjournals.org/content/66/3/480",
+        "url": "https://link.springer.com/article/10.1007/s00259-024-06915-3",
         "source": "EANM/SNMMI",
         "date": "2024-10-10",
         "category": "国际指南"
@@ -450,7 +467,7 @@ const DATA = {
       {
         "title": "Joint EANM-SNMMI Guideline on 2-18F-FDG PET/CT in Breast Cancer",
         "summary": "EANM与SNMMI联合发布18F-FDG PET/CT在非特殊类型乳腺癌中的应用指南，获ACR、ESSO、ESTRO等多学会认可，涵盖诊断、分期和疗效评估。",
-        "url": "https://eanm.org/publications/guidelines/overview/oncology/",
+        "url": "https://link.springer.com/article/10.1007/s00259-024-06696-9",
         "source": "EANM/SNMMI",
         "date": "2024-09-01",
         "category": "国际指南"
@@ -474,7 +491,7 @@ const DATA = {
       {
         "title": "EANM Practice Guidelines for PET and SPECT for Patients with Epilepsy",
         "summary": "EANM发布癫痫患者PET和SPECT应用实践指南，为核医学在癫痫定位诊断中的适当使用提供循证推荐，涵盖FDG PET和SPECT的适应证、方案和解读。",
-        "url": "https://eanm.org/publications/guidelines/overview/central-nervous-system/",
+        "url": "https://link.springer.com/article/10.1007/s00259-024-06651-8",
         "source": "EANM",
         "date": "2024-07-01",
         "category": "国际指南"
@@ -482,7 +499,7 @@ const DATA = {
       {
         "title": "EANM/EANO/RANO/SNMMI Guideline for Radiolabeled Somatostatin Receptor Ligands in Meningiomas",
         "summary": "EANM、EANO、RANO和SNMMI联合发布放射标记生长抑素受体配体在脑膜瘤诊疗(theranostics)中的应用指南第1版，涵盖诊断和治疗双方面。",
-        "url": "https://eanm.org/publications/guidelines/overview/central-nervous-system/",
+        "url": "https://link.springer.com/article/10.1007/s00259-024-06728-4",
         "source": "EANM/SNMMI",
         "date": "2024-06-01",
         "category": "国际指南"
@@ -490,7 +507,7 @@ const DATA = {
       {
         "title": "SNMMI Consensus Statement on 177Lu-PSMA-617 Radionuclide Therapy",
         "summary": "SNMMI发布177Lu-PSMA-617放射性核素治疗的患者选择和合理使用共识声明，多学科专家工作组基于文献综述制定临床推荐。",
-        "url": "https://snmmi.org/Web/Clinical-Practice/Appropriate-Use-Criteria/Default.aspx",
+        "url": "https://link.springer.com/article/10.1007/s11307-023-01818-z",
         "source": "SNMMI",
         "date": "2023-04-26",
         "category": "国际指南"
@@ -514,7 +531,7 @@ const DATA = {
       {
         "title": "AUC for PSMA PET Imaging",
         "summary": "SNMMI、ACNM、AUA等多学会联合发布PSMA PET成像合理使用标准，指导转诊和影像医师在前列腺癌诊疗中适当使用PSMA PET显像剂。",
-        "url": "https://snmmi.org/Web/Clinical-Practice/Appropriate-Use-Criteria/Default.aspx",
+        "url": "https://jnm.snmjournals.org/content/62/12/1756",
         "source": "SNMMI",
         "date": "2021-09-15",
         "category": "国际指南"
@@ -1891,6 +1908,170 @@ const DATA = {
       }
     ],
     "update_time": "2026-06-08"
+  },
+  "changelog": {
+    "update_time": "2026-06-08",
+    "updates": [
+      {
+        "date": "2026-06-08",
+        "time": "18:27",
+        "title": "新增国际核医学学会指南",
+        "items": [
+          {
+            "name": "EANM Procedure Guidelines for [18F]FDG PET/CT Tumour Imaging v3.0",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-024-06678-x"
+          },
+          {
+            "name": "Joint EANM/SNMMI Recommendations on Tau PET Imaging in Alzheimer's Disease",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-026-07031-z"
+          },
+          {
+            "name": "SNMMI/ACNM Guideline for Post-Treatment Imaging of 177Lu-based Radiopharmaceutical Therapies",
+            "category": "学会指南",
+            "url": "https://captions.snmmi.org/common/Uploaded%20files/Web/Clinical%20Practice/Procedure%20Standards/2025/Post%20Treatment%20Imaging%20with%20Lu177-JNM%20Summary.pdf"
+          },
+          {
+            "name": "SNMMI/EANM/ASNC/ACNM Guideline for 18F-Flurpiridaz PET Myocardial Perfusion Imaging",
+            "category": "学会指南",
+            "url": "https://jnm.snmjournals.org/content/66/10/1538"
+          },
+          {
+            "name": "SNMMI/EANM/ACNM Guideline on Molecular Imaging for Renal Mass Characterization",
+            "category": "学会指南",
+            "url": "https://jnm.snmjournals.org/content/early/2025/10/09/jnumed.125.271332"
+          },
+          {
+            "name": "SNMMI/ACNM Practice Guideline for Radiopharmaceuticals 5.0",
+            "category": "学会指南",
+            "url": "https://tech.snmjournals.org/content/early/2025/04/01/jnmt.125.269834.full"
+          },
+          {
+            "name": "EANM/EANO/RANO/SNMMI Guideline for PET Imaging of Brain Metastases v1.0",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-024-06858-5"
+          },
+          {
+            "name": "SNMMI/EANM Practice Guideline for FAP PET Imaging",
+            "category": "学会指南",
+            "url": "https://captions.snmmi.org/common/Uploaded%20files/Web/Clinical%20Practice/Procedure%20Standards/2024/SNMMI_%20EANM%20FAP%20PET%20Procedure%20Standard.pdf"
+          },
+          {
+            "name": "AUC for 18F-FDG PET/CT for Initial Staging of Malignant Disease",
+            "category": "学会指南",
+            "url": "https://snmmi.org/common/Uploaded%20files/Web/Clinical%20Practice/Appropriate%20Use%20Criteria/AUC%20for%2018F-FDG%20PET_CT%20for%20Initial%20Staging%20of%20Malignant%20Disease%20Updated%20V2-FINAL.pdf"
+          },
+          {
+            "name": "Updated AUC for Amyloid and Tau PET",
+            "category": "学会指南",
+            "url": "https://alz-journals.onlinelibrary.wiley.com/doi/full/10.1002/alz.14338"
+          },
+          {
+            "name": "AUC for PSMA PET Imaging",
+            "category": "学会指南",
+            "url": "https://jnm.snmjournals.org/content/62/12/1756"
+          },
+          {
+            "name": "SNMMI Consensus Statement on 177Lu-PSMA-617 Radionuclide Therapy",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s11307-023-01818-z"
+          },
+          {
+            "name": "SNMMI/EANM Practice Guideline for Brain [18F]FDG PET Imaging v2.0",
+            "category": "学会指南",
+            "url": "https://jnm.snmjournals.org/content/66/Supplement_2/S45.full"
+          },
+          {
+            "name": "EANM/SNMMI Guideline for 18F-FDG Hybrid PET in Infection and Inflammation v2.0",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-024-06915-3"
+          },
+          {
+            "name": "Joint EANM-SNMMI Guideline on 2-18F-FDG PET/CT in Breast Cancer",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-024-06696-9"
+          },
+          {
+            "name": "EANM Practice Guidelines for PET and SPECT for Epilepsy",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-024-06651-8"
+          },
+          {
+            "name": "EANM/EANO/RANO/SNMMI Guideline for Somatostatin Receptor Ligands in Meningiomas",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-024-06728-4"
+          },
+          {
+            "name": "EANM/SNMMI Guideline for Paediatric Bone Hybrid Imaging with 99mTc",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-025-07022-z"
+          },
+          {
+            "name": "EANM Guidelines on [18F]FDG PET/CT in Plasma Cell Disorders",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-024-06858-9"
+          },
+          {
+            "name": "EANM Guidelines for PET-CT and PET-MR Routine Quality Control",
+            "category": "学会指南",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10068535/"
+          },
+          {
+            "name": "FDG PET, PET/CT 診療ガイドライン 2020 (JSNM)",
+            "category": "学会指南",
+            "url": "https://jsnm.org/wp_jsnm/wp-content/uploads/2018/09/FDG_PET_petct_GL2020.pdf"
+          },
+          {
+            "name": "Clinical Practice Guidelines for 18F-Fluciclovine 2024 (JSNM)",
+            "category": "学会指南",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12378485/"
+          },
+          {
+            "name": "FDG PET/MRI 診療ガイドライン 2019 (JSNM)",
+            "category": "学会指南",
+            "url": "https://jsnm.org/archives/5171/"
+          },
+          {
+            "name": "FDG-PETがん検診ガイドライン 第3版 (JSNM)",
+            "category": "学会指南",
+            "url": "https://jcpet.jp/cancer-screening/guideline.html"
+          },
+          {
+            "name": "PET-MRI Guideline & Standard PET Imaging Protocols (JSNM)",
+            "category": "学会指南",
+            "url": "https://jsnm.org/english/e_guidelines/"
+          },
+          {
+            "name": "Japanese Consensus Guidelines for Pediatric Nuclear Medicine (JSNM)",
+            "category": "学会指南",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4061477/"
+          }
+        ]
+      },
+      {
+        "date": "2026-06-08",
+        "time": "18:14",
+        "title": "手机端排版优化",
+        "items": [
+          {
+            "name": "移动端响应式布局全面优化",
+            "category": "网页优化",
+            "url": ""
+          },
+          {
+            "name": "导航栏改为横向滑动标签页",
+            "category": "网页优化",
+            "url": ""
+          },
+          {
+            "name": "超小屏幕(≤380px)适配",
+            "category": "网页优化",
+            "url": ""
+          }
+        ]
+      }
+    ]
   }
 };
 const TODAY = "2026年06月08日";
@@ -1899,7 +2080,8 @@ const SECTIONS = [
   {key:"research", name:"🔬 新技术与临床研究", color:"#2980b9"},
   {key:"journals", name:"📖 权威期刊论文", color:"#8e44ad"},
   {key:"radiopharma", name:"💊 核素药物与治疗进展", color:"#e67e22"},
-  {key:"equipment", name:"🖥 PET-CT装机信息", color:"#c0392b"}
+  {key:"equipment", name:"🖥 PET-CT装机信息", color:"#c0392b"},
+  {key:"changelog", name:"📝 更新日志", color:"#16a085"}
 ];
 let currentSection = "guidelines";
 let currentSort = "date";
@@ -1925,7 +2107,7 @@ function init(){
     secEl.appendChild(sec);
   });
   // stats
-  const total = SECTIONS.reduce((a,s)=>a+DATA[s.key].items.length,0);
+  const total = SECTIONS.filter(s=>s.key!=='changelog').reduce((a,s)=>a+DATA[s.key].items.length,0);
   document.getElementById("stats").textContent = "共收录 "+total+" 条资讯";
   renderAll();
 }
@@ -1948,6 +2130,7 @@ function sortItems(items, sortBy){
 function renderSection(key){
   const sec = document.getElementById("sec-"+key);
   const info = SECTIONS.find(s=>s.key===key);
+  if(key==="changelog"){renderChangelog(sec);return;}
   const d = DATA[key];
   let items = d.items || [];
   if(searchQuery){
@@ -1991,6 +2174,32 @@ function doSearch(){
 }
 
 init();
+
+function renderChangelog(sec){
+  const cl = DATA.changelog;
+  if(!cl||!cl.updates){sec.innerHTML='<div class="no-result">暂无更新记录</div>';return;}
+  let html = '<div class="section-header"><div style="display:flex;align-items:center;gap:12px"><h2>更新日志</h2><span class="count">共 '+cl.updates.length+' 次更新</span></div></div>';
+  cl.updates.forEach(u=>{
+    html += '<div class="changelog-group">';
+    html += '<div class="changelog-date">'+u.date+'</div>';
+    html += '<div class="changelog-time">'+u.time+' · '+u.title+'</div>';
+    if(u.items && u.items.length>0){
+      u.items.forEach(it=>{
+        html += '<div class="changelog-item">';
+        html += '<span class="changelog-cat">'+it.category+'</span>';
+        if(it.url){
+          html += '<a class="changelog-link" href="'+it.url+'" target="_blank" rel="noopener">'+it.name+'</a>';
+        } else {
+          html += '<span class="changelog-link">'+it.name+'</span>';
+        }
+        html += '</div>';
+      });
+    }
+    html += '</div>';
+  });
+  sec.innerHTML = html;
+}
+
 </script>
 </body>
 </html>
