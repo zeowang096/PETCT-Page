@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>核医学PET-CT资讯</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
+<style>*{margin:0;padding:0;box-sizing:border-box}
 body{overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#2c3e50;line-height:1.7}
 .header{background:linear-gradient(135deg,#1a5276,#2980b9);color:#fff;padding:40px 24px 32px;text-align:center;position:relative}
 .header h1{font-size:30px;font-weight:700;letter-spacing:3px}
@@ -27,7 +26,7 @@ body{overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","
 .sort-btn:hover,.sort-btn.active{background:#2980b9;color:#fff;border-color:#2980b9}
 .count{font-size:14px;color:#999}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:22px}
-.card{background:#fff;border-radius:12px;padding:28px 30px;box-shadow:0 2px 12px rgba(0,0,0,0.06);transition:transform .25s,box-shadow .25s;border-left:5px solid #2980b9}
+.card{background:#fff;border-radius:12px;padding:28px 30px;box-shadow:0 2px 12px rgba(0,0,0,0.06);transition:transform .25s,box-shadow .25s;border-left:5px solid #2980b9;cursor:pointer}
 .card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,0.10)}
 .card.guidelines{border-left-color:#27ae60}
 .card.research{border-left-color:#2980b9}
@@ -41,8 +40,46 @@ body{overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","
 .card .meta{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#999;flex-wrap:wrap;gap:6px;padding-top:12px;border-top:1px solid #f0f0f0}
 .card .meta .source{color:#2980b9;font-weight:500}
 .card .meta .cat{background:#f0f4f8;border-radius:10px;padding:2px 10px;font-size:12px;color:#6a8aaa}
+.card .poster-hint{display:inline-block;margin-top:8px;font-size:12px;color:#8e44ad;background:#f5f0fa;border-radius:8px;padding:2px 10px}
 .no-result{text-align:center;padding:60px;color:#999;font-size:16px}
 .footer{text-align:center;padding:28px;color:#aaa;font-size:12px;border-top:1px solid #eee;margin-top:28px}
+.changelog-group{margin-bottom:28px;border-left:4px solid #16a085;padding-left:20px}
+.changelog-date{font-size:15px;font-weight:600;color:#16a085;margin-bottom:4px}
+.changelog-time{font-size:13px;color:#999;margin-bottom:10px}
+.changelog-title{font-size:16px;font-weight:500;color:#1a2a3a;margin-bottom:12px}
+.changelog-item{display:flex;align-items:baseline;gap:8px;padding:6px 0;border-bottom:1px solid #f0f2f5;font-size:14px;line-height:1.6}
+.changelog-item:last-child{border-bottom:none}
+.changelog-cat{background:#e8f8f5;color:#16a085;border-radius:8px;padding:2px 8px;font-size:11px;white-space:nowrap;flex-shrink:0}
+.changelog-link{color:#2980b9;text-decoration:none;flex:1}
+.changelog-link:hover{text-decoration:underline}
+
+/* Academic Poster Overlay */
+.poster-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:1000;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.poster-overlay.active{display:flex;justify-content:center;align-items:flex-start;padding:20px}
+.poster-container{background:#fff;border-radius:16px;max-width:900px;width:100%;margin:20px auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);overflow:hidden;position:relative}
+.poster-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:#f0f0f0;border:none;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:background .2s}
+.poster-close:hover{background:#e0e0e0}
+.poster-header{background:linear-gradient(135deg,#6c3483,#8e44ad);color:#fff;padding:36px 40px 28px}
+.poster-header h2{font-size:22px;font-weight:700;line-height:1.5;margin-bottom:12px}
+.poster-meta{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;opacity:0.9}
+.poster-meta span{background:rgba(255,255,255,0.2);border-radius:12px;padding:4px 14px}
+.poster-body{padding:32px 40px}
+.poster-section{margin-bottom:28px}
+.poster-section-title{font-size:16px;font-weight:700;color:#6c3483;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #e8d5f5;display:flex;align-items:center;gap:8px}
+.poster-section-title .icon{font-size:18px}
+.poster-section-content{font-size:14px;line-height:1.9;color:#34495e}
+.poster-section-content ul{margin:8px 0;padding-left:20px}
+.poster-section-content li{margin-bottom:6px}
+.poster-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+.poster-table th{background:#f5f0fa;color:#6c3483;padding:10px 14px;text-align:left;font-weight:600;border-bottom:2px solid #e8d5f5}
+.poster-table td{padding:10px 14px;border-bottom:1px solid #f0f0f0;color:#34495e}
+.poster-table tr:hover td{background:#faf5ff}
+.poster-footer{padding:20px 40px 28px;text-align:center;border-top:1px solid #eee}
+.poster-link{display:inline-block;padding:12px 32px;background:linear-gradient(135deg,#6c3483,#8e44ad);color:#fff;border-radius:28px;text-decoration:none;font-size:15px;font-weight:500;transition:transform .2s,box-shadow .2s}
+.poster-link:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(142,68,175,0.3)}
+.poster-loading{text-align:center;padding:60px;color:#999;font-size:16px}
+
+/* Mobile responsive */
 @media(max-width:768px){
   body{overflow-x:hidden;-webkit-text-size-adjust:100%}
   .header{padding:28px 16px 22px}
@@ -51,7 +88,7 @@ body{overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","
   .header .stats{font-size:12px;margin-top:6px}
   .search-box{margin:14px 0 0;max-width:100%}
   .search-box input{padding:10px 40px 10px 16px;font-size:14px;border-radius:22px}
-  .tabs{gap:0;padding:0 0 0 0;background:#fff;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;justify-content:flex-start;position:sticky;top:0;z-index:100}
+  .tabs{gap:0;padding:0;background:#fff;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;justify-content:flex-start;position:sticky;top:0;z-index:100}
   .tabs::after{content:'';display:block;min-width:12px;flex-shrink:0}
   .tab{padding:10px 18px;font-size:13px;border-radius:0;white-space:nowrap;flex-shrink:0;border:none;border-bottom:3px solid transparent;background:transparent;color:#666;font-weight:500}
   .tab:hover{background:transparent;color:#2980b9}
@@ -71,6 +108,17 @@ body{overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","
   .card .meta .cat{font-size:11px;padding:2px 8px}
   .no-result{padding:40px 20px;font-size:14px}
   .footer{padding:20px 16px;font-size:11px}
+  .poster-overlay.active{padding:0}
+  .poster-container{border-radius:0;margin:0;min-height:100vh}
+  .poster-header{padding:24px 20px 20px}
+  .poster-header h2{font-size:17px}
+  .poster-body{padding:20px 18px}
+  .poster-section-title{font-size:14px}
+  .poster-section-content{font-size:13px}
+  .poster-table{font-size:12px}
+  .poster-table th,.poster-table td{padding:8px 10px}
+  .poster-footer{padding:16px 18px 24px}
+  .poster-link{padding:10px 24px;font-size:14px}
 }
 @media(min-width:769px) and (max-width:1024px){
   .cards{grid-template-columns:repeat(auto-fill,minmax(360px,1fr))}
@@ -83,25 +131,16 @@ body{overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","
   .card .title{font-size:14px}
   .card .summary{font-size:12px;-webkit-line-clamp:3}
   .tab{padding:8px 14px;font-size:12px}
+  .poster-header h2{font-size:15px}
+  .poster-body{padding:16px 14px}
 }
-
-.changelog-group{margin-bottom:28px;border-left:4px solid #16a085;padding-left:20px}
-.changelog-date{font-size:15px;font-weight:600;color:#16a085;margin-bottom:4px}
-.changelog-time{font-size:13px;color:#999;margin-bottom:10px}
-.changelog-title{font-size:16px;font-weight:500;color:#1a2a3a;margin-bottom:12px}
-.changelog-item{display:flex;align-items:baseline;gap:8px;padding:6px 0;border-bottom:1px solid #f0f2f5;font-size:14px;line-height:1.6}
-.changelog-item:last-child{border-bottom:none}
-.changelog-cat{background:#e8f8f5;color:#16a085;border-radius:8px;padding:2px 8px;font-size:11px;white-space:nowrap;flex-shrink:0}
-.changelog-link{color:#2980b9;text-decoration:none;flex:1}
-.changelog-link:hover{text-decoration:underline}
+.card.changelog{border-left-color:#16a085}
 @media(max-width:768px){
   .changelog-group{padding-left:14px;border-left-width:3px}
   .changelog-item{flex-wrap:wrap;gap:4px;font-size:13px}
   .changelog-date{font-size:14px}
   .changelog-title{font-size:14px}
-}
-.card.changelog{border-left-color:#16a085}
-</style>
+}</style>
 </head>
 <body>
 <div class="header">
@@ -116,2035 +155,2632 @@ body{overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","
 <div class="tabs" id="tabs"></div>
 <div id="sections"></div>
 <div class="footer">数据来源：权威期刊、学术会议、官方公众号、行业网站 · 自动采集整理 · 仅供参考</div>
+<div class="poster-overlay" id="posterOverlay">
+<div class="poster-container" id="posterContainer"></div>
+</div>
 <script>
 const DATA = {
-  guidelines: {
-  "categories": [
-    "中华医学会",
-    "SNMMI",
-    "EANM",
-    "中国核学会",
-    "其他",
-    "JSNM"
-  ],
-  "items": [
-    {
-      "title": "全国首部《瘢痕放射治疗临床应用中国专家共识》在昆正式发布",
-      "summary": "昆明皮肤病专科医院携手129位多学科专家发布全国首部瘢痕放射治疗临床应用中国专家共识，覆盖23个省区61位审评专家，明确术后24-72小时早期干预、安全剂量上限等技术参数",
-      "url": "https://www.ccwb.cn/content/202606/08/c886828.html",
-      "source": "开屏新闻/昆明皮肤病专科医院",
-      "date": "2026-06-08",
-      "category": "其他"
-    },
-    {
-      "title": "NICE Guideline on 99mTc-Sestamibi SPECT/CT in Kidney Cancer (NG256)",
-      "summary": "英国国家卫生与临床优化研究所(NICE)发布肾脏癌症诊断与管理指南，推荐99mTc-sestamibi SPECT/CT用于不确定肾占位的评估",
-      "url": "https://www.nice.org.uk/guidance/ng256",
-      "source": "NICE",
-      "date": "2026-06-04",
-      "category": "国际指南"
-    },
-    {
-      "title": "分化型甲状腺癌术后核医学诊疗临床路径总结2026",
-      "summary": "中华医学会核医学分会发布2026版临床路径，由49位多学科专家参与制订，分为DTC术后动态评估、核医学诊疗决策、随访管理及RAIR-DTC治疗等模块",
-      "url": "https://m.book118.com/html/2026/0603/8116025140010076.shtm",
-      "source": "中华医学会核医学分会",
-      "date": "2026-06-04",
-      "category": "中国指南"
-    },
-    {
-      "title": "临床核医学辐射安全专家共识",
-      "summary": "我国核医学行业首次对临床核医学诊疗工作中的辐射与安全进行的系统论述，为辐射防护提供规范指导",
-      "url": "https://chinanm.cma.org.cn/attach/0/17d0c8d455974169a33120df9b17ab43.pdf",
-      "source": "微雅集/中华医学会核医学分会",
-      "date": "2026-06-08",
-      "category": "中国指南"
-    },
-    {
-      "title": "肺结节18F-FDG PET/CT应用规范与共识",
-      "summary": "肺结节18F-FDG PET/CT临床应用规范与共识，规范肺结节良恶性鉴别诊断流程及PET/CT报告标准",
-      "url": "https://chinanm.cma.org.cn/art/2024/12/31/art_1367_59561.html",
-      "source": "中华医学会核医学分会",
-      "date": "2026-06-08",
-      "category": "中国指南"
-    },
-    {
-      "title": "CZT心脏专用SPECT临床应用规范与共识",
-      "summary": "CZT半导体探测器心脏专用SPECT临床应用规范与共识，推动心脏核医学技术规范化发展",
-      "url": "https://chinanm.cma.org.cn/art/2024/12/31/art_1367_59562.html",
-      "source": "中华医学会核医学分会",
-      "date": "2026-06-08",
-      "category": "中国指南"
-    },
-    {
-      "title": "淋巴瘤PET-CT及PET/MR应用指南",
-      "summary": "淋巴瘤PET-CT及PET/MR临床应用指南，为淋巴瘤分期和疗效评估提供规范化指导，涵盖Lugano分类标准",
-      "url": "https://chinanm.cma.org.cn/art/2025/2/25/art_1367_59657.html",
-      "source": "中华医学会核医学分会",
-      "date": "2026-06-08",
-      "category": "中国指南"
-    },
-    {
-      "title": "放射性药品生产检查指南",
-      "summary": "放射性药品生产检查指南发布，加强放射性药物生产质量监管，保障放射性药品安全性和有效性",
-      "url": "https://chinanm.cma.org.cn/art/2025/2/25/art_1367_59660.html",
-      "source": "中华医学会核医学分会",
-      "date": "2026-06-08",
-      "category": "其他"
-    },
-    {
-      "title": "前列腺癌PSMA PET/CT应用指南",
-      "summary": "前列腺癌PSMA PET/CT临床应用指南，规范PSMA显像在前列腺癌诊疗中的应用，涵盖适应症、显像方案和结果判读",
-      "url": "https://chinanm.cma.org.cn/art/2025/7/17/art_1367_60053.html",
-      "source": "中华医学会核医学分会",
-      "date": "2026-06-08",
-      "category": "中国指南"
-    },
-    {
-      "title": "PSMA临床应用指南解读：前列腺癌的放射性核素靶向治疗",
-      "summary": "中华医学会核医学分会骨干培训班专题解读前列腺癌PSMA临床应用指南，涵盖PSMA PET/CT显像及177Lu-PSMA放射配体治疗规范",
-      "url": "https://www.cma.org.cn/art/2026/5/27/art_33_60636.html",
-      "source": "中华医学会",
-      "date": "2026-05-27",
-      "category": "中国指南"
-    },
-    {
-      "title": "GB/T 16148-2026 放射性核素摄入量及内照射剂量估算方法",
-      "summary": "该标准规定了放射性核素摄入量及内照射剂量估算的方法，替代GB/T 16148-2009。",
-      "url": "http://www.csres.com/detail/453593.html",
-      "source": "国家标准化管理委员会",
-      "date": "2026-05-25",
-      "category": "其他"
-    },
-    {
-      "title": "GB/T 20013-2025核医学仪器 例行试验 第1部分:γ辐射计数系统",
-      "summary": "该国家标准规定了核医学仪器中γ辐射计数系统的例行试验方法，包括能量分辨率测试、计数率线性测试等技术要求。",
-      "url": "https://m.book118.com/html/2026/0521/8041054127010073.shtm",
-      "source": "国家标准",
-      "date": "2026-05-22",
-      "category": "其他"
-    },
-    {
-      "title": "首部rhTSH临床应用中国专家共识发布",
-      "summary": "中国医师协会核医学医师分会发布首部rhTSH临床应用中国专家共识，助力分化型甲状腺癌规范化临床诊疗，明确rhTSH在诊断和治疗中的应用场景与操作规范。",
-      "url": "http://www.caonmp.com/index.html",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-05-12",
-      "category": "中国指南"
-    },
-    {
-      "title": "2025版ATA指南更新：甲状腺癌术后TSH抑制治疗进入精准个体化时代",
-      "summary": "2025版ATA指南对甲状腺癌术后TSH抑制治疗进行更新，强调精准个体化策略，避免过度抑制或不足。",
-      "url": "http://www.caonmp.com/index.html",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-05-11",
-      "category": "国际指南"
-    },
-    {
-      "title": "分化型甲状腺癌术后核医学诊疗临床路径（2026版）",
-      "summary": "《分化型甲状腺癌术后核医学诊疗临床路径（2026版）》正式发布，为甲状腺癌术后核医学诊疗提供标准化临床路径指导。",
-      "url": "http://www.caonmp.com/index.html",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-04-23",
-      "category": "中国指南"
-    },
-    {
-      "title": "Joint EANM/SNMMI Recommendations on Tau PET Imaging in Alzheimer's Disease",
-      "summary": "EANM与SNMMI联合发布Tau PET在阿尔茨海默病中的应用推荐，为Tau PET成像在AD诊断和随访中的临床应用提供专家共识指导。",
-      "url": "https://eanm.org/publications/guidelines/overview/central-nervous-system/",
-      "source": "EANM/SNMMI",
-      "date": "2026-03-30",
-      "category": "国际指南"
-    },
-    {
-      "title": "神经内分泌肿瘤核素诊疗一体化临床应用专家共识(2025)",
-      "summary": "神经内分泌肿瘤核素诊疗一体化临床应用专家共识发布，为NET的核素诊断与治疗提供规范化指导。",
-      "url": "http://www.caonmp.com/index.html",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-03-24",
-      "category": "中国指南"
-    },
-    {
-      "title": "放射性125I粒子植入术后住院及居家辐射防护管理专家共识",
-      "summary": "放射性125I粒子植入术后住院及居家辐射防护管理专家共识发布，规范粒子植入术后辐射防护管理。",
-      "url": "http://www.caonmp.com/index.html",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-02-28",
-      "category": "中国指南"
-    },
-    {
-      "title": "AUC for 18F-FDG PET/CT for Initial Staging of Malignant Disease",
-      "summary": "SNMMI发布18F-FDG PET/CT在恶性肿瘤初始分期中的合理使用标准(AUC)，描述PET/CT在恶性肿瘤初始分期中的适当使用场景和频率，避免不必要的检查。",
-      "url": "https://snmmi.org/common/Uploaded%20files/Web/Clinical%20Practice/Appropriate%20Use%20Criteria/AUC%20for%2018F-FDG%20PET_CT%20for%20Initial%20Staging%20of%20Malignant%20Disease%20Updated%20V2-FINAL.pdf",
-      "source": "SNMMI",
-      "date": "2026-01-23",
-      "category": "国际指南"
-    },
-    {
-      "title": "肺癌骨转移临床诊疗路径专家共识（2025版）",
-      "summary": "肺癌骨转移临床诊疗路径专家共识（2025版）发布，为肺癌骨转移的规范化诊疗提供临床路径指导。",
-      "url": "http://www.caonmp.com/index.html",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2025-12-30",
-      "category": "中国指南"
-    },
-    {
-      "title": "SNMMI/EANM/ACNM Procedure Standard on Molecular Imaging for Renal Mass Characterization",
-      "summary": "该联合指南针对分子影像在肾脏肿块定性诊断中的应用制定了标准操作规范，涵盖PSMA、FAPI等分子探针在肾脏肿瘤诊断中的应用规范。",
-      "url": "https://doi.org/10.2967/jnumed.125.271332",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2025-12-01",
-      "category": "SNMMI"
-    },
-    {
-      "title": "中国儿童癫痫18F-FDG PET脑显像临床应用共识",
-      "summary": "该共识由分子影像专家团队组成共识小组对儿童癫痫F-FDG PET脑显像的患儿准备、药物活度、图像采集、数据处理等提出标准化流程。",
-      "url": "https://nuclmed.medsci.cn/guider?tagId=191312",
-      "source": "中国核学会",
-      "date": "2025-11-10",
-      "category": "中国核学会"
-    },
-    {
-      "title": "2025 SNMMI/EANM/ASNC/ACNM程序标准/实践指南：18F-氟吡啶唑 PET心肌灌注成像及血流定量",
-      "summary": "SNMMI/EANM/ASNC/ACNM联合发布的18F-氟吡啶唑PET心肌灌注成像及血流定量程序标准/实践指南，为心肌灌注成像提供标准化指导。",
-      "url": "https://jnm.snmjournals.org/content/66/10/1538",
-      "source": "SNMMI",
-      "date": "2025-10-22",
-      "category": "SNMMI"
-    },
-    {
-      "title": "EANM/SNMMI Guideline for Paediatric Bone Hybrid Imaging with 99mTc",
-      "summary": "EANM与SNMMI联合发布儿童99mTc标记放射性药物骨杂交成像指南，涵盖儿童骨扫描的适应证、采集、处理和解读，重点关注SPECT/CT。",
-      "url": "https://link.springer.com/article/10.1007/s00259-025-07022-z",
-      "source": "EANM/SNMMI",
-      "date": "2025-10-10",
-      "category": "国际指南"
-    },
-    {
-      "title": "SNMMI/EANM/ACNM Guideline on Molecular Imaging for Renal Mass Characterization",
-      "summary": "SNMMI、EANM和ACNM联合发布指南，为核医学医师和放射科医生提供分子影像无创特征化不确定肾肿块的详细指导，涵盖适应证、显像剂选择和结果解读。",
-      "url": "https://jnm.snmjournals.org/content/early/2025/10/09/jnumed.125.271332",
-      "source": "SNMMI",
-      "date": "2025-10-09",
-      "category": "国际指南"
-    },
-    {
-      "title": "SNMMI/EANM/ASNC/ACNM Procedure Standard/Practice Guideline for 18F-Flurpiridaz PET Myocardial Perfusion Imaging and Blood Flow Quantitation",
-      "summary": "该指南由SNMMI/EANM/ASNC/ACNM联合发布，规定了18F-Flurpiridaz PET心肌灌注显像和血流定量检测的标准操作规范。Flurpiridaz是新一代心肌灌注显像剂，此指南旨在规范其在临床中的应用。",
-      "url": "https://doi.org/10.2967/jnumed.125.270873",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2025-10-01",
-      "category": "SNMMI"
-    },
-    {
-      "title": "EANM Procedure Guidelines for [18F]FDG PET/CT Tumour Imaging v3.0",
-      "summary": "EANM发布FDG PET/CT肿瘤成像程序指南第3版，为成人肿瘤FDG PET/CT成像提供全面操作规范，包括患者准备、采集协议、重建参数、质量控制和定量分析标准。",
-      "url": "https://link.springer.com/article/10.1007/s00259-024-06678-x",
-      "source": "EANM",
-      "date": "2025-09-23",
-      "category": "国际指南"
-    },
-    {
-      "title": "Recommendations for Standardizing Nuclear Medicine Terminology and Data in the Era of Theranostics and AI",
-      "summary": "该专家建议文件旨在推动核医学术语和数据的标准化，以适应诊疗一体化和人工智能时代的到来，为规范行业术语和数据格式提供指导。",
-      "url": "https://doi.org/10.2967/jnumed.124.269424",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2025-09-01",
-      "category": "EANM"
-    },
-    {
-      "title": "前列腺癌PSMA PET显像临床应用中国专家共识(2025版)",
-      "summary": "中华医学会核医学分会发布的前列腺癌PSMA PET显像临床应用中国专家共识，为PSMA PET显像的临床应用提供规范化指导。",
-      "url": "https://chinanm.cma.org.cn/art/2025/7/17/art_1367_60053.html",
-      "source": "中华医学会核医学分会",
-      "date": "2025-07-17",
-      "category": "中华医学会"
-    },
-    {
-      "title": "177Lu-PSMA放射性配体疗法治疗前列腺癌临床应用专家共识",
-      "summary": "中国专家共识针对177Lu-PSMA放射性配体疗法治疗前列腺癌的临床应用进行规范，涵盖患者筛选、治疗方案、安全性管理等内容。",
-      "url": "http://hncis.wsjkw.henan.gov.cn/heyi/channels/298.html",
-      "source": "河南省核医学质量控制中心",
-      "date": "2025-07-03",
-      "category": "中华医学会"
-    },
-    {
-      "title": "SNMMI/ACNM Guideline for Post-Treatment Imaging of 177Lu-based Radiopharmaceutical Therapies",
-      "summary": "SNMMI与ACNM联合发布177Lu放射性药物治疗后的SPECT/CT成像指南，为接受177Lu标记放射性药物治疗的患者建立治疗后成像的具体推荐标准。",
-      "url": "https://captions.snmmi.org/common/Uploaded%20files/Web/Clinical%20Practice/Procedure%20Standards/2025/Post%20Treatment%20Imaging%20with%20Lu177-JNM%20Summary.pdf",
-      "source": "SNMMI",
-      "date": "2025-06-20",
-      "category": "国际指南"
-    },
-    {
-      "title": "SNMMI/EANM/ASNC/ACNM Guideline for 18F-Flurpiridaz PET Myocardial Perfusion Imaging",
-      "summary": "SNMMI联合EANM等发布18F-Flurpiridaz PET心肌灌注成像指南，涵盖患者选择、成像方案和结果解读推荐，为核心脏病学实践提供新显像剂使用标准。",
-      "url": "https://jnm.snmjournals.org/content/66/10/1538",
-      "source": "SNMMI",
-      "date": "2025-05-22",
-      "category": "国际指南"
-    },
-    {
-      "title": "神经内分泌肿瘤核素诊疗一体化临床应用专家共识(2025版)",
-      "summary": "由中华医学会核医学分会等机构发布的神经内分泌肿瘤核素诊疗一体化临床应用专家共识，阐述了NENs核素诊疗的适应证及实施规范，为核素显像和治疗提供标准化应用程序。",
-      "url": "https://chinanm.cma.org.cn/module/download/downfile.jsp?classid=0&filename=1db40a99d3f24405a9cc878e2922dbb4.pdf",
-      "source": "中华医学会核医学分会",
-      "date": "2025-03-22",
-      "category": "中华医学会"
-    },
-    {
-      "title": "淋巴瘤PET/CT及PET/MR显像临床应用指南(2025版)",
-      "summary": "该指南对2021版指南进行了更新，旨在规范分子影像技术在淋巴瘤诊疗全流程中的合理应用，为临床提供统一、可靠的评估依据。",
-      "url": "https://www.ccnta.cn/article/23925.html",
-      "source": "中华医学会核医学分会",
-      "date": "2025-02-05",
-      "category": "中华医学会"
-    },
-    {
-      "title": "SNMMI/ACNM Practice Guideline for the Use of Radiopharmaceuticals 5.0",
-      "summary": "SNMMI放射性药物使用实践指南第5版，指导核医学专业人员建立诊断性核医学、PET和治疗性核医学中放射性药物使用的政策与程序，涵盖FDA法规合规要求。",
-      "url": "https://tech.snmjournals.org/content/early/2025/04/01/jnmt.125.269834.full",
-      "source": "SNMMI",
-      "date": "2025-01-13",
-      "category": "国际指南"
-    },
-    {
-      "title": "2025 EANM/EANO/RANO/SNMMI实践指南：脑转移瘤PET成像",
-      "summary": "欧洲核医学协会等机构联合发布的脑转移瘤PET成像实践指南，为脑转移患者的PET成像执行、解释和报告提供指导。",
-      "url": "https://www.eanm.org/publications/guidelines",
-      "source": "EANM",
-      "date": "2025-01-08",
-      "category": "EANM"
-    },
-    {
-      "title": "Updated AUC for Amyloid and Tau PET (SNMMI/Alzheimer's Association)",
-      "summary": "SNMMI与阿尔茨海默病协会联合更新淀粉样蛋白和Tau PET合理使用标准，整合近十年纵向队列研究证据，定义17个临床场景下amyloid和tau PET的适当性评级。",
-      "url": "https://alz-journals.onlinelibrary.wiley.com/doi/full/10.1002/alz.14338",
-      "source": "SNMMI",
-      "date": "2025-01-08",
-      "category": "国际指南"
-    },
-    {
-      "title": "EANM/EANO/RANO/SNMMI Guideline for PET Imaging of Brain Metastases v1.0",
-      "summary": "EANM、EANO、RANO和SNMMI联合发布脑转移瘤PET成像指南，涵盖氨基酸PET和FDG PET在脑转移瘤中的推荐、操作、解读和报告标准，为多学科诊疗提供循证依据。",
-      "url": "https://link.springer.com/article/10.1007/s00259-024-06858-5",
-      "source": "SNMMI/EANM",
-      "date": "2025-01-07",
-      "category": "国际指南"
-    },
-    {
-      "title": "SNMMI/EANM/F-18-FDG PET脑成像操作标准/临床实践指南(第二版)",
-      "summary": "SNMMI和EANM联合发布的脑F-FDG PET成像操作标准第二版，纳入了数字PET、混合PET/MR系统等新技术进展。",
-      "url": "https://jnm.snmjournals.org/content/66/supplement_2/S45",
-      "source": "SNMMI",
-      "date": "2025-01-01",
-      "category": "SNMMI"
-    },
-    {
-      "title": "成纤维细胞活化蛋白(FAP)PET显像程序标准/临床实践指南",
-      "summary": "SNMMI和EANM联合发布的FAP PET显像程序标准，为FAP靶向PET显像的临床应用提供规范化指导。",
-      "url": "https://jnm.snmjournals.org/content/66/1/26",
-      "source": "SNMMI",
-      "date": "2025-01-01",
-      "category": "EANM"
-    },
-    {
-      "title": "EANM Guidelines on [18F]FDG PET/CT in Plasma Cell Disorders",
-      "summary": "EANM发布18F-FDG PET/CT在浆细胞疾病诊断、分期、预后评估、疗效评价和再分期中的应用指南，为多发性骨髓瘤等浆细胞疾病的PET成像提供标准。",
-      "url": "https://link.springer.com/article/10.1007/s00259-024-06858-9",
-      "source": "EANM",
-      "date": "2024-11-05",
-      "category": "国际指南"
-    },
-    {
-      "title": "Best Patient Care Practices for Administering PSMA-Targeted Radiopharmaceutical Therapy",
-      "summary": "该指南文件总结了PSMA靶向放射性药物治疗的最佳患者护理实践，为临床护理操作提供规范指导。",
-      "url": "https://doi.org/10.2967/jnumed.124.268363",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2024-11-01",
-      "category": "SNMMI"
-    },
-    {
-      "title": "SNMMI/EANM Practice Guideline for Brain [18F]FDG PET Imaging v2.0",
-      "summary": "SNMMI与EANM联合发布脑18F-FDG PET成像实践指南第2版，为脑FDG PET在神经退行性疾病、癫痫和脑肿瘤中的应用提供更新的操作和解读标准。",
-      "url": "https://jnm.snmjournals.org/content/66/Supplement_2/S45.full",
-      "source": "EANM/SNMMI",
-      "date": "2024-10-17",
-      "category": "国际指南"
-    },
-    {
-      "title": "EANM/SNMMI Guideline for 18F-FDG Hybrid PET in Infection and Inflammation v2.0",
-      "summary": "EANM与SNMMI联合发布18F-FDG混合PET在成人感染和炎症中应用指南第2版，修订和更新了FDG PET/CT在感染和炎症疾病中的适应证和方案。",
-      "url": "https://link.springer.com/article/10.1007/s00259-024-06915-3",
-      "source": "EANM/SNMMI",
-      "date": "2024-10-10",
-      "category": "国际指南"
-    },
-    {
-      "title": "SNMMI/EANM Practice Guideline for FAP PET Imaging",
-      "summary": "SNMMI与EANM联合发布成纤维细胞活化蛋白(FAP) PET成像指南，涵盖FAP PET的适应证、采集方案、图像解读和报告标准，为新型FAP靶向显像剂的临床应用提供规范。",
-      "url": "https://captions.snmmi.org/common/Uploaded%20files/Web/Clinical%20Practice/Procedure%20Standards/2024/SNMMI_%20EANM%20FAP%20PET%20Procedure%20Standard.pdf",
-      "source": "SNMMI/EANM",
-      "date": "2024-10-04",
-      "category": "国际指南"
-    },
-    {
-      "title": "Joint EANM-SNMMI Guideline on 2-18F-FDG PET/CT in Breast Cancer",
-      "summary": "EANM与SNMMI联合发布18F-FDG PET/CT在非特殊类型乳腺癌中的应用指南，获ACR、ESSO、ESTRO等多学会认可，涵盖诊断、分期和疗效评估。",
-      "url": "https://link.springer.com/article/10.1007/s00259-024-06696-9",
-      "source": "EANM/SNMMI",
-      "date": "2024-09-01",
-      "category": "国际指南"
-    },
-    {
-      "title": "Clinical Practice Guidelines for 18F-Fluciclovine 2024 (JSNM)",
-      "summary": "日本核医学会发布18F-Fluciclovine临床实践指南2024版，为该新型脑肿瘤PET显像剂的临床应用提供设施标准、成像方案、图像解读和报告规范。",
-      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12378485/",
-      "source": "JSNM",
-      "date": "2024-09-01",
-      "category": "国际指南"
-    },
-    {
-      "title": "淀粉样蛋白PET脑显像技术规范专家共识",
-      "summary": "中华医学会核医学分会与北京认知神经科学学会联合发布淀粉样蛋白PET脑显像技术规范专家共识，为阿尔茨海默病早期诊断提供技术支撑。",
-      "url": "https://cmab.yiigle.com/uploads/guide_html/淀粉样蛋白PET脑显像技术规范专家共识.html",
-      "source": "中华医学会核医学分会",
-      "date": "2024-07-12",
-      "category": "其他"
-    },
-    {
-      "title": "EANM Practice Guidelines for PET and SPECT for Patients with Epilepsy",
-      "summary": "EANM发布癫痫患者PET和SPECT应用实践指南，为核医学在癫痫定位诊断中的适当使用提供循证推荐，涵盖FDG PET和SPECT的适应证、方案和解读。",
-      "url": "https://link.springer.com/article/10.1007/s00259-024-06651-8",
-      "source": "EANM",
-      "date": "2024-07-01",
-      "category": "国际指南"
-    },
-    {
-      "title": "EANM/EANO/RANO/SNMMI Guideline for Radiolabeled Somatostatin Receptor Ligands in Meningiomas",
-      "summary": "EANM、EANO、RANO和SNMMI联合发布放射标记生长抑素受体配体在脑膜瘤诊疗(theranostics)中的应用指南第1版，涵盖诊断和治疗双方面。",
-      "url": "https://link.springer.com/article/10.1007/s00259-024-06728-4",
-      "source": "EANM/SNMMI",
-      "date": "2024-06-01",
-      "category": "国际指南"
-    },
-    {
-      "title": "SNMMI Consensus Statement on 177Lu-PSMA-617 Radionuclide Therapy",
-      "summary": "SNMMI发布177Lu-PSMA-617放射性核素治疗的患者选择和合理使用共识声明，多学科专家工作组基于文献综述制定临床推荐。",
-      "url": "https://link.springer.com/article/10.1007/s11307-023-01818-z",
-      "source": "SNMMI",
-      "date": "2023-04-26",
-      "category": "国际指南"
-    },
-    {
-      "title": "EANM Guidelines for PET-CT and PET-MR Routine Quality Control",
-      "summary": "EANM发布PET-CT和PET-MR日常质量控制指南，基于IEC和欧委会法规框架，提供全面的QC程序推荐，确保PET系统的最佳运行状态和定量准确性。",
-      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10068535/",
-      "source": "EANM",
-      "date": "2023-04-01",
-      "category": "国际指南"
-    },
-    {
-      "title": "PET-MRI Guideline Ver1.0 & Standard PET Imaging Protocols (JSNM)",
-      "summary": "日本核医学会发布PET-MRI指南第1版以及标准化PET成像方案和体模试验程序(Ver2-1)，为PET设施认证和质量保证提供技术标准。",
-      "url": "https://jsnm.org/english/e_guidelines/",
-      "source": "JSNM",
-      "date": "2023-01-01",
-      "category": "国际指南"
-    },
-    {
-      "title": "AUC for PSMA PET Imaging",
-      "summary": "SNMMI、ACNM、AUA等多学会联合发布PSMA PET成像合理使用标准，指导转诊和影像医师在前列腺癌诊疗中适当使用PSMA PET显像剂。",
-      "url": "https://jnm.snmjournals.org/content/62/12/1756",
-      "source": "SNMMI",
-      "date": "2021-09-15",
-      "category": "国际指南"
-    },
-    {
-      "title": "FDG PET, PET/CT 診療ガイドライン 2020（日本核医学会）",
-      "summary": "日本核医学会发布FDG PET/CT诊疗指南2020版，对应令和2年诊疗报酬改定，涵盖PET检查的适应症、人员配置、设备要求和安全管理，适用于所有恶性肿瘤的分期和复发诊断。",
-      "url": "https://jsnm.org/wp_jsnm/wp-content/uploads/2018/09/FDG_PET_petct_GL2020.pdf",
-      "source": "JSNM",
-      "date": "2020-08-21",
-      "category": "国际指南"
-    },
-    {
-      "title": "FDG-PETがん検診ガイドライン 第3版（日本核医学会PET核医学分科会）",
-      "summary": "日本核医学会PET核医学分科会发布FDG-PET癌症筛查指南第3版(2019)，为日本独特的PET癌症筛查实践提供质量控制标准，含读影和要精查判定基准，并新增PET/MRI内容。",
-      "url": "https://jcpet.jp/cancer-screening/guideline.html",
-      "source": "JSNM",
-      "date": "2019-07-08",
-      "category": "国际指南"
-    },
-    {
-      "title": "FDG PET/MRI 診療ガイドライン 2019（日本核医学会/日本放射線学会/日本磁気共鳴医学会）",
-      "summary": "日本核医学会、日本医学放射線学会和日本磁气共呜医学会联合发布FDG PET/MRI诊疗指南2019版，为PET/MRI检查提供标准化的操作和诊断规范。",
-      "url": "https://jsnm.org/archives/5171/",
-      "source": "JSNM",
-      "date": "2019-01-01",
-      "category": "国际指南"
-    },
-    {
-      "title": "Japanese Consensus Guidelines for Pediatric Nuclear Medicine (JSNM)",
-      "summary": "日本核医学会发布儿童核医学共识指南，包含儿科放射性药物给药剂量优化方案(JSNM儿科剂量卡)和儿童核医学成像技术综合指南，参考EANM和SNMMI方法。",
-      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4061477/",
-      "source": "JSNM",
-      "date": "2014-07-01",
-      "category": "国际指南"
-    }
-  ],
-  "update_time": "2026-06-09"
-},
-  research: {
-  "categories": [
-    "PET-CT新技术",
-    "SPECT新技术",
-    "临床研究",
-    "AI与影像",
-    "诊疗一体化"
-  ],
-  "items": [
-    {
-      "title": "山西省肿瘤医院成功开展177Lu-PSMA和225Ac-PSMA靶向核素治疗临床试验",
-      "summary": "中国医学科学院肿瘤医院山西医院核医学PET/CT中心成功开展177Lu-PSMA、225Ac-PSMA治疗去势抵抗性前列腺癌临床试验，标志着该院在去势抵抗前列腺癌精准诊疗研究领域取得重要进展",
-      "url": "http://m.toutiao.com/group/7649254113485619758/",
-      "source": "上游新闻/山西省肿瘤医院",
-      "date": "2026-06-09",
-      "category": "临床研究"
-    },
-    {
-      "title": "B7-H3靶向PET平台导航骨肉瘤精准切除及切缘验证",
-      "summary": "北京大学肿瘤医院团队在SNMMI 2026发布集成PET平台，融合68Ga-B7H3-BCH PET/CT术前分期、术中导航和术后切缘验证，实现保肢手术精准切除",
-      "url": "https://mobile.medimaging.net/nuclear-medicine/articles/294811110/targeted-pet-platform-guides-osteosarcoma-resection-and-margin-verification.html",
-      "source": "MedImaging International/SNMMI 2026",
-      "date": "2026-06-09",
-      "category": "国际研究"
-    },
-    {
-      "title": "ASNC发布首届研究基金$125K，聚焦PET、SPECT和AI驱动成像",
-      "summary": "美国核心脏病学会宣布三位获奖者，Harvard、USC等团队获资助开展心脏PET vs CCTA诊断效率、动态SPECT定量血流、CZT-SPECT AI衰减校正等研究",
-      "url": "https://universityresearchtimes.com/agp-article/918187172-asnc-awards-125k-in-inaugural-research-grants",
-      "source": "ASNC 2026",
-      "date": "2026-06-08",
-      "category": "AI影像"
-    },
-    {
-      "title": "宁夏医科大学总医院赵倩教授：核医学与分子影像的追光者",
-      "summary": "宁夏医科大学总医院核医学科赵倩教授深耕分子影像领域，分享PSMA PET/CT、前列腺癌精准诊疗、Aβ PET阿尔茨海默病早诊等临床经验与科研心得",
-      "url": "http://www.nxnews.net/yc/jrww/202606/t20260608_1514169.html",
-      "source": "宁夏新闻网",
-      "date": "2026-06-08",
-      "category": "国内研究"
-    },
-    {
-      "title": "中国抗癌协会肿瘤核医学专委会2026年学术年会在石家庄召开",
-      "summary": "大会以'诊疗一体，精准赋能'为主题，吉大一院核医学科参会并参与《骨转移核医学诊疗指南》编写，青年医师王嘉文获读片赛团体第二名",
-      "url": "https://m.sohu.com/a/1033826008_121123850/",
-      "source": "搜狐网/吉大一院",
-      "date": "2026-06-08",
-      "category": "学术会议"
-    },
-    {
-      "title": "18F-PSMA-7Q PET/CT替代前列腺活检诊断前列腺癌的可行性研究",
-      "summary": "解放军总医院张旭团队研究18F-PSMA-7Q PET/CT诊断前列腺癌的价值，该示踪剂经肝脏代谢可减少尿液干扰，miPSMA评分3分患者可跳过活检直接治疗",
-      "url": "https://emed.amegroups.cn/article/12238",
-      "source": "Translational Andrology and Urology",
-      "date": "2026-06-06",
-      "category": "PSMA PET"
-    },
-    {
-      "title": "FAPI PET/CT在肺癌诊断中的前瞻性研究",
-      "summary": "研究评估68Ga-FAPI-04 PET/CT在肺癌诊断中的价值，与组织病理学FAP表达进行对照，为FAPI在肺癌中的应用提供循证依据",
-      "url": "https://m.ebiotrade.com/newsf/2026-6/20260603223936703.htm",
-      "source": "生物通",
-      "date": "2026-06-04",
-      "category": "FAPI PET"
-    },
-    {
-      "title": "新型PET示踪剂64Cu-DOTA-ECL1i可追踪免疫治疗中的心脏炎症",
-      "summary": "SNMMI 2026发布研究，新型CCR2靶向PET示踪剂64Cu-DOTA-ECL1i可在免疫检查点抑制剂治疗期间非侵入性检测心血管免疫相关不良事件",
-      "url": "http://www.familydoctor.cn/news/xinxing-pet-chengxiang-jishu-zhuizong-zhongliu-jinzhan-hexin-yanzheng-434088.html",
-      "source": "News-Medical/SNMMI 2026",
-      "date": "2026-06-02",
-      "category": "国际研究"
-    },
-    {
-      "title": "海尔医疗与联影uExcel同日获NMPA批准，国产超高端PET-CT竞争加速",
-      "summary": "2026年5月24日，海尔医疗'开泰'与联影uExcel系列同日获得NMPA注册批准，国产高端PET-CT进入双极时代，两家企业技术路线各有特色",
-      "url": "http://www.sqrb.com.cn/wyvahHXW/news/index.htm",
-      "source": "商丘网/行业分析",
-      "date": "2026-06-03",
-      "category": "设备升级"
-    },
-    {
-      "title": "国内首个α-syn PET示踪剂SST001正式启动帕金森病注册临床研究",
-      "summary": "中科院、上海交大、复旦华山医院联合攻关团队开发的国内首个帕金森病α-突触核蛋白PET示踪剂SST001正式启动临床研究，实现脑内病理蛋白活体可视化",
-      "url": "http://m.toutiao.com/group/7646787875568108073/",
-      "source": "中国新闻网",
-      "date": "2026-06-02",
-      "category": "新型PET探针"
-    },
-    {
-      "title": "为什么我们必须走向个体化剂量？——从科学机制到行业生态的全局审视",
-      "summary": "从科学机制到行业生态全面分析核医学个体化剂量方案的必要性，推动精准医疗在核医学领域落地",
-      "url": "https://www.ccnta.cn/article/24686.html",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-06-08",
-      "category": "国内研究"
-    },
-    {
-      "title": "核医文献速递|临床剂量学模型及其在常规核医学诊疗中的落地应用路径",
-      "summary": "西南医科大学附属医院、重庆医科大学附属第一医院联合发起核医文献速递专栏，探讨临床剂量学模型在常规核医学诊疗中的落地应用路径",
-      "url": "https://chinanm.cma.org.cn/module/download/downfile.jsp?classid=0&filename=659c1d24d78e407893dc2aeee5759567.pdf",
-      "source": "川渝核医学",
-      "date": "2026-06-08",
-      "category": "国内研究"
-    },
-    {
-      "title": "核医学工程被列为2026年新增本科专业",
-      "summary": "教育部2026年新增38个本科专业，核医学工程被列入工学门类，标志着核医学人才培养进入系统化、专业化新阶段。",
-      "url": "http://m.toutiao.com/group/7648842910993023503/",
-      "source": "教育部",
-      "date": "2026-06-08",
-      "category": "国内研究"
-    },
-    {
-      "title": "Whole-body PET/CT reveals metabolic changes after bariatric surgery",
-      "summary": "该研究利用全身PET/CT揭示了减重手术后多器官代谢变化，发现脂肪、肝脏、胰腺、肌肉等器官的代谢变化与血糖血脂改善相关。",
-      "url": "https://healthcare-in-europe.com/en/news/whole-body-petct-metabolism-after-bariatric-surgery.html",
-      "source": "Healthcare in Europe",
-      "date": "2026-06-08",
-      "category": "国际研究"
-    },
-    {
-      "title": "从RDC到诊疗一体化：核药产业链核心壁垒重构",
-      "summary": "核药正崛起为战略高地，RDC凭借物理杀伤机制展现与ADC差异化优势，具备核素生产+药学服务平台的企业构建较高技术壁垒，国内核素供应链自主化加速推进。",
-      "url": "http://m.toutiao.com/group/7648920875143676450/",
-      "source": "今日头条/医药魔方",
-      "date": "2026-06-08",
-      "category": "诊疗一体化"
-    },
-    {
-      "title": "FAPI PET在风湿性多肌痛和巨细胞动脉炎评估取得新突破",
-      "summary": "EULAR 2026发布的研究显示FAPI-PET在风湿性多肌痛和巨细胞动脉炎评估中显著优于FDG-PET，能紧密反映临床疾病活动度。",
-      "url": "https://www.medsci.cn/article/show_article.do?id=6e029394e134",
-      "source": "MedSci",
-      "date": "2026-06-05",
-      "category": "FAPI PET"
-    },
-    {
-      "title": "GE HealthCare在SNMMI 2026展示AI驱动核医学产品组合",
-      "summary": "GE HealthCare在SNMMI 2026年会上展示AI赋能核医学解决方案，包括MIM KineticID动态PET成像软件和MIM LesionID Pro AI驱动的全身肿瘤负荷分析应用。",
-      "url": "https://mobile.medimaging.net/industry-news/articles/294811068/ge-healthcare-showcases-ai-enabled-nuclear-medicine-portfolio-at-snmmi-2026.html",
-      "source": "MedImaging International",
-      "date": "2026-06-05",
-      "category": "AI影像"
-    },
-    {
-      "title": "广东省医学学术直通车——核医学揭阳行暨粤东核医学诊疗能力提升研讨会",
-      "summary": "广东省医学会核医学分会在揭阳举办学术直通车活动，推动粤东地区核医学诊疗临床服务能力提升。",
-      "url": "http://www.csnm.com.cn/#news",
-      "source": "核医学专业网/广东省医学会",
-      "date": "2026-06-05",
-      "category": "学术会议"
-    },
-    {
-      "title": "Translational Theranostics in Glioblastoma: FAPI-46 as a Precision Medicine Tool",
-      "summary": "该研究探索了FAPI-46作为胶质母细胞瘤精准医学工具的潜力，评估了68Ga-FAPI-46成像和225Ac/177Lu-FAPI-46治疗在临床前模型中的疗效。",
-      "url": "https://jnm.snmjournals.org/content/early/2026/06/04/jnumed.125.271759",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2026-06-04",
-      "category": "诊疗一体化"
-    },
-    {
-      "title": "我国在肿瘤精准核药研发赛道跻身国际前沿，上海专家成果获评顶刊编辑精选",
-      "summary": "复旦大学附属肿瘤医院宋少莉教授团队研发的三阴性乳腺癌新型分子影像探针68Ga-FZ-NR-1获评JNM年度最佳基础科学类文章。",
-      "url": "http://m.toutiao.com/group/7647363738567311898/",
-      "source": "上观新闻",
-      "date": "2026-06-04",
-      "category": "国内研究"
-    },
-    {
-      "title": "PET-CT意外发现双原发癌：肺结节检查意外检出早期结肠癌",
-      "summary": "武汉协和宜昌医院核医学科分享PET-CT全身扫描发现双原发癌案例，肺结节患者意外查出早期结肠癌，术后6年无复发，体现PET-CT全身筛查价值。",
-      "url": "https://news.hubeidaily.net/mobile/c_5577052.html",
-      "source": "湖北日报/宜昌市中心人民医院",
-      "date": "2026-06-04",
-      "category": "临床研究"
-    },
-    {
-      "title": "18F-FDOPA PET/CT肿瘤学应用技术与临床推荐综述发布",
-      "summary": "Clinical and Translational Imaging发表综述，系统总结了18F-FDOPA PET/CT在神经内分泌肿瘤、嗜铬细胞瘤和甲状腺髓样癌中的标准化技术与临床推荐。",
-      "url": "https://m.ebiotrade.com/newsf/2026-6/20260603172739992.htm",
-      "source": "生物通/Clinical and Translational Imaging",
-      "date": "2026-06-03",
-      "category": "PET-CT新技术"
-    },
-    {
-      "title": "北京大学王凡教授团队177Lu-AB-3PRGD2研究成果亮相ASCO 2026",
-      "summary": "北京大学王凡教授团队与厦门大学附属第一医院合作的177Lu-AB-3PRGD2治疗核药临床研究在ASCO 2026大会快速口头报告专场发布，展示该药物在晚期转移性实体瘤中的良好疾病控制效果。",
-      "url": "http://www.baiyyy.com.cn/news/details/471.html",
-      "source": "百洋医药",
-      "date": "2026-06-03",
-      "category": "临床试验"
-    },
-    {
-      "title": "吉伦泰¹⁷⁷Lu-AB-3PRGD2治疗晚期实体瘤亮相ASCO 2026",
-      "summary": "北京大学王凡教授团队与厦门大学附属第一医院合作研究在ASCO 2026快速口头报告发布，¹⁷⁷Lu-AB-3PRGD2靶向整合素αvβ3治疗晚期转移性实体瘤，50%达疾病稳定，20%达部分缓解。",
-      "url": "http://www.baiyyy.com/news/details/471.html",
-      "source": "百洋医药/ASCO 2026",
-      "date": "2026-06-03",
-      "category": "诊疗一体化"
-    },
-    {
-      "title": "PET显像评估CAR-T治疗疗效最新研究进展",
-      "summary": "华中科技大学协和医院兰晓莉教授分享PET显像在CAR-T治疗疗效评估、预后判断和复发监测中的关键作用。",
-      "url": "https://www.kanyijie.com/details?id=2286",
-      "source": "看医界",
-      "date": "2026-06-02",
-      "category": "PET-CT新技术"
-    },
-    {
-      "title": "18F-FDG与68Ga-Pentixafor双探针PET在淋巴瘤精准诊疗中的价值",
-      "summary": "上海交通大学附属第一人民医院赵晋华教授提出双探针联合显像在淋巴瘤精准分型、疗效预测及复发监测中的应用策略。",
-      "url": "https://www.kanyijie.com/details?id=2286-pentixafor",
-      "source": "看医界",
-      "date": "2026-06-02",
-      "category": "诊疗一体化"
-    },
-    {
-      "title": "Aβ PET在阿尔茨海默病全景诊断中的价值",
-      "summary": "复旦大学附属浦东医院刘兴党教授深入讲解Aβ PET显像在阿尔茨海默病早期诊断、病程监测中的应用。",
-      "url": "https://www.kanyijie.com/details?id=2286-amyloid",
-      "source": "看医界",
-      "date": "2026-06-02",
-      "category": "PET-CT新技术"
-    },
-    {
-      "title": "山东大学齐鲁医院PET/CT人工智能研究成果发表于Information Fusion",
-      "summary": "山东大学齐鲁医院核医学科李昕教授团队在信息融合领域顶刊发表PET/CT双模态无监督异常检测研究成果，建成全球首个胸部疾病PET/CT无监督异常检测标准数据集，胸部病灶检出准确率达91.91%。",
-      "url": "http://m.toutiao.com/group/7646615272882717190/",
-      "source": "彼岸说书人",
-      "date": "2026-06-02",
-      "category": "AI影像"
-    },
-    {
-      "title": "国内首个α-syn PET示踪剂SST001正式启动注册临床研究",
-      "summary": "中科院、上海交大、复旦华山医院等组成的联合攻关团队开发的国内首个进入注册临床研究的帕金森病α-syn PET示踪剂SST001正式启动临床研究，实现帕金森病病理蛋白活体可视化。",
-      "url": "http://m.toutiao.com/group/7646787875568108073/",
-      "source": "中国新闻网",
-      "date": "2026-06-02",
-      "category": "新型PET探针"
-    },
-    {
-      "title": "2026年长三角核医学与分子影像专科联盟学术大会在上海召开",
-      "summary": "2026年长三角核医学与分子影像专科联盟学术大会在上海成功举办，聚焦学科前沿技术、临床转化与协同发展。",
-      "url": "http://www.kanyijie.com:7001/details?id=2286",
-      "source": "看医界",
-      "date": "2026-06-02",
-      "category": "学术会议"
-    },
-    {
-      "title": "ASCO 2026: α核素引爆！从β到α，中国核药抢占全球风口",
-      "summary": "ASCO 2026年会上核药赛道成为焦点，诺华公布225Ac-PSMA首次人体试验数据，先通药业XTR022（225Ac-XT381）壁报展示PSA50缓解率76.9%，标志RLT从β核素迈向α核素时代。",
-      "url": "https://c.m.163.com/news/a/KUE6TFOB05118K9D.html",
-      "source": "网易新闻",
-      "date": "2026-06-02",
-      "category": "诊疗一体化"
-    },
-    {
-      "title": "北京大学人民医院启用新一代长轴PET/CT设备",
-      "summary": "北京大学人民医院核医学科于2026年6月1日启用新一代长轴PET/CT设备，具备更长轴向视野、更高探测灵敏度，可将全身扫描时间大幅缩短、降低辐射剂量。",
-      "url": "http://m.toutiao.com/group/7646415836115026442/",
-      "source": "北京大学人民医院",
-      "date": "2026-06-01",
-      "category": "设备升级"
-    },
-    {
-      "title": "New PET radiotracer shows high accuracy for detecting clots in the legs and lungs",
-      "summary": "SNMMI 2026年度图像奖研究显示，新型18F-GP1 PET/CT可高精度检测下肢深静脉血栓栓子，并可同时评估肺栓塞。",
-      "url": "https://www.news-medical.net/news/20260601/New-PET-radiotracer-shows-high-accuracy-for-detecting-clots-in-the-legs-and-lungs.aspx",
-      "source": "News-Medical",
-      "date": "2026-06-01",
-      "category": "国际研究"
-    },
-    {
-      "title": "Metabolic Imaging and Molecular Signatures Reveal Metabolic Phenotypes in Recurrent Glioblastoma",
-      "summary": "该前瞻性研究结合动态18F-fluciclovine PET、灌注MRI和转录组分析，揭示了复发胶质母细胞瘤的代谢表型。",
-      "url": "https://jnm.snmjournals.org/content/67/6/849",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2026-06-01",
-      "category": "国际研究"
-    },
-    {
-      "title": "浙江省肿瘤医院完成225Ac-PSMA靶向α核素治疗首例给药",
-      "summary": "浙江省肿瘤医院正式启动225Ac-PSMA靶向α核素治疗国际多中心临床试验并完成浙江首例患者给药，为多线治疗失败的晚期前列腺癌患者带来新希望。",
-      "url": "http://hznews.hangzhou.com.cn/kejiao/content/2026-05/29/9230663.htm",
-      "source": "杭州网",
-      "date": "2026-05-29",
-      "category": "α核素治疗"
-    },
-    {
-      "title": "第十八届珠江甲状腺疾病核素诊疗学术会议在广州成功召开",
-      "summary": "广东省精准医学应用学会2026年核医学与核药分会年会暨第十八届珠江甲状腺疾病核素诊疗学术会议在广州举行，汇聚全国核医学领域顶尖专家。",
-      "url": "https://www.nfnews.com/content/R6gNxWlb3p.html",
-      "source": "南方财经网",
-      "date": "2026-05-29",
-      "category": "学术会议"
-    },
-    {
-      "title": "68Ga-FAPI-04 PET/CT可无创预测肝切除术后肝功能衰竭",
-      "summary": "研究证实术前68Ga-FAPI-04 PET/CT定量评估肝纤维化可独立预测肝切除术后肝功能衰竭，结合TBRmax、凝血酶原时间及切除范围的列线图模型AUC达0.780。",
-      "url": "https://m.ebiotrade.com/newsf/2026-5/20260527223838443.htm",
-      "source": "生物通",
-      "date": "2026-05-28",
-      "category": "FAPI PET"
-    },
-    {
-      "title": "2026年核医学分会骨干培训班(第二期)：聚焦核医学诊疗一体化规范化应用",
-      "summary": "7月24-26日在天津举办，涵盖甲状腺癌核医学诊疗规范化、90Y微球肝癌治疗、PSMA前列腺癌靶向治疗、骨转移核素靶向治疗等内容",
-      "url": "https://www.cma.org.cn/art/2026/5/27/art_33_60636.html",
-      "source": "中华医学会",
-      "date": "2026-05-27",
-      "category": "学术会议"
-    },
-    {
-      "title": "上海仁济医院CD70免疫PET/CT研究成果发表于Cancer Discovery",
-      "summary": "上海仁济医院核医学科联合泌尿科及意大利IRCCS San Raffaele医院在顶级肿瘤学期刊发表研究，首次证实CD70靶向免疫PET/CT在肾透明细胞癌转移诊断中的核心价值。",
-      "url": "https://m.sohu.com/a/1028400042_121118798/",
-      "source": "搜狐网",
-      "date": "2026-05-27",
-      "category": "免疫PET"
-    },
-    {
-      "title": "177Lu-PSMA-3D1015注射液治疗转移性去势抵抗性前列腺癌临床研究",
-      "summary": "思路迪医药自主研发的177Lu-PSMA-3D1015注射液在mCRPC患者中展现良好安全性与耐受性，初步临床数据表明具有良好的肿瘤控制效果。",
-      "url": "http://www.yintahealth.com/newsinfo/9081752.html",
-      "source": "印塔健康",
-      "date": "2026-05-27",
-      "category": "临床试验"
-    },
-    {
-      "title": "III期临床试验比较177Lu vipivotide tetraxetan与观察在PSMA阳性寡转移前列腺癌中的疗效",
-      "summary": "该III期临床试验比较了Pluvicto与观察在PSMA阳性寡转移前列腺癌患者中的疗效，评估其在早期前列腺癌中的应用价值。",
-      "url": "https://www.novartis.com/clinicaltrials/study/NCT05939414",
-      "source": "Novartis Clinical Trials",
-      "date": "2026-05-27",
-      "category": "临床试验"
-    },
-    {
-      "title": "The PET tracer [11C]MODAG-005 targets alpha-synuclein aggregates in the brain",
-      "summary": "该研究开发了新型α-突触核蛋白PET示踪剂[11C]MODAG-005，在帕金森病和多系统萎缩患者中验证了脑内α-突触核蛋白聚集体的可视化能力。",
-      "url": "https://www.science.org/doi/abs/10.1126/scitranslmed.aec0813",
-      "source": "Science Translational Medicine",
-      "date": "2026-05-27",
-      "category": "国际研究"
-    },
-    {
-      "title": "CD70免疫PET显像无创诊断肾透明细胞癌，仁济医院重磅研究发表于Cancer Discovery",
-      "summary": "上海仁济医院核医学科在Cancer Discovery发表前瞻性大样本临床试验，证实CD70靶向免疫PET/CT对肾透明细胞癌转移诊断灵敏度94.2%，58.7%患者因此优化诊疗方案。",
-      "url": "https://m.sohu.com/a/1028400042_121118798/",
-      "source": "搜狐新闻/仁济医院",
-      "date": "2026-05-27",
-      "category": "临床研究"
-    },
-    {
-      "title": "第二届\"百望\"核医学与分子影像学术会议召开，聚焦核素诊疗一体化",
-      "summary": "解放军总医院第八医学中心举办第二届百望核医学与分子影像学术会议，涵盖FAPI核素诊疗一体化、LU177-PSMA前列腺癌诊疗、锶89骨转移治疗等前沿方向",
-      "url": "https://m.sohu.com/a/1028031305_121106832/",
-      "source": "解放军总医院第八医学中心",
-      "date": "2026-05-26",
-      "category": "学术会议"
-    },
-    {
-      "title": "云上病例分享会第十二期：RAIR-DTC靶向治疗策略",
-      "summary": "中华医学会核医学分会治疗学组与中国同辐携手举办的云上病例分享会第十二期，围绕碘难治性分化型甲状腺癌靶向治疗策略展开深入研讨。",
-      "url": "https://chinanm.cma.org.cn/art/2026/5/26/art_1449_60595.html",
-      "source": "中华医学会核医学分会",
-      "date": "2026-05-26",
-      "category": "核素治疗"
-    },
-    {
-      "title": "68Ga-PSMA-NYM032前列腺癌诊疗一体化放射性药物III期临床试验",
-      "summary": "评价68Ga-NYM032 PET/CT在前列腺癌患者术前盆腔淋巴结转移诊断效能及安全性的开放性、单臂、多中心III期临床研究正在进行中，诊断准确性达92.06%。",
-      "url": "http://m.cancercro.com/nd.jsp?id=1482",
-      "source": "凯石国际医疗",
-      "date": "2026-05-26",
-      "category": "临床试验"
-    },
-    {
-      "title": "核药进入多核素时代：新型同位素重塑诊疗一体化格局",
-      "summary": "诊断核素从18F单一格局向68Ga、64Cu、89Zr、44Sc、61Cu多元化演进，治疗核素从177Lu拓展至225Ac、161Tb、67Cu等新型核素，诊疗一体化闭环加速形成。",
-      "url": "http://m.163.com/dy/article/KTROSPS90534Q32Z.html",
-      "source": "网易新闻",
-      "date": "2026-05-26",
-      "category": "诊疗一体化"
-    },
-    {
-      "title": "第九届核素治疗高峰对话会将于7月在天津召开",
-      "summary": "中华医学会核医学分会治疗学组指导的第九届核素治疗高峰对话会将于2026年7月24日在天津召开，聚焦131I治疗DTC和新型诊疗一体化核素临床转化。",
-      "url": "https://chinanm.cma.org.cn/art/2026/5/25/art_1450_60593.html",
-      "source": "中华医学会核医学分会",
-      "date": "2026-05-25",
-      "category": "学术会议"
-    },
-    {
-      "title": "全军首家核子治疗中心落户解放军总医院第六医学中心",
-      "summary": "全军首家核子治疗中心落户解放军总医院第六医学中心，填补局部精准内照射治疗技术空白，实现肝癌患者全周期诊疗闭环。",
-      "url": "https://m.sohu.com/a/1027446975_121106842/",
-      "source": "搜狐网",
-      "date": "2026-05-25",
-      "category": "核素治疗"
-    },
-    {
-      "title": "68Ga-Trivehexin PET/CT在甲状旁腺腺瘤定位中的应用",
-      "summary": "研究评估了靶向avb6整合素的新型PET示踪剂68Ga-Trivehexin在原发性甲旁亢患者甲状旁腺腺瘤定位中的价值，阳性率达78.6%，显著高于Sestamibi闪烁扫描。",
-      "url": "https://m.ebiotrade.com/newsf/2026-5/20260522215121179.htm",
-      "source": "生物通/Annals of Nuclear Medicine",
-      "date": "2026-05-23",
-      "category": "新型PET探针"
-    },
-    {
-      "title": "分化型甲状腺癌术后核医学诊疗临床路径（2026版）正式发布",
-      "summary": "国内首部分化型甲状腺癌术后核医学诊疗临床路径2026版发布，49位多学科专家参与，首次将碘131治疗决策从看分层转变为看状态，基于术后实时疗效反应动态评估。",
-      "url": "http://m.toutiao.com/group/7641907104806208000/",
-      "source": "蝶生健康",
-      "date": "2026-05-21",
-      "category": "指南共识"
-    },
-    {
-      "title": "Radiopharmaceutical Therapy Meets Radiobiology: Implications for Trial Design and DNA Repair Inhibitor Combinations",
-      "summary": "该综述探讨了放射性药物治疗与放射生物学的结合，特别是DNA修复抑制剂与核素治疗的联合应用策略。",
-      "url": "https://jnm.snmjournals.org/content/early/2026/05/21/jnumed.125.271527/tab-article-info",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2026-05-21",
-      "category": "诊疗一体化"
-    },
-    {
-      "title": "2026年中华医学会核医学分会骨干培训班第一期招生",
-      "summary": "由中华医学会核医学分会和继续教育部主办的骨干培训班将于2026年7月17-18日在北京举办，聚焦SPECT/CT进展和核心脏病学前沿。",
-      "url": "https://www.cma.org.cn/art/2026/5/19/art_33_60627.html",
-      "source": "中华医学会",
-      "date": "2026-05-19",
-      "category": "学术会议"
-    },
-    {
-      "title": "第六届全国PET/MR学术研讨会在上海成功举办",
-      "summary": "2026年5月14日-17日，第六届全国PET/MR学术研讨会在上海举办，以突破PET/MR临床应用局限为主题，聚焦AI融合、新型分子影像探针、诊疗一体化等方向。",
-      "url": "https://m.bio-equip.com/m/News?newsid=453098478",
-      "source": "生物器材网",
-      "date": "2026-05-19",
-      "category": "学术会议"
-    },
-    {
-      "title": "科普：呼吸困难找不到原因？肺通气/灌注显像(V/Q显像)揭秘",
-      "summary": "中国医师协会核医学医师分会科普文章，介绍肺通气/灌注显像在肺栓塞诊断中的临床价值",
-      "url": "https://www.cn-healthcare.com/articlewm/20250411/wap-content-1648335.html",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-05-18",
-      "category": "临床研究"
-    },
-    {
-      "title": "湘雅三医院为规律复查患者提供SPECT/CT手机自助开单服务",
-      "summary": "中南大学湘雅三医院核医学科创新推出SPECT/CT手机自助开单服务，为有长期规律复查需求的患者提供便捷预约通道。",
-      "url": "http://www.caonmp.com/index.html",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-05-18",
-      "category": "临床研究"
-    },
-    {
-      "title": "PSMA-ICG双模态探针PET/荧光成像用于前列腺癌管理",
-      "summary": "中南大学湘雅医院核医学科团队设计合成新型PET/荧光双模态探针68Ga-XY-PSMA-ICG，在前列腺癌患者体内展现优异病变检测能力，为精准诊断提供新策略。",
-      "url": "https://m.ebiotrade.com/newsf/2026-5/20260516001017811.htm",
-      "source": "生物通",
-      "date": "2026-05-16",
-      "category": "双模态成像"
-    },
-    {
-      "title": "科普：放射性核素内照射治疗——碘-131治疗甲状腺疾病",
-      "summary": "中国医师协会核医学医师分会科普，详解碘-131在甲状腺功能亢进和分化型甲状腺癌术后治疗中的应用",
-      "url": "http://www.caonmp.com/#law",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-05-15",
-      "category": "临床研究"
-    },
-    {
-      "title": "长轴PET动态显像技术前沿：AI融合与独立影像评估IRC发展趋势",
-      "summary": "长轴PET动态显像技术结合AI可实现全自动病灶分割与ROI勾画（10分钟内vs传统60-120分钟）、动态参数智能计算、伪影自动检测与校正，效率提升10倍以上。",
-      "url": "https://www.unionclin.com/News/531.html",
-      "source": "临影医疗IRC",
-      "date": "2026-05-15",
-      "category": "AI影像"
-    },
-    {
-      "title": "PET/MRI在动脉粥样硬化患者高危斑块识别中展现卓越效能",
-      "summary": "ISMRM 2026发布研究显示PET/MRI在区分症状性与无症状颈动脉斑块方面表现优异，联合模型AUC达0.967，测试准确率88.6%。",
-      "url": "https://www.auntminnie.com/resources/conference/ismrm/2026/article/15825326/ismrm-petmri-highly-effective-in-patients-with-atherosclerosis",
-      "source": "AuntMinnie",
-      "date": "2026-05-15",
-      "category": "PET-MR"
-    },
-    {
-      "title": "SPECT/CT在足踝的应用：让骨骼的求救信号无处遁形",
-      "summary": "探讨SPECT/CT在足踝疾病诊断中的临床应用价值，结合功能代谢与解剖结构成像优势，提高隐匿性病变检出率。",
-      "url": "http://www.caonmp.com/index.html",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-05-15",
-      "category": "SPECT新技术"
-    },
-    {
-      "title": "第四届中国放射医学发展大会暨首届中国特种医学发展大会10月将在天津召开",
-      "summary": "中国医学科学院主办的第四届大会将于2026年10月16-18日在天津召开，聚焦核安全、核医学前沿进展和放射性药物临床转化。",
-      "url": "https://www.irm-cams.ac.cn/index/shows?catid=79&id=4477",
-      "source": "中国医学科学院放射医学研究所",
-      "date": "2026-05-14",
-      "category": "学术会议"
-    },
-    {
-      "title": "北京大学第一医院开展177Lu-PSMA放射配体疗法临床应用",
-      "summary": "北京大学第一医院成为国内首批开展177Lu-PSMA放射配体疗法临床应用的医疗机构，针对转移性去势抵抗性前列腺癌患者，通过PSMA PET-CT显像评估治疗靶点，已积累真实世界临床经验。",
-      "url": "https://wap.bjd.com.cn/news/2026/05/13/11741857.shtml",
-      "source": "北京日报",
-      "date": "2026-05-13",
-      "category": "诊疗一体化"
-    },
-    {
-      "title": "全球首创！国产脑PET实现自由活动状态人脑成像",
-      "summary": "深圳湾实验室彭旗宇团队研制的头戴随动式PET系统在国际上率先实现自由活动状态下的人脑全脑分子显像，可用于癫痫、阿尔茨海默病等患者的清醒状态成像。",
-      "url": "http://m.toutiao.com/group/7639170715731771910/",
-      "source": "金台资讯",
-      "date": "2026-05-13",
-      "category": "国内研究"
-    },
-    {
-      "title": "核医学个体化剂量：从科学机制到行业生态的全局审视",
-      "summary": "深入分析核医学个体化剂量方案的必要性，涵盖剂量学模型、临床实践落地路径及行业生态变革",
-      "url": "https://www.ccnta.cn/article/24686.html",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-05-12",
-      "category": "国内研究"
-    },
-    {
-      "title": "靶向DPP4的68Ga-利格列汀PET探针实现病毒性心肌炎精准无创成像",
-      "summary": "华中科技大学团队在Adv. Sci.发表研究，开发靶向DPP4的68Ga-利格列汀PET探针，实现病毒性心肌炎精准无创成像，为心肌炎早期诊断提供新工具。",
-      "url": "http://www.caonmp.com/dpp4-pet",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-05-12",
-      "category": "新型PET探针"
-    },
-    {
-      "title": "首部rhTSH临床应用中国专家共识发布，助力分化型甲状腺癌规范化诊疗",
-      "summary": "中国医师协会核医学医师分会发布首部rhTSH临床应用中国专家共识，为分化型甲状腺癌的规范化临床诊疗提供指导。",
-      "url": "http://www.caonmp.com/rhtsh",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-05-12",
-      "category": "指南共识"
-    },
-    {
-      "title": "西南医科大学附属医院陈跃教授团队获中华医学科技奖",
-      "summary": "西南医科大学附属医院核医学科陈跃教授团队再次荣获中华医学科技奖，在核医学诊疗领域取得重要突破。",
-      "url": "http://www.caonmp.com/chenyue",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-05-12",
-      "category": "国内研究"
-    },
-    {
-      "title": "中南大学湘雅三医院推出SPECT/CT手机自助开单服务",
-      "summary": "中南大学湘雅三医院核医学科为有长期规律复查的患者提供SPECT/CT手机自助开单服务，优化就诊流程，提升患者就医体验。",
-      "url": "http://www.caonmp.com/spect-self",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-05-12",
-      "category": "国内研究"
-    },
-    {
-      "title": "阜外医院方纬教授团队99mTc-Teboroxime CZT-SPECT快速心肌灌注显像研究",
-      "summary": "阜外医院团队在国际上首次探讨99mTc-Teboroxime CZT-SPECT快速心肌灌注显像，5分钟内完成快速动态采集，实现心肌血流量精准定量，诊断灵敏度达80%。",
-      "url": "https://chinanm.cma.org.cn/art/2026/5/12/art_1662_60581.html",
-      "source": "中华医学会核医学分会",
-      "date": "2026-05-12",
-      "category": "心肌显像"
-    },
-    {
-      "title": "¹⁸F-FDG PET/CT在分化型甲状腺癌术后高sTg或sTgAb患者中的临床价值",
-      "summary": "南方医科大学珠江医院核医学科研究显示PET/CT对术后指标升高患者的病灶阳性率达80.6%，灵敏度85%，32.3%患者因此改变治疗方案。发表于中华核医学与分子影像杂志。",
-      "url": "http://m.toutiao.com/group/7638223944593129984/",
-      "source": "中华核医学与分子影像杂志/今日头条",
-      "date": "2026-05-12",
-      "category": "临床研究"
-    },
-    {
-      "title": "2026年'结合医学'核医学学术年会会议通知（第一轮）",
-      "summary": "2026年'结合医学'核医学学术年会即将召开，聚焦核医学中西医结合前沿进展与临床转化。",
-      "url": "http://www.caonmp.com/index.html",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-05-12",
-      "category": "学术会议"
-    },
-    {
-      "title": "'云上中核医生'读片会（第63期）预告",
-      "summary": "云上中核医生系列读片会第63期即将举办，由北京医学奖励基金会等主办，聚焦核医学影像读片与病例讨论。",
-      "url": "http://www.caonmp.com/index.html",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-05-12",
-      "category": "学术会议"
-    },
-    {
-      "title": "中国核医学成立70周年徽章、牌匾及手提袋设计方案征集通知",
-      "summary": "中华医学会核医学分会征集中国核医学成立70周年纪念徽章、牌匾及手提袋设计方案，庆祝中国核医学70年发展历程。",
-      "url": "http://www.caonmp.com/index.html",
-      "source": "中华医学会核医学分会",
-      "date": "2026-05-12",
-      "category": "国内研究"
-    },
-    {
-      "title": "2025版ATA指南更新：甲状腺癌术后TSH抑制治疗进入精准个体化时代",
-      "summary": "2025版ATA指南对甲状腺癌术后TSH抑制治疗进行更新，强调精准个体化治疗策略，避免过度抑制或不足。",
-      "url": "http://www.caonmp.com/index.html",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-05-11",
-      "category": "指南共识"
-    },
-    {
-      "title": "68Ga-PSMA PET/MRI技术提升前列腺癌诊断准确性及ISUP分期实用性",
-      "summary": "研究证实68Ga-PSMA PET/MRI所得参数在前列腺癌诊断中表现出优异性能，尤其是肝-肿瘤摄取比在PSA水平较低患者中具有最高敏感性，可实现无创ISUP分级。",
-      "url": "https://m.ebiotrade.com/newsf/2026-5/20260509223851556.htm",
-      "source": "生物通",
-      "date": "2026-05-10",
-      "category": "PET-MR"
-    },
-    {
-      "title": "靶向DPP4的68Ga-利格列汀PET探针实现病毒性心肌炎精准无创成像（Adv. Sci.）",
-      "summary": "华中科技大学团队在Advanced Science发表研究，开发靶向DPP4的68Ga-利格列汀PET探针，实现病毒性心肌炎精准无创成像，为心肌炎早期诊断提供新工具。",
-      "url": "http://www.caonmp.com/index.html",
-      "source": "Adv. Sci./中国医师协会核医学医师分会",
-      "date": "2026-05-10",
-      "category": "新型PET探针"
-    },
-    {
-      "title": "工物系团队合作研发全环小动物自准直SPECT系统突破0.2mm超高分辨率",
-      "summary": "清华大学工物系团队合作研发全环小动物自准直SPECT系统，突破实现0.2mm超高成像分辨率，为核医学影像设备国产化迈出重要一步。",
-      "url": "http://www.csnm.com.cn/#science",
-      "source": "核医学专业网/清华大学",
-      "date": "2026-05-06",
-      "category": "SPECT新技术"
-    },
-    {
-      "title": "第十六届广东省核医学专业研究生学术论坛在深圳举办",
-      "summary": "作为庆祝中国核医学成立70周年系列活动之一，第十六届广东省核医学专业研究生学术论坛在北京大学深圳医院成功举办。",
-      "url": "http://www.csnm.com.cn/#news",
-      "source": "核医学专业网/广东省医学会",
-      "date": "2026-05-06",
-      "category": "学术会议"
-    },
-    {
-      "title": "永新医疗完成B轮融资，重塑核医学影像设备市场新格局",
-      "summary": "永新医疗成功完成B轮融资，资金将用于新产品研发、迭代升级、产能扩张和全球市场拓展，推动国产核医学影像设备发展。",
-      "url": "http://www.csnm.com.cn/#news",
-      "source": "核医学专业网/永新医疗",
-      "date": "2026-05-06",
-      "category": "国内研究"
-    },
-    {
-      "title": "新书《核医点睛·甲状腺攻坚》：把碘-131讲得明明白白",
-      "summary": "欧阳伟、王攀教授主编，面向甲状腺患者的科普读物，系统讲解碘-131治疗甲状腺疾病的知识",
-      "url": "http://www.caonmp.com/#news",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-04-29",
-      "category": "国内研究"
-    },
-    {
-      "title": "第六届全国PET/MR学术研讨会通知（第一轮）",
-      "summary": "第六届全国PET/MR学术研讨会即将召开，聚焦PET/MR技术在神经系统、肿瘤等领域的前沿应用。",
-      "url": "http://www.caonmp.com/index.html",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-04-29",
-      "category": "学术会议"
-    },
-    {
-      "title": "第四届核医学与分子影像学术会议暨中国核学会医学物理分会学术年会通知",
-      "summary": "第四届核医学与分子影像学术会议暨中国核学会医学物理分会学术年会即将召开，聚焦核医学与医学物理交叉前沿。",
-      "url": "http://www.caonmp.com/index.html",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-04-28",
-      "category": "学术会议"
-    },
-    {
-      "title": "中华医学会第19次核医学学术大会暨核医学成立70周年纪念大会(CSNM2026)征文通知",
-      "summary": "CSNM2026定于2026年9月17-20日在西安召开，主题\"七秩传承，溯源创新\"，设21个交流板块，涵盖PET/CT、肿瘤核医学、核素治疗、放射性药物研发等",
-      "url": "https://chinanm.cma.org.cn/art/2026/4/25/art_1365_60567.html",
-      "source": "中华医学会核医学分会",
-      "date": "2026-04-25",
-      "category": "学术会议"
-    },
-    {
-      "title": "核医学交叉学科前沿进展研讨会在南京召开",
-      "summary": "会议汇聚核医学、心内科、肿瘤科、神经科等专家，围绕核心脏病学、肿瘤核医学、神经核医学前沿进展展开对话，探讨MPI临床应用不足的瓶颈与突破",
-      "url": "https://chinanm.cma.org.cn/art/2026/4/23/art_1449_60560.html",
-      "source": "中华医学会核医学分会",
-      "date": "2026-04-23",
-      "category": "学术会议"
-    }
-  ],
-  "update_time": "2026-06-09"
-},
-  journals: {
-  "categories": [
-    "中文期刊",
-    "英文期刊"
-  ],
-  "items": [
-    {
-      "title": "中山医院获欧洲EARL诊疗一体化高级L2认证，成为中国首家获此认证机构",
-      "summary": "复旦大学附属中山医院核医学科获得欧洲核医学会EARL机构颁发的Theranostics Advanced-L2认证，成为中国首家获此项国际权威认证的医疗机构",
-      "url": "https://m.weibo.cn/detail/5306522301105085",
-      "source": "复旦大学附属中山医院",
-      "date": "2026-06-05",
-      "category": "中文期刊",
-      "journal": "医院新闻"
-    },
-    {
-      "title": "Role of 18F-PSMA PET/MRI in Prostate Cancer Recurrence After Prostatectomy",
-      "summary": "JNM发表研究，评估18F-PSMA PET/MRI在前列腺癌根治术后复发诊断中的应用价值",
-      "url": "https://jnm.snmjournals.org/content/early/2026/06/04/jnumed.126.272126",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2026-06-04",
-      "category": "肿瘤",
-      "journal": "Journal of Nuclear Medicine"
-    },
-    {
-      "title": "Initial Results of FAPI PET/MRI to Assess the Extent of Endometriosis",
-      "summary": "JNM发表初步研究，评估FAPI PET/MRI在子宫内膜异位症范围评估中的应用价值",
-      "url": "https://jnm.snmjournals.org/content/early/2026/06/04/jnumed.125.271376",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2026-06-04",
-      "category": "肿瘤",
-      "journal": "Journal of Nuclear Medicine"
-    },
-    {
-      "title": "Translational Theranostics in Glioblastoma: FAPI-46 as a Precision Medicine Tool",
-      "summary": "JNM发表研究，探索FAPI-46作为胶质母细胞瘤精准医学工具的潜力，评估68Ga-FAPI-46成像和225Ac/177Lu-FAPI-46治疗在临床前模型中的疗效",
-      "url": "https://jnm.snmjournals.org/content/early/2026/06/04/jnumed.125.271759",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2026-06-04",
-      "category": "肿瘤",
-      "journal": "Journal of Nuclear Medicine"
-    },
-    {
-      "title": "JNM Volume 67, Issue 6 (June 2026) Published",
-      "summary": "Journal of Nuclear Medicine 2026年6月刊出版，涵盖肿瘤核医学、神经影像、心血管影像及诊疗一体化等前沿研究",
-      "url": "https://jnm.snmjournals.org/content/67/6",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2026-06-01",
-      "category": "英文期刊",
-      "journal": "Journal of Nuclear Medicine"
-    },
-    {
-      "title": "Association of increased [18F]FDG accumulation by binding between TSPO monomer and VDAC1 in human breast cancer cell lines",
-      "summary": "该研究探讨了TSPO单体与VDAC1结合导致乳腺癌细胞系中18F-FDG摄取增加的机制，为理解肿瘤代谢成像提供新见解。",
-      "url": "https://jnm.snmjournals.org/similar/articles/26747",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2025-06-01",
-      "category": "肿瘤",
-      "journal": "Journal of Nuclear Medicine"
-    },
-    {
-      "title": "Value of [68Ga]Ga-NYM046 PET/CT for Diagnosis of Clear Cell Renal Cell Carcinoma",
-      "summary": "该研究评估了68Ga-NYM046 PET/CT在透明细胞肾癌诊断中的价值，发现其诊断效能优于传统18F-FDG PET/CT。",
-      "url": "https://doi.org/10.2967/jnumed.124.267527",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2024-12-01",
-      "category": "肿瘤",
-      "journal": "Journal of Nuclear Medicine"
-    },
-    {
-      "title": "Single-Domain Antibody Probe with Low Renal Uptake for Claudin 18.2-Targeted PET Imaging of Gastric Cancer",
-      "summary": "该研究开发了低肾脏摄取的纳米抗体探针用于胃癌Claudin 18.2靶向PET成像，在临床前和初步临床研究中验证了其应用潜力。",
-      "url": "https://doi.org/10.2967/jnumed.125.271704",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2026-03-12",
-      "category": "肿瘤",
-      "journal": "Journal of Nuclear Medicine"
-    },
-    {
-      "title": "Diagnostic Yield of [18F]FDG PET/CT in FUO: An Italian Multicenter Study of 929 Patients",
-      "summary": "意大利多中心研究纳入929例不明原因发热患者，评估了18F-FDG PET/CT的诊断效能，为发热待查的诊断提供循证依据。",
-      "url": "https://doi.org/10.2967/jnumed.125.271525",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2026-03-05",
-      "category": "其他",
-      "journal": "Journal of Nuclear Medicine"
-    },
-    {
-      "title": "Preoperative Assessment of Peritoneal Carcinomatosis with [68Ga]Ga-FAPI-46 PET/CT",
-      "summary": "该研究评估了68Ga-FAPI-46 PET/CT在腹膜癌病术前评估中的应用，发现其与术中发现的一致性优于MRI和18F-FDG PET/CT。",
-      "url": "https://doi.org/10.2967/jnumed.126.272183",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2026-05-21",
-      "category": "肿瘤",
-      "journal": "Journal of Nuclear Medicine"
-    },
-    {
-      "title": "FAP Expression in Renal Tumors Assessed by [68Ga]Ga-FAPI-46 PET Imaging",
-      "summary": "该研究通过68Ga-FAPI-46 PET成像评估肾脏肿瘤中的FAP表达，为肾脏肿瘤的分子分型提供新方法。",
-      "url": "https://doi.org/10.2967/jnumed.125.270346",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2026-01-01",
-      "category": "肿瘤",
-      "journal": "Journal of Nuclear Medicine"
-    },
-    {
-      "title": "CXCR4 PET/CT Predicts Left Ventricular Recovery 8 Months After Acute Myocardial Infarction",
-      "summary": "该研究揭示了CXCR4 PET/CT可预测急性心肌梗死8个月后的左心室功能恢复，为心肌修复评估提供新指标。",
-      "url": "https://doi.org/10.2967/jnumed.125.270807",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2025-11-01",
-      "category": "心血管",
-      "journal": "Journal of Nuclear Medicine"
-    },
-    {
-      "title": "Automated Total-Body Perfusion Imaging with 15O-Water PET Using Basis Functions",
-      "summary": "该研究开发了基于基函数的15O-水PET自动全身灌注成像方法，提高了全身血流量测量的效率和准确性。",
-      "url": "https://doi.org/10.2967/jnumed.124.269409",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2025-08-01",
-      "category": "技术方法",
-      "journal": "Journal of Nuclear Medicine"
-    },
-    {
-      "title": "Reliability and Practicability of FAP-RADS Version 1.0 for Structured Reporting of FAPI Imaging",
-      "summary": "该研究验证了FAP-RADS 1.0版本在FAPI显像结构化报告中的可靠性和实用性，为FAPI PET/CT的规范化报告提供标准。",
-      "url": "https://doi.org/10.2967/jnumed.125.271080",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2026-05-01",
-      "category": "技术方法",
-      "journal": "Journal of Nuclear Medicine"
-    },
-    {
-      "title": "Nuclear Medicine Imaging for the Diagnosis of ATTR Cardiac Amyloidosis",
-      "summary": "该综述总结了核医学显像在ATTR心脏淀粉样变诊断中的应用，包括99mTc-PYP、123I-MIBG和18F-Florbetapir等示踪剂的诊断价值。",
-      "url": "https://www.jstage.jst.go.jp/browse/anc/-char/en",
-      "source": "Annals of Nuclear Cardiology",
-      "date": "2025-10-31",
-      "category": "心血管",
-      "journal": "Annals of Nuclear Cardiology"
-    },
-    {
-      "title": "Dynamic Acquisition of [99mTc]Tc-Pyrophosphate SPECT/CT Images in Transthyretin Cardiac Amyloidosis",
-      "summary": "该初步研究评估了99mTc-PYP SPECT/CT动态采集在转甲状腺素蛋白心脏淀粉样变中的应用价值。",
-      "url": "https://doi.org/10.2967/jnumed.125.270405",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2026-02-01",
-      "category": "心血管",
-      "journal": "Journal of Nuclear Medicine"
-    },
-    {
-      "title": "Association of 18F-fluorodeoxyglucose uptake with cardiac events in cardiac sarcoidosis",
-      "summary": "该研究探讨了心脏结节病患者免疫抑制治疗后FDG摄取与心脏事件的关系，发现随访期FDG摄取可能与短期事件风险增加相关。",
-      "url": "https://doi.org/10.1371/journal.pone.0347595",
-      "source": "PLOS ONE",
-      "date": "2026-05-14",
-      "category": "心血管",
-      "journal": "Journal of Nuclear Cardiology"
-    },
-    {
-      "title": "177Lu-Lu-AMTG放射配体治疗的首个人体血清稳定性研究",
-      "summary": "研究证实177Lu-Lu-AMTG在转移性去势抵抗性前列腺癌患者中安全可行，与现有GRPR配体相比具有更优的体内血清稳定性。",
-      "url": "https://jnm.snmjournals.org/content/jnumed/66/6/896.full.pdf",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2025-04-30",
-      "category": "英文期刊",
-      "journal": "Journal of Nuclear Medicine",
-      "authors": "Thomas Günther, Bernd J. Krause等"
-    },
-    {
-      "title": "新型PSMA靶向PET示踪剂[18F]F-CTT1057在生化复发前列腺癌中的研究",
-      "summary": "GuideView Ⅱ/Ⅲ期研究显示该示踪剂在低PSA首次生化复发人群中达到预设区域水平正确定位率，是准确的PSMA靶向PET示踪剂。",
-      "url": "https://jnm.snmjournals.org/content/66/8/1210",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2025-08-01",
-      "category": "英文期刊",
-      "journal": "Journal of Nuclear Medicine",
-      "authors": "研究团队"
-    },
-    {
-      "title": "靶向PD-L1的纳米抗体显像探针[18F]F-THP-APN09 PET/CT研究",
-      "summary": "北京大学肿瘤医院团队研究证实该探针可单独用于预测可切除NSCLC患者免疫联合化疗疗效并辅助筛选适合患者。",
-      "url": "https://link.springer.com/article/10.1007/s00259-025-06056-9",
-      "source": "European Journal of Nuclear Medicine and Molecular Imaging",
-      "date": "2025-04-01",
-      "category": "英文期刊",
-      "journal": "European Journal of Nuclear Medicine and Molecular Imaging",
-      "authors": "Xin Zhou等"
-    },
-    {
-      "title": "AI驱动的PET图像质量幻影采集与分析新范式",
-      "summary": "该研究提出了新的PET图像质量评估方法，支持当前及未来各种轴向视野PET系统的标准化评价。",
-      "url": "https://jnm.snmjournals.org/content/66/supplement_1/252057",
-      "source": "Journal of Nuclear Medicine",
-      "date": "2025-06-01",
-      "category": "英文期刊",
-      "journal": "Journal of Nuclear Medicine",
-      "authors": "Timothy Turkington等"
-    },
-    {
-      "title": "神经内分泌肿瘤核素诊疗一体化临床应用专家共识(2025版)",
-      "summary": "共识阐述了NENs核素诊疗的适应证及实施规范，为核素显像和治疗提供标准化应用程序。",
-      "url": "https://chinanm.cma.org.cn/module/download/downfile.jsp?classid=0&filename=1db40a99d3f24405a9cc878e2922dbb4.pdf",
-      "source": "中华核医学与分子影像杂志",
-      "date": "2025-03-22",
-      "category": "中文期刊",
-      "journal": "中华核医学与分子影像杂志",
-      "authors": "杨志、汪静、陆明等"
-    },
-    {
-      "title": "淋巴瘤PET/CT及PET/MR显像临床应用指南（2025版）",
-      "summary": "该指南对淋巴瘤PET/CT及PET/MR显像的临床应用进行规范化指导，适用于淋巴瘤诊疗全流程。",
-      "url": "https://chinanm.cma.org.cn/art/2025/2/5/art_1367_59801.html",
-      "source": "中华核医学与分子影像杂志",
-      "date": "2025-02-05",
-      "category": "中文期刊",
-      "journal": "中华核医学与分子影像杂志",
-      "authors": "中华医学会核医学分会"
-    },
-    {
-      "title": "前列腺癌PSMA PET显像操作中国专家共识",
-      "summary": "共识为前列腺癌PSMA PET显像的操作规范提供标准化指导，确保显像质量与诊断准确性。",
-      "url": "https://chinanm.cma.org.cn/art/2025/1/15/art_1367_59701.html",
-      "source": "中华核医学与分子影像杂志",
-      "date": "2025-01-15",
-      "category": "中文期刊",
-      "journal": "中华核医学与分子影像杂志",
-      "authors": "中华医学会核医学分会"
-    },
-    {
-      "title": "乳腺癌18F-FES PET/CT显像技术操作规范及报告解读要素",
-      "summary": "该规范为乳腺癌18F-FES PET/CT显像的技术操作和报告解读提供标准化指导。",
-      "url": "https://chinanm.cma.org.cn/art/2025/11/10/art_1367_60301.html",
-      "source": "中华核医学与分子影像杂志",
-      "date": "2025-11-10",
-      "category": "中文期刊",
-      "journal": "中华核医学与分子影像杂志",
-      "authors": "中华医学会核医学分会、上海市抗癌协会肿瘤核医学专业委员会"
-    },
-    {
-      "title": "核医学影像技术最新进展综述",
-      "summary": "该综述综合评述了核医学成像技术的最新进展，涵盖CZT探测器、TOF、DOI等技术在PET/SPECT中的应用。",
-      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12708544/",
-      "source": "Frontiers in Medicine",
-      "date": "2025-12-03",
-      "category": "英文期刊",
-      "journal": "Frontiers in Medicine",
-      "authors": "Shuyu Xu, Ge Liu, Qingyang Wei等"
-    }
-  ],
-  "journals_cn": [
-    {
-      "title": "神经内分泌肿瘤核素诊疗一体化临床应用专家共识(2025版)",
-      "journal": "中华核医学与分子影像杂志",
-      "authors": "杨志、汪静、陆明等",
-      "date": "2025-03-22"
-    },
-    {
-      "title": "淋巴瘤PET/CT及PET/MR显像临床应用指南（2025版）",
-      "journal": "中华核医学与分子影像杂志",
-      "authors": "中华医学会核医学分会",
-      "date": "2025-02-05"
-    },
-    {
-      "title": "前列腺癌PSMA PET显像操作中国专家共识",
-      "journal": "中华核医学与分子影像杂志",
-      "authors": "中华医学会核医学分会",
-      "date": "2025-01-15"
-    },
-    {
-      "title": "乳腺癌18F-FES PET/CT显像技术操作规范及报告解读要素",
-      "journal": "中华核医学与分子影像杂志",
-      "authors": "中华医学会核医学分会",
-      "date": "2025-11-10"
-    },
-    {
-      "title": "淀粉样蛋白PET脑显像技术规范专家共识",
-      "journal": "中华核医学与分子影像杂志",
-      "authors": "中华医学会核医学分会",
-      "date": "2024-07-12"
-    }
-  ],
-  "journals_en": [
-    {
-      "title": "First-in-Human Serum Stability Studies of [177Lu]Lu-AMTG",
-      "journal": "Journal of Nuclear Medicine",
-      "authors": "Thomas Günther, Bernd J. Krause等",
-      "date": "2025-04-30"
-    },
-    {
-      "title": "Theranostics: How nuclear medicine is changing precision oncology",
-      "journal": "CAS Insights",
-      "authors": "CAS",
-      "date": "2025-09-24"
-    },
-    {
-      "title": "Recent advances in radionuclide medical imaging techniques",
-      "journal": "Frontiers in Medicine",
-      "authors": "Shuyu Xu, Ge Liu等",
-      "date": "2025-12-03"
-    },
-    {
-      "title": "AI for radiopharmaceutical and molecular imaging",
-      "journal": "Reviews in Medical Physics",
-      "authors": "研究团队",
-      "date": "2025-12-01"
-    },
-    {
-      "title": "18F-FAPI-04 PET/CT for hepatocellular carcinoma recurrence",
-      "journal": "European Journal of Nuclear Medicine and Molecular Imaging",
-      "authors": "Jiucen Liang等",
-      "date": "2025-07-01"
-    }
-  ],
-  "update_time": "2026-06-09"
-},
-  radiopharma: {
-  "categories": [
-    "放射性药物研发",
-    "核素治疗",
-    "诊疗一体化",
-    "靶向治疗",
-    "新药审批"
-  ],
-  "items": [
-    {
-      "title": "Telix与United Imaging宣布战略合作推进核医学诊疗一体化",
-      "summary": "Telix Pharmaceuticals与联影医疗达成战略合作，共同推进前列腺癌等领域RDC产品研发与商业化，包括ProstACT Global III期研究及创新放射性药物开发",
-      "url": "https://markets.financialcontent.com/worldnow.kotv/quote/news?ChannelType=PRESSRELEASES&Symbol=NQ%3ATLX",
-      "source": "Telix Pharmaceuticals/联影医疗",
-      "date": "2026-06-02",
-      "category": "产业动态"
-    },
-    {
-      "title": "绵阳高选择性核药纯化技术突破：国产萃取分离树脂打破国外垄断",
-      "summary": "四川长晏科技成功量产高选择性冠醚基萃取分离树脂，可精准'抓取'医用同位素锶-89、铅-212等，性能指标与进口产品相当，成本降低50%以上",
-      "url": "http://m.toutiao.com/group/7648928577924219433/",
-      "source": "涪江观察/四川长晏科技",
-      "date": "2026-06-08",
-      "category": "核素生产"
-    },
-    {
-      "title": "诺华浙江海盐放射性药物生产基地计划2026年底投产",
-      "summary": "诺华在浙江海盐投资建设放射性药物生产基地，计划2026年底投产，利用秦山核电177Lu生产能力，保障Pluvicto®在中国市场的稳定供应",
-      "url": "http://m.toutiao.com/group/7648920875143676450/",
-      "source": "医药魔方/诺华",
-      "date": "2026-06-08",
-      "category": "产业动态"
-    },
-    {
-      "title": "阳光诺和氟[18F]代雌二醇注射液临床试验申请获NMPA受理",
-      "summary": "阳光诺和控股子公司诺核动力研发的氟[18F]代雌二醇注射液临床试验申请获国家药监局受理，用于复发或转移性乳腺癌患者ER阳性病灶检测",
-      "url": "https://c.m.163.com/news/a/KUT3CA5S05565EU3.html",
-      "source": "网易/阳光诺和",
-      "date": "2026-06-08",
-      "category": "国产核药"
-    },
-    {
-      "title": "诺宇医药累计融资4轮，68Ga-NYM005肾癌诊断核药进入临床后期",
-      "summary": "诺宇医药已完成A+轮融资，自主研发的肾癌诊断用核药68Ga-NYM005已进入临床后期阶段，在胰腺癌、肾癌等难治性癌症诊疗方面取得突破",
-      "url": "https://www.qcc.com/crun/1266a7ad112739d3502b5426ab868f97.html",
-      "source": "企查查/诺宇医药",
-      "date": "2026-06-09",
-      "category": "国产核药"
-    },
-    {
-      "title": "先通药业INR101前列腺癌PSMA PET III期临床试验进行中",
-      "summary": "云南白药布局核药领域，诊断核药INR101用于前列腺癌PSMA阳性病灶PET成像，已启动III期临床试验，仅用6个月完成I/IIa期临床试验",
-      "url": "http://m.toutiao.com/group/7647722327065379343/",
-      "source": "氨基观察/药智数据",
-      "date": "2026-06-05",
-      "category": "新药临床"
-    },
-    {
-      "title": "远大医药TLX101用于GBM的IPAX-2临床试验完成全部患者入组",
-      "summary": "远大医药核药领域战略合作伙伴Telix宣布，其全球创新RDC产品TLX101用于初诊GBM的海外I期临床试验(IPAX-2)已完成全部患者入组，未观察到剂量限制性毒性",
-      "url": "https://biz.ifeng.com/c/8tchjawdNeg",
-      "source": "凤凰网/远大医药",
-      "date": "2026-06-02",
-      "category": "新药临床"
-    },
-    {
-      "title": "Pluvicto PSMAddition研究：降低58% PSA进展风险",
-      "summary": "诺华公布PSMAddition研究数据，Pluvicto联合标准护理治疗转移性激素敏感性前列腺癌，PSA进展风险降低58%，预计2026年下半年获监管批准",
-      "url": "https://www.novartis.com/news/media-releases/new-psmaddition-data-show-58-lower-risk-psa-progression-pluvicto-metastatic-hormone-sensitive-prostate-cancer",
-      "source": "Novartis",
-      "date": "2026-05-17",
-      "category": "新药审批"
-    },
-    {
-      "title": "浙江省肿瘤医院启动225Ac-PSMA靶向α核素治疗晚期前列腺癌国际多中心临床研究",
-      "summary": "浙江省肿瘤医院核医学科正式启动225Ac-PSMA靶向α核素治疗国际多中心临床研究，并完成浙江首例患者给药，标志着α核素治疗正式进入临床研究阶段",
-      "url": "https://www.ccnta.cn/article/25666.html",
-      "source": "中国核技术网",
-      "date": "2026-06-02",
-      "category": "α核素"
-    },
-    {
-      "title": "先通药业XTR022(225Ac-XT381)亮相ASCO 2026，PSA50缓解率76.9%",
-      "summary": "先通药业自主研发的α粒子放射性配体疗法XTR022在ASCO 2026壁报展示，PSMA阳性mCRPC患者PSA50缓解率76.9%，ORR 33.3%",
-      "url": "https://c.m.163.com/news/a/KUE6TFOB05118K9D.html",
-      "source": "ASCO 2026/先通药业",
-      "date": "2026-06-02",
-      "category": "α核素"
-    },
-    {
-      "title": "ASCO 2026：诺华225Ac-PSMA首个人体试验数据发布",
-      "summary": "诺华在ASCO 2026公布首个人体225Ac-PSMA剂量递增结果(AcTION试验)，mCRPC患者PSA水平下降及影像学缓解，安全性可控，支持α核素RLT继续推进临床开发",
-      "url": "https://c.m.163.com/news/a/KUE6TFOB05118K9D.html",
-      "source": "ASCO 2026/诺华",
-      "date": "2026-06-02",
-      "category": "α核素"
-    },
-    {
-      "title": "177Lu-前列地尔前列腺癌诊疗应用",
-      "summary": "177Lu标记前列地尔在前列腺癌诊疗中的应用研究，为转移性前列腺癌核素治疗提供新方案",
-      "url": "https://chinanm.cma.org.cn/art/2024/12/31/art_1367_59555.html",
-      "source": "中华医学会核医学分会",
-      "date": "2026-06-08",
-      "category": "诊疗一体化"
-    },
-    {
-      "title": "神经内分泌肿瘤177Lu-PSMA诊疗一体化临床应用",
-      "summary": "177Lu-PSMA在神经内分泌肿瘤诊疗一体化中的临床应用，实现精准诊断与靶向治疗双重目标",
-      "url": "https://chinanm.cma.org.cn/art/2024/12/31/art_1367_59560.html",
-      "source": "中华医学会核医学分会",
-      "date": "2026-06-08",
-      "category": "诊疗一体化"
-    },
-    {
-      "title": "阳光诺和核药赛道突破：氟[18F]代雌二醇注射液临床试验申请获受理",
-      "summary": "阳光诺和控股子公司诺核动力研发的氟[18F]代雌二醇注射液临床试验申请获NMPA受理，用于复发或转移性乳腺癌患者ER阳性病灶检测。",
-      "url": "https://c.m.163.com/news/a/KUT3CA5S05565EU3.html",
-      "source": "网易",
-      "date": "2026-06-08",
-      "category": "国产核药"
-    },
-    {
-      "title": "诺华浙江海盐放射性药物生产基地计划2026年底投产",
-      "summary": "诺华在浙江海盐投资建设放射性药物生产基地，计划2026年底投产，利用秦山核电177Lu生产能力，保障Pluvicto®在中国市场的稳定供应。",
-      "url": "http://m.toutiao.com/group/7648920875143676450/",
-      "source": "今日头条/医药魔方",
-      "date": "2026-06-08",
-      "category": "产业动态"
-    },
-    {
-      "title": "吉伦泰¹⁷⁷Lu-AB-3PRGD2靶向整合素αvβ3治疗晚期实体瘤",
-      "summary": "吉伦泰自主研发靶向整合素αvβ3的治疗核药¹⁷⁷Lu-AB-3PRGD2在ASCO 2026口头报告，50%达SD，20%达PR，中位PFS 6.4个月，已启动1类创新药申报。",
-      "url": "http://www.baiyyy.com/news/details/471.html",
-      "source": "ASCO 2026/吉伦泰",
-      "date": "2026-06-03",
-      "category": "β核素"
-    },
-    {
-      "title": "ASCO 2026: α核素引爆！从β到α，中国核药抢占全球风口",
-      "summary": "ASCO 2026会议上，诺华公布225Ac-PSMA首个人体试验数据，中国先通药业的225Ac-XT381也公布临床数据，PSA50缓解率达76.9%。",
-      "url": "https://m.sohu.com/a/1031070068_133140/",
-      "source": "搜狐",
-      "date": "2026-06-02",
-      "category": "诊疗一体化"
-    },
-    {
-      "title": "ASCO 2026: 诺华225Ac-PSMA首次人体试验数据发布",
-      "summary": "诺华在ASCO 2026公布首个人体225Ac-PSMA剂量递增结果（AcTION试验），mCRPC患者PSA水平下降及影像学缓解，安全性可控，支持α核素RLT继续推进临床开发。",
-      "url": "https://c.m.163.com/news/a/KUE6TFOB05118K9D.html",
-      "source": "ASCO 2026/诺华",
-      "date": "2026-06-02",
-      "category": "α核素"
-    },
-    {
-      "title": "先通药业XTR022（225Ac-XT381）亮相ASCO 2026，PSA50缓解率76.9%",
-      "summary": "先通药业自主研发的α粒子放射性配体疗法XTR022在ASCO 2026壁报展示，PSMA阳性mCRPC患者PSA50缓解率76.9%，PSA90缓解率38.5%，ORR 33.3%。",
-      "url": "https://c.m.163.com/news/a/KUE6TFOB05118K9D.html",
-      "source": "ASCO 2026/先通药业",
-      "date": "2026-06-02",
-      "category": "α核素"
-    },
-    {
-      "title": "Novel PRRT approach shows promise in advanced neuroendocrine tumors",
-      "summary": "SNMMI 2026会议上公布的新型PRRT研究显示，225Ac-DOTA-LM3在晚期神经内分泌肿瘤患者中显示出可控的安全性和令人鼓舞的抗肿瘤活性。",
-      "url": "https://www.news-medical.net/news/20260531/Novel-PRRT-approach-shows-promise-in-advanced-neuroendocrine-tumors.aspx",
-      "source": "News-Medical",
-      "date": "2026-05-31",
-      "category": "国际新药"
-    },
-    {
-      "title": "诺宇医药68Ga-NY108启动前列腺癌III期临床试验",
-      "summary": "诺宇医药正式启动68Ga-NY108针对前列腺癌的III期临床试验，该探针通过高特异性配体实现病灶精准显像与分期评估，进入患者入组准备阶段。",
-      "url": "https://www.cyagen.cn/drug-discovery-news/prostate-cancer-radiopharmaceutical-progress",
-      "source": "赛业生物/诺宇医药",
-      "date": "2026-05-30",
-      "category": "新药临床"
-    },
-    {
-      "title": "Molecular Targeting Technologies Reports Clinical Data Supporting Two-Cycle EBTATE",
-      "summary": "MTTI公司在SNMMI 2026上报告了新一代PRRT药物177Lu-DOTA-EB-TATE的临床数据，显示仅两个治疗周期即可获得有意义的临床应答。",
-      "url": "https://www.biospace.com/press-releases/molecular-targeting-technologies-reports-clinical-data-supporting-two-cycle-ebtate-and-enhanced-tumor-targeting-in-gep-net-patients-at-snmmi-2026",
-      "source": "BioSpace",
-      "date": "2026-05-28",
-      "category": "国际新药"
-    },
-    {
-      "title": "核药风起 超80家本土企业加速卡位",
-      "summary": "国内核药领域企业已增至超80家，行业管线布局持续丰富，截至2026年5月，国内备案的核药临床试验超110项。",
-      "url": "http://m.toutiao.com/group/7644756264093794843/",
-      "source": "财联社",
-      "date": "2026-05-28",
-      "category": "行业综述"
-    },
-    {
-      "title": "核药临床策略分会：从经验给药走向精准定量时代",
-      "summary": "核药临床策略分会汇聚复旦中山石洪成、西南医科大陈跃、联影周云等专家，围绕剂量学个体化、联合治疗模式、新适应症探索等关键议题深入讨论，177Lu/225Ac临床转化成焦点",
-      "url": "https://rs.yiigle.com/cmaid/1679688",
-      "source": "中华医学会核医学分会",
-      "date": "2026-05-27",
-      "category": "诊疗一体化"
-    },
-    {
-      "title": "核药百年蜕变，如何成为精准医疗的核心支柱",
-      "summary": "综述分析了核药百年发展历程，指出诊断同位素领域形成非金属与金属同位素双轨并行格局，诊疗一体化成为核医学核心发展趋势。",
-      "url": "https://m.xianjichina.com/special/detail_603643.html",
-      "source": "贤集网",
-      "date": "2026-05-26",
-      "category": "行业综述"
-    },
-    {
-      "title": "临床核素治疗选择：90Y与177Lu的适应症界定与场景适配",
-      "summary": "从核药CRO视角分析90Y与177Lu两种主流β核素的物理特性差异、适用场景及联合策略，90Y诱导减瘤+177Lu维持联合方案中位PFS达64个月。",
-      "url": "https://www.unionclin.com/News/536.html",
-      "source": "临影医疗/联合临床",
-      "date": "2026-05-25",
-      "category": "β核素"
-    },
-    {
-      "title": "68Ga-DOTATATE注射液质量控制规范（团体标准征求意见稿）",
-      "summary": "中国同位素与辐射行业协会发布68Ga-DOTATATE注射液质量控制规范征求意见稿，规定放射化学纯度不低于95%、放射性浓度不小于25MBq/mL等技术指标。",
-      "url": "https://m.chemicalbook.com/SupplierNews_378982.htm",
-      "source": "中国同位素与辐射行业协会",
-      "date": "2026-05-20",
-      "category": "标准规范"
-    },
-    {
-      "title": "New PSMAddition data show 58% lower risk of PSA progression with Pluvicto",
-      "summary": "诺华公布的PSMAddition研究数据显示，Pluvicto联合标准护理治疗转移性激素敏感性前列腺癌，PSA进展风险降低58%，预计2026年下半年获得监管批准。",
-      "url": "https://www.novartis.com/news/media-releases/new-psmaddition-data-show-58-lower-risk-psa-progression-pluvicto-metastatic-hormone-sensitive-prostate-cancer",
-      "source": "Novartis",
-      "date": "2026-05-17",
-      "category": "新药审批"
-    },
-    {
-      "title": "国家药监局2025年批准6个品种放射性药品",
-      "summary": "2025年度药品审评报告显示全年批准6个品种放射性药品，创新药审评审批持续提速。",
-      "url": "http://m.toutiao.com/group/7640368837795316274/",
-      "source": "新京报",
-      "date": "2026-05-16",
-      "category": "新药审批"
-    },
-    {
-      "title": "中国散裂中子源实现Ac-225、Ra-223、Pb-212居里级量产",
-      "summary": "中科院高能所团队攻克α同位素分离纯化核心技术，国际首次实现锕-225、镭-223、铅-212居里级量产，核纯度超99%，结束我国高端抗癌核药原料依赖进口历史。",
-      "url": "https://m.chemicalbook.com/SupplierNews_378982.htm",
-      "source": "Chemical Book/中科院高能所",
-      "date": "2026-05-14",
-      "category": "核素生产"
-    },
-    {
-      "title": "中核集团10MeV超紧凑医用回旋加速器研制成功",
-      "summary": "中核集团原子能院研制成功国内首台10MeV超紧凑医用回旋加速器，可直接部署于医院核医学科，生产F-18、Ga-68、C-11等短寿命同位素，推动'一县一科'落地。",
-      "url": "https://m.chemicalbook.com/SupplierNews_378982.htm",
-      "source": "Chemical Book/中核集团",
-      "date": "2026-05-14",
-      "category": "核素生产"
-    },
-    {
-      "title": "瑞迪奥医药研发的我国首个广谱肿瘤SPECT显像1类创新核药获批",
-      "summary": "2026年4月2日，佛山瑞迪奥医药申报的锝[99mTc]佩昔瑞特加肽注射液正式获得NMPA批准上市，这是我国首个自主研发的广谱肿瘤SPECT显像1类创新核药。",
-      "url": "https://www.cira.net.cn/news/show-4717.html",
-      "source": "中国同位素与辐射行业协会",
-      "date": "2026-04-02",
-      "category": "国产核药"
-    },
-    {
-      "title": "核药创新进展与诊疗一体化展望（2025年）",
-      "summary": "该综述系统梳理了2025年全球及中国放射性药物领域在诊疗一体化深化背景下的关键进展与演进趋势。",
-      "url": "https://lifescience.sinh.ac.cn/webadmin/upload/20260422085806_4089_6015.pdf",
-      "source": "生命科学通报",
-      "date": "2026-02-01",
-      "category": "诊疗一体化"
-    },
-    {
-      "title": "诺华派威妥（177Lu-PSMA）双适应症在中国获批",
-      "summary": "诺华公司放射配体疗法药物派威妥（镥[177Lu]特昔维匹肽注射液）获国家药监局批准两个适应症，用于PSMA阳性转移性去势抵抗性前列腺癌。",
-      "url": "http://www.cnr.cn/shanghai/rdzt/nhjbh/zbhd/20251213/t20251213_527458622.shtml",
-      "source": "央广网",
-      "date": "2025-12-13",
-      "category": "新药审批"
-    },
-    {
-      "title": "68Ga与177Lu标记Nectin4抗体片段的诊疗一体化研究",
-      "summary": "EANM 2025发布的研究首次开发以Nectin4为靶点的放射性诊疗探针，实现非侵入性肿瘤监测与精准放疗。",
-      "url": "https://www.medsci.cn/article/show_article.do?id=8ff889951885",
-      "source": "EANM 2025",
-      "date": "2025-09-28",
-      "category": "诊疗一体化"
-    },
-    {
-      "title": "靶向α疗法225Ac-PSMA-617在mCRPC中的研究进展",
-      "summary": "225Ac-PSMA-617在转移性去势抵抗性前列腺癌患者中显示91% PSA下降率和15个月中位生存期。",
-      "url": "https://m.ebiotrade.com/newsf/2025-9/20250920011108057.htm",
-      "source": "Frontiers in Oncology",
-      "date": "2025-09-20",
-      "category": "靶向治疗"
-    },
-    {
-      "title": "177Lu-PSMA-617中国专家共识发布",
-      "summary": "中国医师协会泌尿外科医师分会、核医学医师分会联合发布177Lu-PSMA放射性配体疗法治疗前列腺癌安全管理中国专家共识。",
-      "url": "https://chinanm.cma.org.cn/art/2025/7/10/art_1367_60033.html",
-      "source": "中华泌尿外科杂志",
-      "date": "2025-07-10",
-      "category": "靶向治疗"
-    },
-    {
-      "title": "FDA expands Pluvicto's metastatic castration-resistant prostate cancer indication",
-      "summary": "2025年3月28日，FDA批准Pluvicto扩展适应症，用于仅接受过ARPI治疗的PSMA阳性mCRPC患者，标志着该药进入更早治疗线。",
-      "url": "https://www.fda.gov/drugs/resources-information-approved-drugs/oncology-cancerhematologic-malignancies-approval-notifications",
-      "source": "FDA",
-      "date": "2025-03-28",
-      "category": "新药审批"
-    },
-    {
-      "title": "68Ga-DOTATATE联合18F-FDG诊疗一体化在神经内分泌肿瘤中的应用",
-      "summary": "研究证实68Ga-DOTATATE联合18F-FDG双时相显像可提高神经内分泌肿瘤的诊断准确率。",
-      "url": "https://chinanm.cma.org.cn/art/2025/3/22/art_1367_59901.html",
-      "source": "中华核医学与分子影像杂志",
-      "date": "2025-03-22",
-      "category": "诊疗一体化"
-    },
-    {
-      "title": "国务院优化放射性药品审评审批政策",
-      "summary": "国务院办公厅发布意见，对临床急需的放射性药品予以优先审评审批，加快创新药械上市。",
-      "url": "https://www.gov.cn/gongbao/2025/issue_11806/202501/content_6999388.html",
-      "source": "中国政府网",
-      "date": "2025-01-20",
-      "category": "新药审批"
-    },
-    {
-      "title": "177Lu-EB-FAPI放射配体治疗为碘难治性甲状腺癌提供新策略",
-      "summary": "厦门大学附属第一医院研究首次验证177Lu-EB-FAPI在转移性碘难治性甲状腺癌患者中的安全性、可行性和初步疗效。",
-      "url": "https://www.xmfh.com.cn/info/3849/14376.htm",
-      "source": "Clinical Cancer Research",
-      "date": "2023-11-13",
-      "category": "核素治疗"
-    }
-  ],
-  "update_time": "2026-06-09"
-},
-  equipment: {
-  "categories": [
-    "新装机信息",
-    "配置许可",
-    "设备升级",
-    "投入运营"
-  ],
-  "items": [
-    {
-      "title": "海尔医疗'开泰'PET-CT获NMPA批准上市",
-      "summary": "海尔医疗历时四年研发的旗舰产品'开泰'超高端全数字化PET-CT于2026年5月24日获得NMPA注册批准，型号HR-PET/CT-5800，已在全国5家三甲医院完成多中心临床试验",
-      "url": "http://www.sqrb.com.cn/wyvahHXW/news/index.htm",
-      "source": "商丘网/行业分析",
-      "date": "2026-06-03",
-      "category": "新装机信息"
-    },
-    {
-      "title": "联影医疗PET-CT产品已进入沙特和阿联酋27家顶级医院",
-      "summary": "联影医疗产品已覆盖全球超过100个国家的16400余家医疗机构，PET-CT设备已进入中东沙特和阿联酋27家顶级医院，2026年Q1中东销售额同比增长89%",
-      "url": "http://m.toutiao.com/group/7647001338098631220/",
-      "source": "壹店臻选/行业分析",
-      "date": "2026-06-03",
-      "category": "装机动态"
-    },
-    {
-      "title": "武汉大学中南医院PET-CT采购项目公开招标，预算8500万元",
-      "summary": "武汉大学中南医院核医学科PET/CT采购项目公开招标，采购预算8500万元，要求设备具备全身动态采集能力，降低患者辐射剂量",
-      "url": "https://www.ccgp-hubei.gov.cn/notice/202606/notice_44b30e175ff549cb925234a400b75542.html",
-      "source": "湖北省政府采购网",
-      "date": "2026-06-04",
-      "category": "招标采购"
-    },
-    {
-      "title": "成都市温江区人民医院核医学科设备采购项目废标后重新招标",
-      "summary": "采购预算876.9万元，包括医用电子生理参数检测仪器、核医学诊断设备及介入诊断治疗用器械，合同包1因通过符合性审查投标人不足3家废标，需重新开展采购活动",
-      "url": "http://www.ccgp.gov.cn/cggg/dfgg/qtgg/202606/t20260608_26707872.htm",
-      "source": "中国政府采购网",
-      "date": "2026-06-08",
-      "category": "招标采购"
-    },
-    {
-      "title": "联影uMI Panorama GS在新加坡中央医院正式启用",
-      "summary": "联影新一代长轴PET/CT在亚洲排名第一的新加坡中央医院启用，148cm超大轴向视野，180ps级时间分辨率，1.4mm空间分辨率，辐射剂量可降至传统设备1/40",
-      "url": "http://m.toutiao.com/group/7648830908421718537/",
-      "source": "上观新闻/联影医疗",
-      "date": "2026-06-08",
-      "category": "装机启用"
-    },
-    {
-      "title": "中南大学湘雅三医院SPECT/CT手机自助开单服务上线",
-      "summary": "湘雅三医院核医学科创新推出SPECT/CT手机自助开单服务，为长期规律复查患者提供便捷预约通道",
-      "url": "http://www.caonmp.com/#news",
-      "source": "中国医师协会核医学医师分会",
-      "date": "2026-06-08",
-      "category": "投入运营"
-    },
-    {
-      "title": "CZT心脏专用SPECT设备推动核医学心脏成像升级",
-      "summary": "CZT半导体探测器技术应用于心脏专用SPECT设备，实现更高灵敏度和空间分辨率，推动心脏核医学成像技术升级",
-      "url": "https://chinanm.cma.org.cn/art/2024/12/31/art_1367_59562.html",
-      "source": "中华医学会核医学分会",
-      "date": "2026-06-08",
-      "category": "设备升级"
-    },
-    {
-      "title": "联影新一代长轴PET/CT在新加坡中央医院启用",
-      "summary": "联影uMI Panorama GS在新加坡中央医院正式启用，148cm超大轴向视野，180ps级时间分辨率，1.4mm空间分辨率，灵敏度达传统PET/CT数倍，辐射剂量可降至1/40。",
-      "url": "http://m.toutiao.com/group/7648830908421718537/",
-      "source": "上观新闻/联影医疗",
-      "date": "2026-06-08",
-      "category": "装机启用"
-    },
-    {
-      "title": "Total-body PET装机医院全球已超20家",
-      "summary": "联影医疗PET/CT长轴机已在全球装机约20台，主要集中在欧洲、北美和中国的顶尖医院，为临床提供新的诊断视角。",
-      "url": "http://m.toutiao.com/group/7647142926308344339/",
-      "source": "奥普瑞特",
-      "date": "2026-06-04",
-      "category": "装机动态"
-    },
-    {
-      "title": "北京大学人民医院新一代长轴PET/CT正式启用",
-      "summary": "北京大学人民医院核医学科新一代长轴PET/CT设备揭牌，具备更长轴向视野、更高探测灵敏度，全身扫描时间大幅缩短，同时降低显像剂用量和辐射剂量。",
-      "url": "http://m.toutiao.com/group/7646415836115026442/",
-      "source": "北京大学人民医院",
-      "date": "2026-06-01",
-      "category": "装机启用"
-    },
-    {
-      "title": "宁夏医科大学总医院PET-CT保修项目中标公告",
-      "summary": "宁夏医科大学总医院PET-CT保修项目由浙江瑞派医疗科技有限公司中标，中标金额96万元/年，服务期限三年。",
-      "url": "http://www.ccgp.gov.cn/cggg/dfgg/zbgg/202605/t20260518_26583612.htm",
-      "source": "中国政府采购网",
-      "date": "2026-05-18",
-      "category": "招标采购"
-    },
-    {
-      "title": "我国核医学设备整体覆盖不足且难以普惠",
-      "summary": "分析指出PET-CT设备价格昂贵（2000万-5000万元），国内装机量仅有数百台，主要集中在三级以上医院，县级医院核医学科覆盖率极低。",
-      "url": "https://m.36kr.com/p/2370723117213448",
-      "source": "36氪",
-      "date": "2026-05-17",
-      "category": "配置规划"
-    },
-    {
-      "title": "海军特色医学中心全新一代PET-CT正式投入临床使用",
-      "summary": "海军特色医学中心引进全新一代PET-CT设备，搭载数字光导芯平台，2.9mm最优NEMA分辨率、16cps/kBq最高灵敏度，与上海市长宁区医学会联合举办学术研讨会。",
-      "url": "https://m.sohu.com/a/1023101606_121106832/",
-      "source": "搜狐新闻/海军特色医学中心",
-      "date": "2026-05-15",
-      "category": "装机启用"
-    },
-    {
-      "title": "河南科技大学第一附属医院高端PET-CT采购项目中标公告",
-      "summary": "河南科技大学第一附属医院采购西门子Biograph Mission P高端PET-CT一套，中标金额2478万元。",
-      "url": "http://www.ccgp.gov.cn/cggg/dfgg/zbgg/202605/t20260511_26543204.htm",
-      "source": "中国政府采购网",
-      "date": "2026-05-11",
-      "category": "招标采购"
-    },
-    {
-      "title": "打破海外品牌垄断，国产SPECT/CT设备落地广州",
-      "summary": "麓影科技自主研发的SPECT/CT设备在广州增城落地研发生产基地，有望打破进口品牌在国内市场二十余年的垄断。",
-      "url": "http://m.toutiao.com/group/7638056346851525158/",
-      "source": "21世纪经济报道",
-      "date": "2026-05-10",
-      "category": "国产设备"
-    },
-    {
-      "title": "国内首台10MeV超紧凑医用回旋加速器研制成功",
-      "summary": "中核集团中国原子能科学研究院自主研制的国内首台10MeV超紧凑医用回旋加速器成功出束，具备生产氟-18、镓-68、碳-11等多种医用同位素的能力。",
-      "url": "https://www.cira.net.cn/news/show-4717.html",
-      "source": "中国同位素与辐射行业协会",
-      "date": "2026-04-18",
-      "category": "国产设备"
-    },
-    {
-      "title": "台州博爱医院引进台州市首台PET-CT",
-      "summary": "台州博爱医院引进uMI光导数字化PET-CT设备，经调试后正式上线，弥补台州市主城区PET-CT设备空白。",
-      "url": "https://www.bo-ai.com/news_detail.asp?id=4280",
-      "source": "台州博爱医院",
-      "date": "2025-11-17",
-      "category": "新装机信息"
-    },
-    {
-      "title": "河南省人民医院等医疗机构获PET/CT配置许可",
-      "summary": "河南省卫健委批准河南省人民医院新增配置2台PET/CT，河南省肿瘤医院、洛阳市中心医院、三门峡市中心医院各新增配置1台PET/CT。",
-      "url": "https://wsjkw.henan.gov.cn/2025/08-22/3204570.html",
-      "source": "河南省卫生健康委员会",
-      "date": "2025-08-20",
-      "category": "配置许可"
-    },
-    {
-      "title": "广西中医药大学第一附属医院仙葫院区新建PET/CT项目",
-      "summary": "广西中医药大学第一附属医院仙葫院区新建PET/CT应用项目环境影响报告表进行公示，拟配置1套PET/CT设备。",
-      "url": "http://sthjt.gxzf.gov.cn/zfxxgk/zfxxgkgl/fdzdgknr/hjjccf/xzxk/npzxm/P020250923588827766148.pdf",
-      "source": "广西壮族自治区生态环境厅",
-      "date": "2025-08-01",
-      "category": "新装机信息"
-    },
-    {
-      "title": "康复大学青岛中心医院引进西门子Biograph Vision PET-CT",
-      "summary": "康复大学青岛中心医院引进目前青岛市最先进的SIEMENS高端PET-CT设备Biograph Vision，扫描速度比传统设备快3倍。",
-      "url": "https://m.guanhai.com.cn/p/396770.html",
-      "source": "青岛日报社",
-      "date": "2025-07-10",
-      "category": "新装机信息"
-    },
-    {
-      "title": "安徽省启动2025年乙类大型医用设备配置许可审批",
-      "summary": "安徽省卫健委开展2025年乙类大型医用设备配置许可审批工作，涉及PET/MR、PET/CT等设备。",
-      "url": "https://wjw.ah.gov.cn/public/7001/57847611.html",
-      "source": "安徽省卫生健康委员会",
-      "date": "2025-06-03",
-      "category": "配置许可"
-    },
-    {
-      "title": "2025年中国PET-CT新增装机量达1420台",
-      "summary": "据行业统计，2025年国内PET-CT装机量达约1420台，较2024年增长12.7%，其中国产设备新增装机占比达63.4%。",
-      "url": "https://www.docin.com/touch_new/preview_new.do?id=4990232246",
-      "source": "博研咨询",
-      "date": "2025-05-09",
-      "category": "行业统计"
-    },
-    {
-      "title": "重庆医科大学附属第一医院PET/CT项目竣工验收",
-      "summary": "重庆医科大学附属第一医院改建PET/CT、PET/MR项目(PET/CT部分)完成竣工环境保护验收，项目投入运行时间2025年3月14日。",
-      "url": "https://www.hospital-cqmu.com/oss/20250609/192432483.pdf",
-      "source": "重庆医科大学附属第一医院",
-      "date": "2025-05-01",
-      "category": "投入运营"
-    },
-    {
-      "title": "河北医科大学第四医院引进河北省首台联影uEXPLORER PET/CT",
-      "summary": "河北省首台超高端联影全景动态uEXPLORER 2米超长轴PET/CT在河北医科大学第四医院东院区核医学科成功投入使用。",
-      "url": "http://www.hbydsy.com/info/1012/7850.htm",
-      "source": "河北医科大学第四医院",
-      "date": "2025-02-19",
-      "category": "新装机信息"
-    }
-  ],
-  "update_time": "2026-06-09"
-}
+  "guidelines": {
+    "categories": [
+      "中华医学会",
+      "SNMMI",
+      "EANM",
+      "中国核学会",
+      "其他",
+      "JSNM"
+    ],
+    "items": [
+      {
+        "title": "全国首部《瘢痕放射治疗临床应用中国专家共识》在昆正式发布",
+        "summary": "昆明皮肤病专科医院携手129位多学科专家发布全国首部瘢痕放射治疗临床应用中国专家共识，覆盖23个省区61位审评专家，明确术后24-72小时早期干预、安全剂量上限等技术参数",
+        "url": "https://www.ccwb.cn/content/202606/08/c886828.html",
+        "source": "开屏新闻/昆明皮肤病专科医院",
+        "date": "2026-06-08",
+        "category": "其他"
+      },
+      {
+        "title": "NICE Guideline on 99mTc-Sestamibi SPECT/CT in Kidney Cancer (NG256)",
+        "summary": "英国国家卫生与临床优化研究所(NICE)发布肾脏癌症诊断与管理指南，推荐99mTc-sestamibi SPECT/CT用于不确定肾占位的评估",
+        "url": "https://www.nice.org.uk/guidance/ng256",
+        "source": "NICE",
+        "date": "2026-06-04",
+        "category": "国际指南"
+      },
+      {
+        "title": "分化型甲状腺癌术后核医学诊疗临床路径总结2026",
+        "summary": "中华医学会核医学分会发布2026版临床路径，由49位多学科专家参与制订，分为DTC术后动态评估、核医学诊疗决策、随访管理及RAIR-DTC治疗等模块",
+        "url": "https://m.book118.com/html/2026/0603/8116025140010076.shtm",
+        "source": "中华医学会核医学分会",
+        "date": "2026-06-04",
+        "category": "中国指南"
+      },
+      {
+        "title": "临床核医学辐射安全专家共识",
+        "summary": "我国核医学行业首次对临床核医学诊疗工作中的辐射与安全进行的系统论述，为辐射防护提供规范指导",
+        "url": "https://chinanm.cma.org.cn/attach/0/17d0c8d455974169a33120df9b17ab43.pdf",
+        "source": "微雅集/中华医学会核医学分会",
+        "date": "2026-06-08",
+        "category": "中国指南"
+      },
+      {
+        "title": "肺结节18F-FDG PET/CT应用规范与共识",
+        "summary": "肺结节18F-FDG PET/CT临床应用规范与共识，规范肺结节良恶性鉴别诊断流程及PET/CT报告标准",
+        "url": "https://chinanm.cma.org.cn/art/2024/12/31/art_1367_59561.html",
+        "source": "中华医学会核医学分会",
+        "date": "2026-06-08",
+        "category": "中国指南"
+      },
+      {
+        "title": "CZT心脏专用SPECT临床应用规范与共识",
+        "summary": "CZT半导体探测器心脏专用SPECT临床应用规范与共识，推动心脏核医学技术规范化发展",
+        "url": "https://chinanm.cma.org.cn/art/2024/12/31/art_1367_59562.html",
+        "source": "中华医学会核医学分会",
+        "date": "2026-06-08",
+        "category": "中国指南"
+      },
+      {
+        "title": "淋巴瘤PET-CT及PET/MR应用指南",
+        "summary": "淋巴瘤PET-CT及PET/MR临床应用指南，为淋巴瘤分期和疗效评估提供规范化指导，涵盖Lugano分类标准",
+        "url": "https://chinanm.cma.org.cn/art/2025/2/25/art_1367_59657.html",
+        "source": "中华医学会核医学分会",
+        "date": "2026-06-08",
+        "category": "中国指南"
+      },
+      {
+        "title": "放射性药品生产检查指南",
+        "summary": "放射性药品生产检查指南发布，加强放射性药物生产质量监管，保障放射性药品安全性和有效性",
+        "url": "https://chinanm.cma.org.cn/art/2025/2/25/art_1367_59660.html",
+        "source": "中华医学会核医学分会",
+        "date": "2026-06-08",
+        "category": "其他"
+      },
+      {
+        "title": "前列腺癌PSMA PET/CT应用指南",
+        "summary": "前列腺癌PSMA PET/CT临床应用指南，规范PSMA显像在前列腺癌诊疗中的应用，涵盖适应症、显像方案和结果判读",
+        "url": "https://chinanm.cma.org.cn/art/2025/7/17/art_1367_60053.html",
+        "source": "中华医学会核医学分会",
+        "date": "2026-06-08",
+        "category": "中国指南"
+      },
+      {
+        "title": "PSMA临床应用指南解读：前列腺癌的放射性核素靶向治疗",
+        "summary": "中华医学会核医学分会骨干培训班专题解读前列腺癌PSMA临床应用指南，涵盖PSMA PET/CT显像及177Lu-PSMA放射配体治疗规范",
+        "url": "https://www.cma.org.cn/art/2026/5/27/art_33_60636.html",
+        "source": "中华医学会",
+        "date": "2026-05-27",
+        "category": "中国指南"
+      },
+      {
+        "title": "GB/T 16148-2026 放射性核素摄入量及内照射剂量估算方法",
+        "summary": "该标准规定了放射性核素摄入量及内照射剂量估算的方法，替代GB/T 16148-2009。",
+        "url": "http://www.csres.com/detail/453593.html",
+        "source": "国家标准化管理委员会",
+        "date": "2026-05-25",
+        "category": "其他"
+      },
+      {
+        "title": "GB/T 20013-2025核医学仪器 例行试验 第1部分:γ辐射计数系统",
+        "summary": "该国家标准规定了核医学仪器中γ辐射计数系统的例行试验方法，包括能量分辨率测试、计数率线性测试等技术要求。",
+        "url": "https://m.book118.com/html/2026/0521/8041054127010073.shtm",
+        "source": "国家标准",
+        "date": "2026-05-22",
+        "category": "其他"
+      },
+      {
+        "title": "首部rhTSH临床应用中国专家共识发布",
+        "summary": "中国医师协会核医学医师分会发布首部rhTSH临床应用中国专家共识，助力分化型甲状腺癌规范化临床诊疗，明确rhTSH在诊断和治疗中的应用场景与操作规范。",
+        "url": "http://www.caonmp.com/index.html",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-05-12",
+        "category": "中国指南"
+      },
+      {
+        "title": "2025版ATA指南更新：甲状腺癌术后TSH抑制治疗进入精准个体化时代",
+        "summary": "2025版ATA指南对甲状腺癌术后TSH抑制治疗进行更新，强调精准个体化策略，避免过度抑制或不足。",
+        "url": "http://www.caonmp.com/index.html",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-05-11",
+        "category": "国际指南"
+      },
+      {
+        "title": "分化型甲状腺癌术后核医学诊疗临床路径（2026版）",
+        "summary": "《分化型甲状腺癌术后核医学诊疗临床路径（2026版）》正式发布，为甲状腺癌术后核医学诊疗提供标准化临床路径指导。",
+        "url": "http://www.caonmp.com/index.html",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-04-23",
+        "category": "中国指南"
+      },
+      {
+        "title": "Joint EANM/SNMMI Recommendations on Tau PET Imaging in Alzheimer's Disease",
+        "summary": "EANM与SNMMI联合发布Tau PET在阿尔茨海默病中的应用推荐，为Tau PET成像在AD诊断和随访中的临床应用提供专家共识指导。",
+        "url": "https://eanm.org/publications/guidelines/overview/central-nervous-system/",
+        "source": "EANM/SNMMI",
+        "date": "2026-03-30",
+        "category": "国际指南"
+      },
+      {
+        "title": "神经内分泌肿瘤核素诊疗一体化临床应用专家共识(2025)",
+        "summary": "神经内分泌肿瘤核素诊疗一体化临床应用专家共识发布，为NET的核素诊断与治疗提供规范化指导。",
+        "url": "http://www.caonmp.com/index.html",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-03-24",
+        "category": "中国指南"
+      },
+      {
+        "title": "放射性125I粒子植入术后住院及居家辐射防护管理专家共识",
+        "summary": "放射性125I粒子植入术后住院及居家辐射防护管理专家共识发布，规范粒子植入术后辐射防护管理。",
+        "url": "http://www.caonmp.com/index.html",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-02-28",
+        "category": "中国指南"
+      },
+      {
+        "title": "AUC for 18F-FDG PET/CT for Initial Staging of Malignant Disease",
+        "summary": "SNMMI发布18F-FDG PET/CT在恶性肿瘤初始分期中的合理使用标准(AUC)，描述PET/CT在恶性肿瘤初始分期中的适当使用场景和频率，避免不必要的检查。",
+        "url": "https://snmmi.org/common/Uploaded%20files/Web/Clinical%20Practice/Appropriate%20Use%20Criteria/AUC%20for%2018F-FDG%20PET_CT%20for%20Initial%20Staging%20of%20Malignant%20Disease%20Updated%20V2-FINAL.pdf",
+        "source": "SNMMI",
+        "date": "2026-01-23",
+        "category": "国际指南"
+      },
+      {
+        "title": "肺癌骨转移临床诊疗路径专家共识（2025版）",
+        "summary": "肺癌骨转移临床诊疗路径专家共识（2025版）发布，为肺癌骨转移的规范化诊疗提供临床路径指导。",
+        "url": "http://www.caonmp.com/index.html",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2025-12-30",
+        "category": "中国指南"
+      },
+      {
+        "title": "SNMMI/EANM/ACNM Procedure Standard on Molecular Imaging for Renal Mass Characterization",
+        "summary": "该联合指南针对分子影像在肾脏肿块定性诊断中的应用制定了标准操作规范，涵盖PSMA、FAPI等分子探针在肾脏肿瘤诊断中的应用规范。",
+        "url": "https://doi.org/10.2967/jnumed.125.271332",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2025-12-01",
+        "category": "SNMMI"
+      },
+      {
+        "title": "中国儿童癫痫18F-FDG PET脑显像临床应用共识",
+        "summary": "该共识由分子影像专家团队组成共识小组对儿童癫痫F-FDG PET脑显像的患儿准备、药物活度、图像采集、数据处理等提出标准化流程。",
+        "url": "https://nuclmed.medsci.cn/guider?tagId=191312",
+        "source": "中国核学会",
+        "date": "2025-11-10",
+        "category": "中国核学会"
+      },
+      {
+        "title": "2025 SNMMI/EANM/ASNC/ACNM程序标准/实践指南：18F-氟吡啶唑 PET心肌灌注成像及血流定量",
+        "summary": "SNMMI/EANM/ASNC/ACNM联合发布的18F-氟吡啶唑PET心肌灌注成像及血流定量程序标准/实践指南，为心肌灌注成像提供标准化指导。",
+        "url": "https://jnm.snmjournals.org/content/66/10/1538",
+        "source": "SNMMI",
+        "date": "2025-10-22",
+        "category": "SNMMI"
+      },
+      {
+        "title": "EANM/SNMMI Guideline for Paediatric Bone Hybrid Imaging with 99mTc",
+        "summary": "EANM与SNMMI联合发布儿童99mTc标记放射性药物骨杂交成像指南，涵盖儿童骨扫描的适应证、采集、处理和解读，重点关注SPECT/CT。",
+        "url": "https://link.springer.com/article/10.1007/s00259-025-07022-z",
+        "source": "EANM/SNMMI",
+        "date": "2025-10-10",
+        "category": "国际指南"
+      },
+      {
+        "title": "SNMMI/EANM/ACNM Guideline on Molecular Imaging for Renal Mass Characterization",
+        "summary": "SNMMI、EANM和ACNM联合发布指南，为核医学医师和放射科医生提供分子影像无创特征化不确定肾肿块的详细指导，涵盖适应证、显像剂选择和结果解读。",
+        "url": "https://jnm.snmjournals.org/content/early/2025/10/09/jnumed.125.271332",
+        "source": "SNMMI",
+        "date": "2025-10-09",
+        "category": "国际指南"
+      },
+      {
+        "title": "SNMMI/EANM/ASNC/ACNM Procedure Standard/Practice Guideline for 18F-Flurpiridaz PET Myocardial Perfusion Imaging and Blood Flow Quantitation",
+        "summary": "该指南由SNMMI/EANM/ASNC/ACNM联合发布，规定了18F-Flurpiridaz PET心肌灌注显像和血流定量检测的标准操作规范。Flurpiridaz是新一代心肌灌注显像剂，此指南旨在规范其在临床中的应用。",
+        "url": "https://doi.org/10.2967/jnumed.125.270873",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2025-10-01",
+        "category": "SNMMI"
+      },
+      {
+        "title": "EANM Procedure Guidelines for [18F]FDG PET/CT Tumour Imaging v3.0",
+        "summary": "EANM发布FDG PET/CT肿瘤成像程序指南第3版，为成人肿瘤FDG PET/CT成像提供全面操作规范，包括患者准备、采集协议、重建参数、质量控制和定量分析标准。",
+        "url": "https://link.springer.com/article/10.1007/s00259-024-06678-x",
+        "source": "EANM",
+        "date": "2025-09-23",
+        "category": "国际指南"
+      },
+      {
+        "title": "Recommendations for Standardizing Nuclear Medicine Terminology and Data in the Era of Theranostics and AI",
+        "summary": "该专家建议文件旨在推动核医学术语和数据的标准化，以适应诊疗一体化和人工智能时代的到来，为规范行业术语和数据格式提供指导。",
+        "url": "https://doi.org/10.2967/jnumed.124.269424",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2025-09-01",
+        "category": "EANM"
+      },
+      {
+        "title": "前列腺癌PSMA PET显像临床应用中国专家共识(2025版)",
+        "summary": "中华医学会核医学分会发布的前列腺癌PSMA PET显像临床应用中国专家共识，为PSMA PET显像的临床应用提供规范化指导。",
+        "url": "https://chinanm.cma.org.cn/art/2025/7/17/art_1367_60053.html",
+        "source": "中华医学会核医学分会",
+        "date": "2025-07-17",
+        "category": "中华医学会"
+      },
+      {
+        "title": "177Lu-PSMA放射性配体疗法治疗前列腺癌临床应用专家共识",
+        "summary": "中国专家共识针对177Lu-PSMA放射性配体疗法治疗前列腺癌的临床应用进行规范，涵盖患者筛选、治疗方案、安全性管理等内容。",
+        "url": "http://hncis.wsjkw.henan.gov.cn/heyi/channels/298.html",
+        "source": "河南省核医学质量控制中心",
+        "date": "2025-07-03",
+        "category": "中华医学会"
+      },
+      {
+        "title": "SNMMI/ACNM Guideline for Post-Treatment Imaging of 177Lu-based Radiopharmaceutical Therapies",
+        "summary": "SNMMI与ACNM联合发布177Lu放射性药物治疗后的SPECT/CT成像指南，为接受177Lu标记放射性药物治疗的患者建立治疗后成像的具体推荐标准。",
+        "url": "https://captions.snmmi.org/common/Uploaded%20files/Web/Clinical%20Practice/Procedure%20Standards/2025/Post%20Treatment%20Imaging%20with%20Lu177-JNM%20Summary.pdf",
+        "source": "SNMMI",
+        "date": "2025-06-20",
+        "category": "国际指南"
+      },
+      {
+        "title": "SNMMI/EANM/ASNC/ACNM Guideline for 18F-Flurpiridaz PET Myocardial Perfusion Imaging",
+        "summary": "SNMMI联合EANM等发布18F-Flurpiridaz PET心肌灌注成像指南，涵盖患者选择、成像方案和结果解读推荐，为核心脏病学实践提供新显像剂使用标准。",
+        "url": "https://jnm.snmjournals.org/content/66/10/1538",
+        "source": "SNMMI",
+        "date": "2025-05-22",
+        "category": "国际指南"
+      },
+      {
+        "title": "神经内分泌肿瘤核素诊疗一体化临床应用专家共识(2025版)",
+        "summary": "由中华医学会核医学分会等机构发布的神经内分泌肿瘤核素诊疗一体化临床应用专家共识，阐述了NENs核素诊疗的适应证及实施规范，为核素显像和治疗提供标准化应用程序。",
+        "url": "https://chinanm.cma.org.cn/module/download/downfile.jsp?classid=0&filename=1db40a99d3f24405a9cc878e2922dbb4.pdf",
+        "source": "中华医学会核医学分会",
+        "date": "2025-03-22",
+        "category": "中华医学会"
+      },
+      {
+        "title": "淋巴瘤PET/CT及PET/MR显像临床应用指南(2025版)",
+        "summary": "该指南对2021版指南进行了更新，旨在规范分子影像技术在淋巴瘤诊疗全流程中的合理应用，为临床提供统一、可靠的评估依据。",
+        "url": "https://www.ccnta.cn/article/23925.html",
+        "source": "中华医学会核医学分会",
+        "date": "2025-02-05",
+        "category": "中华医学会"
+      },
+      {
+        "title": "SNMMI/ACNM Practice Guideline for the Use of Radiopharmaceuticals 5.0",
+        "summary": "SNMMI放射性药物使用实践指南第5版，指导核医学专业人员建立诊断性核医学、PET和治疗性核医学中放射性药物使用的政策与程序，涵盖FDA法规合规要求。",
+        "url": "https://tech.snmjournals.org/content/early/2025/04/01/jnmt.125.269834.full",
+        "source": "SNMMI",
+        "date": "2025-01-13",
+        "category": "国际指南"
+      },
+      {
+        "title": "2025 EANM/EANO/RANO/SNMMI实践指南：脑转移瘤PET成像",
+        "summary": "欧洲核医学协会等机构联合发布的脑转移瘤PET成像实践指南，为脑转移患者的PET成像执行、解释和报告提供指导。",
+        "url": "https://www.eanm.org/publications/guidelines",
+        "source": "EANM",
+        "date": "2025-01-08",
+        "category": "EANM"
+      },
+      {
+        "title": "Updated AUC for Amyloid and Tau PET (SNMMI/Alzheimer's Association)",
+        "summary": "SNMMI与阿尔茨海默病协会联合更新淀粉样蛋白和Tau PET合理使用标准，整合近十年纵向队列研究证据，定义17个临床场景下amyloid和tau PET的适当性评级。",
+        "url": "https://alz-journals.onlinelibrary.wiley.com/doi/full/10.1002/alz.14338",
+        "source": "SNMMI",
+        "date": "2025-01-08",
+        "category": "国际指南"
+      },
+      {
+        "title": "EANM/EANO/RANO/SNMMI Guideline for PET Imaging of Brain Metastases v1.0",
+        "summary": "EANM、EANO、RANO和SNMMI联合发布脑转移瘤PET成像指南，涵盖氨基酸PET和FDG PET在脑转移瘤中的推荐、操作、解读和报告标准，为多学科诊疗提供循证依据。",
+        "url": "https://link.springer.com/article/10.1007/s00259-024-06858-5",
+        "source": "SNMMI/EANM",
+        "date": "2025-01-07",
+        "category": "国际指南"
+      },
+      {
+        "title": "SNMMI/EANM/F-18-FDG PET脑成像操作标准/临床实践指南(第二版)",
+        "summary": "SNMMI和EANM联合发布的脑F-FDG PET成像操作标准第二版，纳入了数字PET、混合PET/MR系统等新技术进展。",
+        "url": "https://jnm.snmjournals.org/content/66/supplement_2/S45",
+        "source": "SNMMI",
+        "date": "2025-01-01",
+        "category": "SNMMI"
+      },
+      {
+        "title": "成纤维细胞活化蛋白(FAP)PET显像程序标准/临床实践指南",
+        "summary": "SNMMI和EANM联合发布的FAP PET显像程序标准，为FAP靶向PET显像的临床应用提供规范化指导。",
+        "url": "https://jnm.snmjournals.org/content/66/1/26",
+        "source": "SNMMI",
+        "date": "2025-01-01",
+        "category": "EANM"
+      },
+      {
+        "title": "EANM Guidelines on [18F]FDG PET/CT in Plasma Cell Disorders",
+        "summary": "EANM发布18F-FDG PET/CT在浆细胞疾病诊断、分期、预后评估、疗效评价和再分期中的应用指南，为多发性骨髓瘤等浆细胞疾病的PET成像提供标准。",
+        "url": "https://link.springer.com/article/10.1007/s00259-024-06858-9",
+        "source": "EANM",
+        "date": "2024-11-05",
+        "category": "国际指南"
+      },
+      {
+        "title": "Best Patient Care Practices for Administering PSMA-Targeted Radiopharmaceutical Therapy",
+        "summary": "该指南文件总结了PSMA靶向放射性药物治疗的最佳患者护理实践，为临床护理操作提供规范指导。",
+        "url": "https://doi.org/10.2967/jnumed.124.268363",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2024-11-01",
+        "category": "SNMMI"
+      },
+      {
+        "title": "SNMMI/EANM Practice Guideline for Brain [18F]FDG PET Imaging v2.0",
+        "summary": "SNMMI与EANM联合发布脑18F-FDG PET成像实践指南第2版，为脑FDG PET在神经退行性疾病、癫痫和脑肿瘤中的应用提供更新的操作和解读标准。",
+        "url": "https://jnm.snmjournals.org/content/66/Supplement_2/S45.full",
+        "source": "EANM/SNMMI",
+        "date": "2024-10-17",
+        "category": "国际指南"
+      },
+      {
+        "title": "EANM/SNMMI Guideline for 18F-FDG Hybrid PET in Infection and Inflammation v2.0",
+        "summary": "EANM与SNMMI联合发布18F-FDG混合PET在成人感染和炎症中应用指南第2版，修订和更新了FDG PET/CT在感染和炎症疾病中的适应证和方案。",
+        "url": "https://link.springer.com/article/10.1007/s00259-024-06915-3",
+        "source": "EANM/SNMMI",
+        "date": "2024-10-10",
+        "category": "国际指南"
+      },
+      {
+        "title": "SNMMI/EANM Practice Guideline for FAP PET Imaging",
+        "summary": "SNMMI与EANM联合发布成纤维细胞活化蛋白(FAP) PET成像指南，涵盖FAP PET的适应证、采集方案、图像解读和报告标准，为新型FAP靶向显像剂的临床应用提供规范。",
+        "url": "https://captions.snmmi.org/common/Uploaded%20files/Web/Clinical%20Practice/Procedure%20Standards/2024/SNMMI_%20EANM%20FAP%20PET%20Procedure%20Standard.pdf",
+        "source": "SNMMI/EANM",
+        "date": "2024-10-04",
+        "category": "国际指南"
+      },
+      {
+        "title": "Joint EANM-SNMMI Guideline on 2-18F-FDG PET/CT in Breast Cancer",
+        "summary": "EANM与SNMMI联合发布18F-FDG PET/CT在非特殊类型乳腺癌中的应用指南，获ACR、ESSO、ESTRO等多学会认可，涵盖诊断、分期和疗效评估。",
+        "url": "https://link.springer.com/article/10.1007/s00259-024-06696-9",
+        "source": "EANM/SNMMI",
+        "date": "2024-09-01",
+        "category": "国际指南"
+      },
+      {
+        "title": "Clinical Practice Guidelines for 18F-Fluciclovine 2024 (JSNM)",
+        "summary": "日本核医学会发布18F-Fluciclovine临床实践指南2024版，为该新型脑肿瘤PET显像剂的临床应用提供设施标准、成像方案、图像解读和报告规范。",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12378485/",
+        "source": "JSNM",
+        "date": "2024-09-01",
+        "category": "国际指南"
+      },
+      {
+        "title": "淀粉样蛋白PET脑显像技术规范专家共识",
+        "summary": "中华医学会核医学分会与北京认知神经科学学会联合发布淀粉样蛋白PET脑显像技术规范专家共识，为阿尔茨海默病早期诊断提供技术支撑。",
+        "url": "https://cmab.yiigle.com/uploads/guide_html/淀粉样蛋白PET脑显像技术规范专家共识.html",
+        "source": "中华医学会核医学分会",
+        "date": "2024-07-12",
+        "category": "其他"
+      },
+      {
+        "title": "EANM Practice Guidelines for PET and SPECT for Patients with Epilepsy",
+        "summary": "EANM发布癫痫患者PET和SPECT应用实践指南，为核医学在癫痫定位诊断中的适当使用提供循证推荐，涵盖FDG PET和SPECT的适应证、方案和解读。",
+        "url": "https://link.springer.com/article/10.1007/s00259-024-06651-8",
+        "source": "EANM",
+        "date": "2024-07-01",
+        "category": "国际指南"
+      },
+      {
+        "title": "EANM/EANO/RANO/SNMMI Guideline for Radiolabeled Somatostatin Receptor Ligands in Meningiomas",
+        "summary": "EANM、EANO、RANO和SNMMI联合发布放射标记生长抑素受体配体在脑膜瘤诊疗(theranostics)中的应用指南第1版，涵盖诊断和治疗双方面。",
+        "url": "https://link.springer.com/article/10.1007/s00259-024-06728-4",
+        "source": "EANM/SNMMI",
+        "date": "2024-06-01",
+        "category": "国际指南"
+      },
+      {
+        "title": "SNMMI Consensus Statement on 177Lu-PSMA-617 Radionuclide Therapy",
+        "summary": "SNMMI发布177Lu-PSMA-617放射性核素治疗的患者选择和合理使用共识声明，多学科专家工作组基于文献综述制定临床推荐。",
+        "url": "https://link.springer.com/article/10.1007/s11307-023-01818-z",
+        "source": "SNMMI",
+        "date": "2023-04-26",
+        "category": "国际指南"
+      },
+      {
+        "title": "EANM Guidelines for PET-CT and PET-MR Routine Quality Control",
+        "summary": "EANM发布PET-CT和PET-MR日常质量控制指南，基于IEC和欧委会法规框架，提供全面的QC程序推荐，确保PET系统的最佳运行状态和定量准确性。",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10068535/",
+        "source": "EANM",
+        "date": "2023-04-01",
+        "category": "国际指南"
+      },
+      {
+        "title": "PET-MRI Guideline Ver1.0 & Standard PET Imaging Protocols (JSNM)",
+        "summary": "日本核医学会发布PET-MRI指南第1版以及标准化PET成像方案和体模试验程序(Ver2-1)，为PET设施认证和质量保证提供技术标准。",
+        "url": "https://jsnm.org/english/e_guidelines/",
+        "source": "JSNM",
+        "date": "2023-01-01",
+        "category": "国际指南"
+      },
+      {
+        "title": "AUC for PSMA PET Imaging",
+        "summary": "SNMMI、ACNM、AUA等多学会联合发布PSMA PET成像合理使用标准，指导转诊和影像医师在前列腺癌诊疗中适当使用PSMA PET显像剂。",
+        "url": "https://jnm.snmjournals.org/content/62/12/1756",
+        "source": "SNMMI",
+        "date": "2021-09-15",
+        "category": "国际指南"
+      },
+      {
+        "title": "FDG PET, PET/CT 診療ガイドライン 2020（日本核医学会）",
+        "summary": "日本核医学会发布FDG PET/CT诊疗指南2020版，对应令和2年诊疗报酬改定，涵盖PET检查的适应症、人员配置、设备要求和安全管理，适用于所有恶性肿瘤的分期和复发诊断。",
+        "url": "https://jsnm.org/wp_jsnm/wp-content/uploads/2018/09/FDG_PET_petct_GL2020.pdf",
+        "source": "JSNM",
+        "date": "2020-08-21",
+        "category": "国际指南"
+      },
+      {
+        "title": "FDG-PETがん検診ガイドライン 第3版（日本核医学会PET核医学分科会）",
+        "summary": "日本核医学会PET核医学分科会发布FDG-PET癌症筛查指南第3版(2019)，为日本独特的PET癌症筛查实践提供质量控制标准，含读影和要精查判定基准，并新增PET/MRI内容。",
+        "url": "https://jcpet.jp/cancer-screening/guideline.html",
+        "source": "JSNM",
+        "date": "2019-07-08",
+        "category": "国际指南"
+      },
+      {
+        "title": "FDG PET/MRI 診療ガイドライン 2019（日本核医学会/日本放射線学会/日本磁気共鳴医学会）",
+        "summary": "日本核医学会、日本医学放射線学会和日本磁气共呜医学会联合发布FDG PET/MRI诊疗指南2019版，为PET/MRI检查提供标准化的操作和诊断规范。",
+        "url": "https://jsnm.org/archives/5171/",
+        "source": "JSNM",
+        "date": "2019-01-01",
+        "category": "国际指南"
+      },
+      {
+        "title": "Japanese Consensus Guidelines for Pediatric Nuclear Medicine (JSNM)",
+        "summary": "日本核医学会发布儿童核医学共识指南，包含儿科放射性药物给药剂量优化方案(JSNM儿科剂量卡)和儿童核医学成像技术综合指南，参考EANM和SNMMI方法。",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4061477/",
+        "source": "JSNM",
+        "date": "2014-07-01",
+        "category": "国际指南"
+      }
+    ],
+    "update_time": "2026-06-09"
+  },
+  "research": {
+    "categories": [
+      "PET-CT新技术",
+      "SPECT新技术",
+      "临床研究",
+      "AI与影像",
+      "诊疗一体化"
+    ],
+    "items": [
+      {
+        "title": "山西省肿瘤医院成功开展177Lu-PSMA和225Ac-PSMA靶向核素治疗临床试验",
+        "summary": "中国医学科学院肿瘤医院山西医院核医学PET/CT中心成功开展177Lu-PSMA、225Ac-PSMA治疗去势抵抗性前列腺癌临床试验，标志着该院在去势抵抗前列腺癌精准诊疗研究领域取得重要进展",
+        "url": "http://m.toutiao.com/group/7649254113485619758/",
+        "source": "上游新闻/山西省肿瘤医院",
+        "date": "2026-06-09",
+        "category": "临床研究"
+      },
+      {
+        "title": "B7-H3靶向PET平台导航骨肉瘤精准切除及切缘验证",
+        "summary": "北京大学肿瘤医院团队在SNMMI 2026发布集成PET平台，融合68Ga-B7H3-BCH PET/CT术前分期、术中导航和术后切缘验证，实现保肢手术精准切除",
+        "url": "https://mobile.medimaging.net/nuclear-medicine/articles/294811110/targeted-pet-platform-guides-osteosarcoma-resection-and-margin-verification.html",
+        "source": "MedImaging International/SNMMI 2026",
+        "date": "2026-06-09",
+        "category": "国际研究"
+      },
+      {
+        "title": "ASNC发布首届研究基金$125K，聚焦PET、SPECT和AI驱动成像",
+        "summary": "美国核心脏病学会宣布三位获奖者，Harvard、USC等团队获资助开展心脏PET vs CCTA诊断效率、动态SPECT定量血流、CZT-SPECT AI衰减校正等研究",
+        "url": "https://universityresearchtimes.com/agp-article/918187172-asnc-awards-125k-in-inaugural-research-grants",
+        "source": "ASNC 2026",
+        "date": "2026-06-08",
+        "category": "AI影像"
+      },
+      {
+        "title": "宁夏医科大学总医院赵倩教授：核医学与分子影像的追光者",
+        "summary": "宁夏医科大学总医院核医学科赵倩教授深耕分子影像领域，分享PSMA PET/CT、前列腺癌精准诊疗、Aβ PET阿尔茨海默病早诊等临床经验与科研心得",
+        "url": "http://www.nxnews.net/yc/jrww/202606/t20260608_1514169.html",
+        "source": "宁夏新闻网",
+        "date": "2026-06-08",
+        "category": "国内研究"
+      },
+      {
+        "title": "中国抗癌协会肿瘤核医学专委会2026年学术年会在石家庄召开",
+        "summary": "大会以'诊疗一体，精准赋能'为主题，吉大一院核医学科参会并参与《骨转移核医学诊疗指南》编写，青年医师王嘉文获读片赛团体第二名",
+        "url": "https://m.sohu.com/a/1033826008_121123850/",
+        "source": "搜狐网/吉大一院",
+        "date": "2026-06-08",
+        "category": "学术会议"
+      },
+      {
+        "title": "18F-PSMA-7Q PET/CT替代前列腺活检诊断前列腺癌的可行性研究",
+        "summary": "解放军总医院张旭团队研究18F-PSMA-7Q PET/CT诊断前列腺癌的价值，该示踪剂经肝脏代谢可减少尿液干扰，miPSMA评分3分患者可跳过活检直接治疗",
+        "url": "https://emed.amegroups.cn/article/12238",
+        "source": "Translational Andrology and Urology",
+        "date": "2026-06-06",
+        "category": "PSMA PET"
+      },
+      {
+        "title": "FAPI PET/CT在肺癌诊断中的前瞻性研究",
+        "summary": "研究评估68Ga-FAPI-04 PET/CT在肺癌诊断中的价值，与组织病理学FAP表达进行对照，为FAPI在肺癌中的应用提供循证依据",
+        "url": "https://m.ebiotrade.com/newsf/2026-6/20260603223936703.htm",
+        "source": "生物通",
+        "date": "2026-06-04",
+        "category": "FAPI PET"
+      },
+      {
+        "title": "新型PET示踪剂64Cu-DOTA-ECL1i可追踪免疫治疗中的心脏炎症",
+        "summary": "SNMMI 2026发布研究，新型CCR2靶向PET示踪剂64Cu-DOTA-ECL1i可在免疫检查点抑制剂治疗期间非侵入性检测心血管免疫相关不良事件",
+        "url": "http://www.familydoctor.cn/news/xinxing-pet-chengxiang-jishu-zhuizong-zhongliu-jinzhan-hexin-yanzheng-434088.html",
+        "source": "News-Medical/SNMMI 2026",
+        "date": "2026-06-02",
+        "category": "国际研究"
+      },
+      {
+        "title": "海尔医疗与联影uExcel同日获NMPA批准，国产超高端PET-CT竞争加速",
+        "summary": "2026年5月24日，海尔医疗'开泰'与联影uExcel系列同日获得NMPA注册批准，国产高端PET-CT进入双极时代，两家企业技术路线各有特色",
+        "url": "http://www.sqrb.com.cn/wyvahHXW/news/index.htm",
+        "source": "商丘网/行业分析",
+        "date": "2026-06-03",
+        "category": "设备升级"
+      },
+      {
+        "title": "国内首个α-syn PET示踪剂SST001正式启动帕金森病注册临床研究",
+        "summary": "中科院、上海交大、复旦华山医院联合攻关团队开发的国内首个帕金森病α-突触核蛋白PET示踪剂SST001正式启动临床研究，实现脑内病理蛋白活体可视化",
+        "url": "http://m.toutiao.com/group/7646787875568108073/",
+        "source": "中国新闻网",
+        "date": "2026-06-02",
+        "category": "新型PET探针"
+      },
+      {
+        "title": "为什么我们必须走向个体化剂量？——从科学机制到行业生态的全局审视",
+        "summary": "从科学机制到行业生态全面分析核医学个体化剂量方案的必要性，推动精准医疗在核医学领域落地",
+        "url": "https://www.ccnta.cn/article/24686.html",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-06-08",
+        "category": "国内研究"
+      },
+      {
+        "title": "核医文献速递|临床剂量学模型及其在常规核医学诊疗中的落地应用路径",
+        "summary": "西南医科大学附属医院、重庆医科大学附属第一医院联合发起核医文献速递专栏，探讨临床剂量学模型在常规核医学诊疗中的落地应用路径",
+        "url": "https://chinanm.cma.org.cn/module/download/downfile.jsp?classid=0&filename=659c1d24d78e407893dc2aeee5759567.pdf",
+        "source": "川渝核医学",
+        "date": "2026-06-08",
+        "category": "国内研究"
+      },
+      {
+        "title": "核医学工程被列为2026年新增本科专业",
+        "summary": "教育部2026年新增38个本科专业，核医学工程被列入工学门类，标志着核医学人才培养进入系统化、专业化新阶段。",
+        "url": "http://m.toutiao.com/group/7648842910993023503/",
+        "source": "教育部",
+        "date": "2026-06-08",
+        "category": "国内研究"
+      },
+      {
+        "title": "Whole-body PET/CT reveals metabolic changes after bariatric surgery",
+        "summary": "该研究利用全身PET/CT揭示了减重手术后多器官代谢变化，发现脂肪、肝脏、胰腺、肌肉等器官的代谢变化与血糖血脂改善相关。",
+        "url": "https://healthcare-in-europe.com/en/news/whole-body-petct-metabolism-after-bariatric-surgery.html",
+        "source": "Healthcare in Europe",
+        "date": "2026-06-08",
+        "category": "国际研究"
+      },
+      {
+        "title": "从RDC到诊疗一体化：核药产业链核心壁垒重构",
+        "summary": "核药正崛起为战略高地，RDC凭借物理杀伤机制展现与ADC差异化优势，具备核素生产+药学服务平台的企业构建较高技术壁垒，国内核素供应链自主化加速推进。",
+        "url": "http://m.toutiao.com/group/7648920875143676450/",
+        "source": "今日头条/医药魔方",
+        "date": "2026-06-08",
+        "category": "诊疗一体化"
+      },
+      {
+        "title": "FAPI PET在风湿性多肌痛和巨细胞动脉炎评估取得新突破",
+        "summary": "EULAR 2026发布的研究显示FAPI-PET在风湿性多肌痛和巨细胞动脉炎评估中显著优于FDG-PET，能紧密反映临床疾病活动度。",
+        "url": "https://www.medsci.cn/article/show_article.do?id=6e029394e134",
+        "source": "MedSci",
+        "date": "2026-06-05",
+        "category": "FAPI PET"
+      },
+      {
+        "title": "GE HealthCare在SNMMI 2026展示AI驱动核医学产品组合",
+        "summary": "GE HealthCare在SNMMI 2026年会上展示AI赋能核医学解决方案，包括MIM KineticID动态PET成像软件和MIM LesionID Pro AI驱动的全身肿瘤负荷分析应用。",
+        "url": "https://mobile.medimaging.net/industry-news/articles/294811068/ge-healthcare-showcases-ai-enabled-nuclear-medicine-portfolio-at-snmmi-2026.html",
+        "source": "MedImaging International",
+        "date": "2026-06-05",
+        "category": "AI影像"
+      },
+      {
+        "title": "广东省医学学术直通车——核医学揭阳行暨粤东核医学诊疗能力提升研讨会",
+        "summary": "广东省医学会核医学分会在揭阳举办学术直通车活动，推动粤东地区核医学诊疗临床服务能力提升。",
+        "url": "http://www.csnm.com.cn/#news",
+        "source": "核医学专业网/广东省医学会",
+        "date": "2026-06-05",
+        "category": "学术会议"
+      },
+      {
+        "title": "Translational Theranostics in Glioblastoma: FAPI-46 as a Precision Medicine Tool",
+        "summary": "该研究探索了FAPI-46作为胶质母细胞瘤精准医学工具的潜力，评估了68Ga-FAPI-46成像和225Ac/177Lu-FAPI-46治疗在临床前模型中的疗效。",
+        "url": "https://jnm.snmjournals.org/content/early/2026/06/04/jnumed.125.271759",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2026-06-04",
+        "category": "诊疗一体化"
+      },
+      {
+        "title": "我国在肿瘤精准核药研发赛道跻身国际前沿，上海专家成果获评顶刊编辑精选",
+        "summary": "复旦大学附属肿瘤医院宋少莉教授团队研发的三阴性乳腺癌新型分子影像探针68Ga-FZ-NR-1获评JNM年度最佳基础科学类文章。",
+        "url": "http://m.toutiao.com/group/7647363738567311898/",
+        "source": "上观新闻",
+        "date": "2026-06-04",
+        "category": "国内研究"
+      },
+      {
+        "title": "PET-CT意外发现双原发癌：肺结节检查意外检出早期结肠癌",
+        "summary": "武汉协和宜昌医院核医学科分享PET-CT全身扫描发现双原发癌案例，肺结节患者意外查出早期结肠癌，术后6年无复发，体现PET-CT全身筛查价值。",
+        "url": "https://news.hubeidaily.net/mobile/c_5577052.html",
+        "source": "湖北日报/宜昌市中心人民医院",
+        "date": "2026-06-04",
+        "category": "临床研究"
+      },
+      {
+        "title": "18F-FDOPA PET/CT肿瘤学应用技术与临床推荐综述发布",
+        "summary": "Clinical and Translational Imaging发表综述，系统总结了18F-FDOPA PET/CT在神经内分泌肿瘤、嗜铬细胞瘤和甲状腺髓样癌中的标准化技术与临床推荐。",
+        "url": "https://m.ebiotrade.com/newsf/2026-6/20260603172739992.htm",
+        "source": "生物通/Clinical and Translational Imaging",
+        "date": "2026-06-03",
+        "category": "PET-CT新技术"
+      },
+      {
+        "title": "北京大学王凡教授团队177Lu-AB-3PRGD2研究成果亮相ASCO 2026",
+        "summary": "北京大学王凡教授团队与厦门大学附属第一医院合作的177Lu-AB-3PRGD2治疗核药临床研究在ASCO 2026大会快速口头报告专场发布，展示该药物在晚期转移性实体瘤中的良好疾病控制效果。",
+        "url": "http://www.baiyyy.com.cn/news/details/471.html",
+        "source": "百洋医药",
+        "date": "2026-06-03",
+        "category": "临床试验"
+      },
+      {
+        "title": "吉伦泰¹⁷⁷Lu-AB-3PRGD2治疗晚期实体瘤亮相ASCO 2026",
+        "summary": "北京大学王凡教授团队与厦门大学附属第一医院合作研究在ASCO 2026快速口头报告发布，¹⁷⁷Lu-AB-3PRGD2靶向整合素αvβ3治疗晚期转移性实体瘤，50%达疾病稳定，20%达部分缓解。",
+        "url": "http://www.baiyyy.com/news/details/471.html",
+        "source": "百洋医药/ASCO 2026",
+        "date": "2026-06-03",
+        "category": "诊疗一体化"
+      },
+      {
+        "title": "PET显像评估CAR-T治疗疗效最新研究进展",
+        "summary": "华中科技大学协和医院兰晓莉教授分享PET显像在CAR-T治疗疗效评估、预后判断和复发监测中的关键作用。",
+        "url": "https://www.kanyijie.com/details?id=2286",
+        "source": "看医界",
+        "date": "2026-06-02",
+        "category": "PET-CT新技术"
+      },
+      {
+        "title": "18F-FDG与68Ga-Pentixafor双探针PET在淋巴瘤精准诊疗中的价值",
+        "summary": "上海交通大学附属第一人民医院赵晋华教授提出双探针联合显像在淋巴瘤精准分型、疗效预测及复发监测中的应用策略。",
+        "url": "https://www.kanyijie.com/details?id=2286-pentixafor",
+        "source": "看医界",
+        "date": "2026-06-02",
+        "category": "诊疗一体化"
+      },
+      {
+        "title": "Aβ PET在阿尔茨海默病全景诊断中的价值",
+        "summary": "复旦大学附属浦东医院刘兴党教授深入讲解Aβ PET显像在阿尔茨海默病早期诊断、病程监测中的应用。",
+        "url": "https://www.kanyijie.com/details?id=2286-amyloid",
+        "source": "看医界",
+        "date": "2026-06-02",
+        "category": "PET-CT新技术"
+      },
+      {
+        "title": "山东大学齐鲁医院PET/CT人工智能研究成果发表于Information Fusion",
+        "summary": "山东大学齐鲁医院核医学科李昕教授团队在信息融合领域顶刊发表PET/CT双模态无监督异常检测研究成果，建成全球首个胸部疾病PET/CT无监督异常检测标准数据集，胸部病灶检出准确率达91.91%。",
+        "url": "http://m.toutiao.com/group/7646615272882717190/",
+        "source": "彼岸说书人",
+        "date": "2026-06-02",
+        "category": "AI影像"
+      },
+      {
+        "title": "国内首个α-syn PET示踪剂SST001正式启动注册临床研究",
+        "summary": "中科院、上海交大、复旦华山医院等组成的联合攻关团队开发的国内首个进入注册临床研究的帕金森病α-syn PET示踪剂SST001正式启动临床研究，实现帕金森病病理蛋白活体可视化。",
+        "url": "http://m.toutiao.com/group/7646787875568108073/",
+        "source": "中国新闻网",
+        "date": "2026-06-02",
+        "category": "新型PET探针"
+      },
+      {
+        "title": "2026年长三角核医学与分子影像专科联盟学术大会在上海召开",
+        "summary": "2026年长三角核医学与分子影像专科联盟学术大会在上海成功举办，聚焦学科前沿技术、临床转化与协同发展。",
+        "url": "http://www.kanyijie.com:7001/details?id=2286",
+        "source": "看医界",
+        "date": "2026-06-02",
+        "category": "学术会议"
+      },
+      {
+        "title": "ASCO 2026: α核素引爆！从β到α，中国核药抢占全球风口",
+        "summary": "ASCO 2026年会上核药赛道成为焦点，诺华公布225Ac-PSMA首次人体试验数据，先通药业XTR022（225Ac-XT381）壁报展示PSA50缓解率76.9%，标志RLT从β核素迈向α核素时代。",
+        "url": "https://c.m.163.com/news/a/KUE6TFOB05118K9D.html",
+        "source": "网易新闻",
+        "date": "2026-06-02",
+        "category": "诊疗一体化"
+      },
+      {
+        "title": "北京大学人民医院启用新一代长轴PET/CT设备",
+        "summary": "北京大学人民医院核医学科于2026年6月1日启用新一代长轴PET/CT设备，具备更长轴向视野、更高探测灵敏度，可将全身扫描时间大幅缩短、降低辐射剂量。",
+        "url": "http://m.toutiao.com/group/7646415836115026442/",
+        "source": "北京大学人民医院",
+        "date": "2026-06-01",
+        "category": "设备升级"
+      },
+      {
+        "title": "New PET radiotracer shows high accuracy for detecting clots in the legs and lungs",
+        "summary": "SNMMI 2026年度图像奖研究显示，新型18F-GP1 PET/CT可高精度检测下肢深静脉血栓栓子，并可同时评估肺栓塞。",
+        "url": "https://www.news-medical.net/news/20260601/New-PET-radiotracer-shows-high-accuracy-for-detecting-clots-in-the-legs-and-lungs.aspx",
+        "source": "News-Medical",
+        "date": "2026-06-01",
+        "category": "国际研究"
+      },
+      {
+        "title": "Metabolic Imaging and Molecular Signatures Reveal Metabolic Phenotypes in Recurrent Glioblastoma",
+        "summary": "该前瞻性研究结合动态18F-fluciclovine PET、灌注MRI和转录组分析，揭示了复发胶质母细胞瘤的代谢表型。",
+        "url": "https://jnm.snmjournals.org/content/67/6/849",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2026-06-01",
+        "category": "国际研究"
+      },
+      {
+        "title": "浙江省肿瘤医院完成225Ac-PSMA靶向α核素治疗首例给药",
+        "summary": "浙江省肿瘤医院正式启动225Ac-PSMA靶向α核素治疗国际多中心临床试验并完成浙江首例患者给药，为多线治疗失败的晚期前列腺癌患者带来新希望。",
+        "url": "http://hznews.hangzhou.com.cn/kejiao/content/2026-05/29/9230663.htm",
+        "source": "杭州网",
+        "date": "2026-05-29",
+        "category": "α核素治疗"
+      },
+      {
+        "title": "第十八届珠江甲状腺疾病核素诊疗学术会议在广州成功召开",
+        "summary": "广东省精准医学应用学会2026年核医学与核药分会年会暨第十八届珠江甲状腺疾病核素诊疗学术会议在广州举行，汇聚全国核医学领域顶尖专家。",
+        "url": "https://www.nfnews.com/content/R6gNxWlb3p.html",
+        "source": "南方财经网",
+        "date": "2026-05-29",
+        "category": "学术会议"
+      },
+      {
+        "title": "68Ga-FAPI-04 PET/CT可无创预测肝切除术后肝功能衰竭",
+        "summary": "研究证实术前68Ga-FAPI-04 PET/CT定量评估肝纤维化可独立预测肝切除术后肝功能衰竭，结合TBRmax、凝血酶原时间及切除范围的列线图模型AUC达0.780。",
+        "url": "https://m.ebiotrade.com/newsf/2026-5/20260527223838443.htm",
+        "source": "生物通",
+        "date": "2026-05-28",
+        "category": "FAPI PET"
+      },
+      {
+        "title": "2026年核医学分会骨干培训班(第二期)：聚焦核医学诊疗一体化规范化应用",
+        "summary": "7月24-26日在天津举办，涵盖甲状腺癌核医学诊疗规范化、90Y微球肝癌治疗、PSMA前列腺癌靶向治疗、骨转移核素靶向治疗等内容",
+        "url": "https://www.cma.org.cn/art/2026/5/27/art_33_60636.html",
+        "source": "中华医学会",
+        "date": "2026-05-27",
+        "category": "学术会议"
+      },
+      {
+        "title": "上海仁济医院CD70免疫PET/CT研究成果发表于Cancer Discovery",
+        "summary": "上海仁济医院核医学科联合泌尿科及意大利IRCCS San Raffaele医院在顶级肿瘤学期刊发表研究，首次证实CD70靶向免疫PET/CT在肾透明细胞癌转移诊断中的核心价值。",
+        "url": "https://m.sohu.com/a/1028400042_121118798/",
+        "source": "搜狐网",
+        "date": "2026-05-27",
+        "category": "免疫PET"
+      },
+      {
+        "title": "177Lu-PSMA-3D1015注射液治疗转移性去势抵抗性前列腺癌临床研究",
+        "summary": "思路迪医药自主研发的177Lu-PSMA-3D1015注射液在mCRPC患者中展现良好安全性与耐受性，初步临床数据表明具有良好的肿瘤控制效果。",
+        "url": "http://www.yintahealth.com/newsinfo/9081752.html",
+        "source": "印塔健康",
+        "date": "2026-05-27",
+        "category": "临床试验"
+      },
+      {
+        "title": "III期临床试验比较177Lu vipivotide tetraxetan与观察在PSMA阳性寡转移前列腺癌中的疗效",
+        "summary": "该III期临床试验比较了Pluvicto与观察在PSMA阳性寡转移前列腺癌患者中的疗效，评估其在早期前列腺癌中的应用价值。",
+        "url": "https://www.novartis.com/clinicaltrials/study/NCT05939414",
+        "source": "Novartis Clinical Trials",
+        "date": "2026-05-27",
+        "category": "临床试验"
+      },
+      {
+        "title": "The PET tracer [11C]MODAG-005 targets alpha-synuclein aggregates in the brain",
+        "summary": "该研究开发了新型α-突触核蛋白PET示踪剂[11C]MODAG-005，在帕金森病和多系统萎缩患者中验证了脑内α-突触核蛋白聚集体的可视化能力。",
+        "url": "https://www.science.org/doi/abs/10.1126/scitranslmed.aec0813",
+        "source": "Science Translational Medicine",
+        "date": "2026-05-27",
+        "category": "国际研究"
+      },
+      {
+        "title": "CD70免疫PET显像无创诊断肾透明细胞癌，仁济医院重磅研究发表于Cancer Discovery",
+        "summary": "上海仁济医院核医学科在Cancer Discovery发表前瞻性大样本临床试验，证实CD70靶向免疫PET/CT对肾透明细胞癌转移诊断灵敏度94.2%，58.7%患者因此优化诊疗方案。",
+        "url": "https://m.sohu.com/a/1028400042_121118798/",
+        "source": "搜狐新闻/仁济医院",
+        "date": "2026-05-27",
+        "category": "临床研究"
+      },
+      {
+        "title": "第二届\"百望\"核医学与分子影像学术会议召开，聚焦核素诊疗一体化",
+        "summary": "解放军总医院第八医学中心举办第二届百望核医学与分子影像学术会议，涵盖FAPI核素诊疗一体化、LU177-PSMA前列腺癌诊疗、锶89骨转移治疗等前沿方向",
+        "url": "https://m.sohu.com/a/1028031305_121106832/",
+        "source": "解放军总医院第八医学中心",
+        "date": "2026-05-26",
+        "category": "学术会议"
+      },
+      {
+        "title": "云上病例分享会第十二期：RAIR-DTC靶向治疗策略",
+        "summary": "中华医学会核医学分会治疗学组与中国同辐携手举办的云上病例分享会第十二期，围绕碘难治性分化型甲状腺癌靶向治疗策略展开深入研讨。",
+        "url": "https://chinanm.cma.org.cn/art/2026/5/26/art_1449_60595.html",
+        "source": "中华医学会核医学分会",
+        "date": "2026-05-26",
+        "category": "核素治疗"
+      },
+      {
+        "title": "68Ga-PSMA-NYM032前列腺癌诊疗一体化放射性药物III期临床试验",
+        "summary": "评价68Ga-NYM032 PET/CT在前列腺癌患者术前盆腔淋巴结转移诊断效能及安全性的开放性、单臂、多中心III期临床研究正在进行中，诊断准确性达92.06%。",
+        "url": "http://m.cancercro.com/nd.jsp?id=1482",
+        "source": "凯石国际医疗",
+        "date": "2026-05-26",
+        "category": "临床试验"
+      },
+      {
+        "title": "核药进入多核素时代：新型同位素重塑诊疗一体化格局",
+        "summary": "诊断核素从18F单一格局向68Ga、64Cu、89Zr、44Sc、61Cu多元化演进，治疗核素从177Lu拓展至225Ac、161Tb、67Cu等新型核素，诊疗一体化闭环加速形成。",
+        "url": "http://m.163.com/dy/article/KTROSPS90534Q32Z.html",
+        "source": "网易新闻",
+        "date": "2026-05-26",
+        "category": "诊疗一体化"
+      },
+      {
+        "title": "第九届核素治疗高峰对话会将于7月在天津召开",
+        "summary": "中华医学会核医学分会治疗学组指导的第九届核素治疗高峰对话会将于2026年7月24日在天津召开，聚焦131I治疗DTC和新型诊疗一体化核素临床转化。",
+        "url": "https://chinanm.cma.org.cn/art/2026/5/25/art_1450_60593.html",
+        "source": "中华医学会核医学分会",
+        "date": "2026-05-25",
+        "category": "学术会议"
+      },
+      {
+        "title": "全军首家核子治疗中心落户解放军总医院第六医学中心",
+        "summary": "全军首家核子治疗中心落户解放军总医院第六医学中心，填补局部精准内照射治疗技术空白，实现肝癌患者全周期诊疗闭环。",
+        "url": "https://m.sohu.com/a/1027446975_121106842/",
+        "source": "搜狐网",
+        "date": "2026-05-25",
+        "category": "核素治疗"
+      },
+      {
+        "title": "68Ga-Trivehexin PET/CT在甲状旁腺腺瘤定位中的应用",
+        "summary": "研究评估了靶向avb6整合素的新型PET示踪剂68Ga-Trivehexin在原发性甲旁亢患者甲状旁腺腺瘤定位中的价值，阳性率达78.6%，显著高于Sestamibi闪烁扫描。",
+        "url": "https://m.ebiotrade.com/newsf/2026-5/20260522215121179.htm",
+        "source": "生物通/Annals of Nuclear Medicine",
+        "date": "2026-05-23",
+        "category": "新型PET探针"
+      },
+      {
+        "title": "分化型甲状腺癌术后核医学诊疗临床路径（2026版）正式发布",
+        "summary": "国内首部分化型甲状腺癌术后核医学诊疗临床路径2026版发布，49位多学科专家参与，首次将碘131治疗决策从看分层转变为看状态，基于术后实时疗效反应动态评估。",
+        "url": "http://m.toutiao.com/group/7641907104806208000/",
+        "source": "蝶生健康",
+        "date": "2026-05-21",
+        "category": "指南共识"
+      },
+      {
+        "title": "Radiopharmaceutical Therapy Meets Radiobiology: Implications for Trial Design and DNA Repair Inhibitor Combinations",
+        "summary": "该综述探讨了放射性药物治疗与放射生物学的结合，特别是DNA修复抑制剂与核素治疗的联合应用策略。",
+        "url": "https://jnm.snmjournals.org/content/early/2026/05/21/jnumed.125.271527/tab-article-info",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2026-05-21",
+        "category": "诊疗一体化"
+      },
+      {
+        "title": "2026年中华医学会核医学分会骨干培训班第一期招生",
+        "summary": "由中华医学会核医学分会和继续教育部主办的骨干培训班将于2026年7月17-18日在北京举办，聚焦SPECT/CT进展和核心脏病学前沿。",
+        "url": "https://www.cma.org.cn/art/2026/5/19/art_33_60627.html",
+        "source": "中华医学会",
+        "date": "2026-05-19",
+        "category": "学术会议"
+      },
+      {
+        "title": "第六届全国PET/MR学术研讨会在上海成功举办",
+        "summary": "2026年5月14日-17日，第六届全国PET/MR学术研讨会在上海举办，以突破PET/MR临床应用局限为主题，聚焦AI融合、新型分子影像探针、诊疗一体化等方向。",
+        "url": "https://m.bio-equip.com/m/News?newsid=453098478",
+        "source": "生物器材网",
+        "date": "2026-05-19",
+        "category": "学术会议"
+      },
+      {
+        "title": "科普：呼吸困难找不到原因？肺通气/灌注显像(V/Q显像)揭秘",
+        "summary": "中国医师协会核医学医师分会科普文章，介绍肺通气/灌注显像在肺栓塞诊断中的临床价值",
+        "url": "https://www.cn-healthcare.com/articlewm/20250411/wap-content-1648335.html",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-05-18",
+        "category": "临床研究"
+      },
+      {
+        "title": "湘雅三医院为规律复查患者提供SPECT/CT手机自助开单服务",
+        "summary": "中南大学湘雅三医院核医学科创新推出SPECT/CT手机自助开单服务，为有长期规律复查需求的患者提供便捷预约通道。",
+        "url": "http://www.caonmp.com/index.html",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-05-18",
+        "category": "临床研究"
+      },
+      {
+        "title": "PSMA-ICG双模态探针PET/荧光成像用于前列腺癌管理",
+        "summary": "中南大学湘雅医院核医学科团队设计合成新型PET/荧光双模态探针68Ga-XY-PSMA-ICG，在前列腺癌患者体内展现优异病变检测能力，为精准诊断提供新策略。",
+        "url": "https://m.ebiotrade.com/newsf/2026-5/20260516001017811.htm",
+        "source": "生物通",
+        "date": "2026-05-16",
+        "category": "双模态成像"
+      },
+      {
+        "title": "科普：放射性核素内照射治疗——碘-131治疗甲状腺疾病",
+        "summary": "中国医师协会核医学医师分会科普，详解碘-131在甲状腺功能亢进和分化型甲状腺癌术后治疗中的应用",
+        "url": "http://www.caonmp.com/#law",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-05-15",
+        "category": "临床研究"
+      },
+      {
+        "title": "长轴PET动态显像技术前沿：AI融合与独立影像评估IRC发展趋势",
+        "summary": "长轴PET动态显像技术结合AI可实现全自动病灶分割与ROI勾画（10分钟内vs传统60-120分钟）、动态参数智能计算、伪影自动检测与校正，效率提升10倍以上。",
+        "url": "https://www.unionclin.com/News/531.html",
+        "source": "临影医疗IRC",
+        "date": "2026-05-15",
+        "category": "AI影像"
+      },
+      {
+        "title": "PET/MRI在动脉粥样硬化患者高危斑块识别中展现卓越效能",
+        "summary": "ISMRM 2026发布研究显示PET/MRI在区分症状性与无症状颈动脉斑块方面表现优异，联合模型AUC达0.967，测试准确率88.6%。",
+        "url": "https://www.auntminnie.com/resources/conference/ismrm/2026/article/15825326/ismrm-petmri-highly-effective-in-patients-with-atherosclerosis",
+        "source": "AuntMinnie",
+        "date": "2026-05-15",
+        "category": "PET-MR"
+      },
+      {
+        "title": "SPECT/CT在足踝的应用：让骨骼的求救信号无处遁形",
+        "summary": "探讨SPECT/CT在足踝疾病诊断中的临床应用价值，结合功能代谢与解剖结构成像优势，提高隐匿性病变检出率。",
+        "url": "http://www.caonmp.com/index.html",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-05-15",
+        "category": "SPECT新技术"
+      },
+      {
+        "title": "第四届中国放射医学发展大会暨首届中国特种医学发展大会10月将在天津召开",
+        "summary": "中国医学科学院主办的第四届大会将于2026年10月16-18日在天津召开，聚焦核安全、核医学前沿进展和放射性药物临床转化。",
+        "url": "https://www.irm-cams.ac.cn/index/shows?catid=79&id=4477",
+        "source": "中国医学科学院放射医学研究所",
+        "date": "2026-05-14",
+        "category": "学术会议"
+      },
+      {
+        "title": "北京大学第一医院开展177Lu-PSMA放射配体疗法临床应用",
+        "summary": "北京大学第一医院成为国内首批开展177Lu-PSMA放射配体疗法临床应用的医疗机构，针对转移性去势抵抗性前列腺癌患者，通过PSMA PET-CT显像评估治疗靶点，已积累真实世界临床经验。",
+        "url": "https://wap.bjd.com.cn/news/2026/05/13/11741857.shtml",
+        "source": "北京日报",
+        "date": "2026-05-13",
+        "category": "诊疗一体化"
+      },
+      {
+        "title": "全球首创！国产脑PET实现自由活动状态人脑成像",
+        "summary": "深圳湾实验室彭旗宇团队研制的头戴随动式PET系统在国际上率先实现自由活动状态下的人脑全脑分子显像，可用于癫痫、阿尔茨海默病等患者的清醒状态成像。",
+        "url": "http://m.toutiao.com/group/7639170715731771910/",
+        "source": "金台资讯",
+        "date": "2026-05-13",
+        "category": "国内研究"
+      },
+      {
+        "title": "核医学个体化剂量：从科学机制到行业生态的全局审视",
+        "summary": "深入分析核医学个体化剂量方案的必要性，涵盖剂量学模型、临床实践落地路径及行业生态变革",
+        "url": "https://www.ccnta.cn/article/24686.html",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-05-12",
+        "category": "国内研究"
+      },
+      {
+        "title": "靶向DPP4的68Ga-利格列汀PET探针实现病毒性心肌炎精准无创成像",
+        "summary": "华中科技大学团队在Adv. Sci.发表研究，开发靶向DPP4的68Ga-利格列汀PET探针，实现病毒性心肌炎精准无创成像，为心肌炎早期诊断提供新工具。",
+        "url": "http://www.caonmp.com/dpp4-pet",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-05-12",
+        "category": "新型PET探针"
+      },
+      {
+        "title": "首部rhTSH临床应用中国专家共识发布，助力分化型甲状腺癌规范化诊疗",
+        "summary": "中国医师协会核医学医师分会发布首部rhTSH临床应用中国专家共识，为分化型甲状腺癌的规范化临床诊疗提供指导。",
+        "url": "http://www.caonmp.com/rhtsh",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-05-12",
+        "category": "指南共识"
+      },
+      {
+        "title": "西南医科大学附属医院陈跃教授团队获中华医学科技奖",
+        "summary": "西南医科大学附属医院核医学科陈跃教授团队再次荣获中华医学科技奖，在核医学诊疗领域取得重要突破。",
+        "url": "http://www.caonmp.com/chenyue",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-05-12",
+        "category": "国内研究"
+      },
+      {
+        "title": "中南大学湘雅三医院推出SPECT/CT手机自助开单服务",
+        "summary": "中南大学湘雅三医院核医学科为有长期规律复查的患者提供SPECT/CT手机自助开单服务，优化就诊流程，提升患者就医体验。",
+        "url": "http://www.caonmp.com/spect-self",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-05-12",
+        "category": "国内研究"
+      },
+      {
+        "title": "阜外医院方纬教授团队99mTc-Teboroxime CZT-SPECT快速心肌灌注显像研究",
+        "summary": "阜外医院团队在国际上首次探讨99mTc-Teboroxime CZT-SPECT快速心肌灌注显像，5分钟内完成快速动态采集，实现心肌血流量精准定量，诊断灵敏度达80%。",
+        "url": "https://chinanm.cma.org.cn/art/2026/5/12/art_1662_60581.html",
+        "source": "中华医学会核医学分会",
+        "date": "2026-05-12",
+        "category": "心肌显像"
+      },
+      {
+        "title": "¹⁸F-FDG PET/CT在分化型甲状腺癌术后高sTg或sTgAb患者中的临床价值",
+        "summary": "南方医科大学珠江医院核医学科研究显示PET/CT对术后指标升高患者的病灶阳性率达80.6%，灵敏度85%，32.3%患者因此改变治疗方案。发表于中华核医学与分子影像杂志。",
+        "url": "http://m.toutiao.com/group/7638223944593129984/",
+        "source": "中华核医学与分子影像杂志/今日头条",
+        "date": "2026-05-12",
+        "category": "临床研究"
+      },
+      {
+        "title": "2026年'结合医学'核医学学术年会会议通知（第一轮）",
+        "summary": "2026年'结合医学'核医学学术年会即将召开，聚焦核医学中西医结合前沿进展与临床转化。",
+        "url": "http://www.caonmp.com/index.html",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-05-12",
+        "category": "学术会议"
+      },
+      {
+        "title": "'云上中核医生'读片会（第63期）预告",
+        "summary": "云上中核医生系列读片会第63期即将举办，由北京医学奖励基金会等主办，聚焦核医学影像读片与病例讨论。",
+        "url": "http://www.caonmp.com/index.html",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-05-12",
+        "category": "学术会议"
+      },
+      {
+        "title": "中国核医学成立70周年徽章、牌匾及手提袋设计方案征集通知",
+        "summary": "中华医学会核医学分会征集中国核医学成立70周年纪念徽章、牌匾及手提袋设计方案，庆祝中国核医学70年发展历程。",
+        "url": "http://www.caonmp.com/index.html",
+        "source": "中华医学会核医学分会",
+        "date": "2026-05-12",
+        "category": "国内研究"
+      },
+      {
+        "title": "2025版ATA指南更新：甲状腺癌术后TSH抑制治疗进入精准个体化时代",
+        "summary": "2025版ATA指南对甲状腺癌术后TSH抑制治疗进行更新，强调精准个体化治疗策略，避免过度抑制或不足。",
+        "url": "http://www.caonmp.com/index.html",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-05-11",
+        "category": "指南共识"
+      },
+      {
+        "title": "68Ga-PSMA PET/MRI技术提升前列腺癌诊断准确性及ISUP分期实用性",
+        "summary": "研究证实68Ga-PSMA PET/MRI所得参数在前列腺癌诊断中表现出优异性能，尤其是肝-肿瘤摄取比在PSA水平较低患者中具有最高敏感性，可实现无创ISUP分级。",
+        "url": "https://m.ebiotrade.com/newsf/2026-5/20260509223851556.htm",
+        "source": "生物通",
+        "date": "2026-05-10",
+        "category": "PET-MR"
+      },
+      {
+        "title": "靶向DPP4的68Ga-利格列汀PET探针实现病毒性心肌炎精准无创成像（Adv. Sci.）",
+        "summary": "华中科技大学团队在Advanced Science发表研究，开发靶向DPP4的68Ga-利格列汀PET探针，实现病毒性心肌炎精准无创成像，为心肌炎早期诊断提供新工具。",
+        "url": "http://www.caonmp.com/index.html",
+        "source": "Adv. Sci./中国医师协会核医学医师分会",
+        "date": "2026-05-10",
+        "category": "新型PET探针"
+      },
+      {
+        "title": "工物系团队合作研发全环小动物自准直SPECT系统突破0.2mm超高分辨率",
+        "summary": "清华大学工物系团队合作研发全环小动物自准直SPECT系统，突破实现0.2mm超高成像分辨率，为核医学影像设备国产化迈出重要一步。",
+        "url": "http://www.csnm.com.cn/#science",
+        "source": "核医学专业网/清华大学",
+        "date": "2026-05-06",
+        "category": "SPECT新技术"
+      },
+      {
+        "title": "第十六届广东省核医学专业研究生学术论坛在深圳举办",
+        "summary": "作为庆祝中国核医学成立70周年系列活动之一，第十六届广东省核医学专业研究生学术论坛在北京大学深圳医院成功举办。",
+        "url": "http://www.csnm.com.cn/#news",
+        "source": "核医学专业网/广东省医学会",
+        "date": "2026-05-06",
+        "category": "学术会议"
+      },
+      {
+        "title": "永新医疗完成B轮融资，重塑核医学影像设备市场新格局",
+        "summary": "永新医疗成功完成B轮融资，资金将用于新产品研发、迭代升级、产能扩张和全球市场拓展，推动国产核医学影像设备发展。",
+        "url": "http://www.csnm.com.cn/#news",
+        "source": "核医学专业网/永新医疗",
+        "date": "2026-05-06",
+        "category": "国内研究"
+      },
+      {
+        "title": "新书《核医点睛·甲状腺攻坚》：把碘-131讲得明明白白",
+        "summary": "欧阳伟、王攀教授主编，面向甲状腺患者的科普读物，系统讲解碘-131治疗甲状腺疾病的知识",
+        "url": "http://www.caonmp.com/#news",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-04-29",
+        "category": "国内研究"
+      },
+      {
+        "title": "第六届全国PET/MR学术研讨会通知（第一轮）",
+        "summary": "第六届全国PET/MR学术研讨会即将召开，聚焦PET/MR技术在神经系统、肿瘤等领域的前沿应用。",
+        "url": "http://www.caonmp.com/index.html",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-04-29",
+        "category": "学术会议"
+      },
+      {
+        "title": "第四届核医学与分子影像学术会议暨中国核学会医学物理分会学术年会通知",
+        "summary": "第四届核医学与分子影像学术会议暨中国核学会医学物理分会学术年会即将召开，聚焦核医学与医学物理交叉前沿。",
+        "url": "http://www.caonmp.com/index.html",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-04-28",
+        "category": "学术会议"
+      },
+      {
+        "title": "中华医学会第19次核医学学术大会暨核医学成立70周年纪念大会(CSNM2026)征文通知",
+        "summary": "CSNM2026定于2026年9月17-20日在西安召开，主题\"七秩传承，溯源创新\"，设21个交流板块，涵盖PET/CT、肿瘤核医学、核素治疗、放射性药物研发等",
+        "url": "https://chinanm.cma.org.cn/art/2026/4/25/art_1365_60567.html",
+        "source": "中华医学会核医学分会",
+        "date": "2026-04-25",
+        "category": "学术会议"
+      },
+      {
+        "title": "核医学交叉学科前沿进展研讨会在南京召开",
+        "summary": "会议汇聚核医学、心内科、肿瘤科、神经科等专家，围绕核心脏病学、肿瘤核医学、神经核医学前沿进展展开对话，探讨MPI临床应用不足的瓶颈与突破",
+        "url": "https://chinanm.cma.org.cn/art/2026/4/23/art_1449_60560.html",
+        "source": "中华医学会核医学分会",
+        "date": "2026-04-23",
+        "category": "学术会议"
+      }
+    ],
+    "update_time": "2026-06-09"
+  },
+  "journals": {
+    "categories": [
+      "中文期刊",
+      "英文期刊"
+    ],
+    "items": [
+      {
+        "title": "中山医院获欧洲EARL诊疗一体化高级L2认证，成为中国首家获此认证机构",
+        "summary": "复旦大学附属中山医院核医学科获得欧洲核医学会EARL机构颁发的Theranostics Advanced-L2认证，成为中国首家获此项国际权威认证的医疗机构",
+        "url": "https://m.weibo.cn/detail/5306522301105085",
+        "source": "复旦大学附属中山医院",
+        "date": "2026-06-05",
+        "category": "中文期刊",
+        "journal": "医院新闻"
+      },
+      {
+        "title": "Role of 18F-PSMA PET/MRI in Prostate Cancer Recurrence After Prostatectomy",
+        "summary": "JNM发表研究，评估18F-PSMA PET/MRI在前列腺癌根治术后复发诊断中的应用价值",
+        "url": "https://jnm.snmjournals.org/content/early/2026/06/04/jnumed.126.272126",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2026-06-04",
+        "category": "肿瘤",
+        "journal": "Journal of Nuclear Medicine"
+      },
+      {
+        "title": "Initial Results of FAPI PET/MRI to Assess the Extent of Endometriosis",
+        "summary": "JNM发表初步研究，评估FAPI PET/MRI在子宫内膜异位症范围评估中的应用价值",
+        "url": "https://jnm.snmjournals.org/content/early/2026/06/04/jnumed.125.271376",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2026-06-04",
+        "category": "肿瘤",
+        "journal": "Journal of Nuclear Medicine"
+      },
+      {
+        "title": "Translational Theranostics in Glioblastoma: FAPI-46 as a Precision Medicine Tool",
+        "summary": "JNM发表研究，探索FAPI-46作为胶质母细胞瘤精准医学工具的潜力，评估68Ga-FAPI-46成像和225Ac/177Lu-FAPI-46治疗在临床前模型中的疗效",
+        "url": "https://jnm.snmjournals.org/content/early/2026/06/04/jnumed.125.271759",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2026-06-04",
+        "category": "肿瘤",
+        "journal": "Journal of Nuclear Medicine"
+      },
+      {
+        "title": "JNM Volume 67, Issue 6 (June 2026) Published",
+        "summary": "Journal of Nuclear Medicine 2026年6月刊出版，涵盖肿瘤核医学、神经影像、心血管影像及诊疗一体化等前沿研究",
+        "url": "https://jnm.snmjournals.org/content/67/6",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2026-06-01",
+        "category": "英文期刊",
+        "journal": "Journal of Nuclear Medicine"
+      },
+      {
+        "title": "Association of increased [18F]FDG accumulation by binding between TSPO monomer and VDAC1 in human breast cancer cell lines",
+        "summary": "该研究探讨了TSPO单体与VDAC1结合导致乳腺癌细胞系中18F-FDG摄取增加的机制，为理解肿瘤代谢成像提供新见解。",
+        "url": "https://jnm.snmjournals.org/similar/articles/26747",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2025-06-01",
+        "category": "肿瘤",
+        "journal": "Journal of Nuclear Medicine"
+      },
+      {
+        "title": "Value of [68Ga]Ga-NYM046 PET/CT for Diagnosis of Clear Cell Renal Cell Carcinoma",
+        "summary": "该研究评估了68Ga-NYM046 PET/CT在透明细胞肾癌诊断中的价值，发现其诊断效能优于传统18F-FDG PET/CT。",
+        "url": "https://doi.org/10.2967/jnumed.124.267527",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2024-12-01",
+        "category": "肿瘤",
+        "journal": "Journal of Nuclear Medicine"
+      },
+      {
+        "title": "Single-Domain Antibody Probe with Low Renal Uptake for Claudin 18.2-Targeted PET Imaging of Gastric Cancer",
+        "summary": "该研究开发了低肾脏摄取的纳米抗体探针用于胃癌Claudin 18.2靶向PET成像，在临床前和初步临床研究中验证了其应用潜力。",
+        "url": "https://doi.org/10.2967/jnumed.125.271704",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2026-03-12",
+        "category": "肿瘤",
+        "journal": "Journal of Nuclear Medicine"
+      },
+      {
+        "title": "Diagnostic Yield of [18F]FDG PET/CT in FUO: An Italian Multicenter Study of 929 Patients",
+        "summary": "意大利多中心研究纳入929例不明原因发热患者，评估了18F-FDG PET/CT的诊断效能，为发热待查的诊断提供循证依据。",
+        "url": "https://doi.org/10.2967/jnumed.125.271525",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2026-03-05",
+        "category": "其他",
+        "journal": "Journal of Nuclear Medicine"
+      },
+      {
+        "title": "Preoperative Assessment of Peritoneal Carcinomatosis with [68Ga]Ga-FAPI-46 PET/CT",
+        "summary": "该研究评估了68Ga-FAPI-46 PET/CT在腹膜癌病术前评估中的应用，发现其与术中发现的一致性优于MRI和18F-FDG PET/CT。",
+        "url": "https://doi.org/10.2967/jnumed.126.272183",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2026-05-21",
+        "category": "肿瘤",
+        "journal": "Journal of Nuclear Medicine"
+      },
+      {
+        "title": "FAP Expression in Renal Tumors Assessed by [68Ga]Ga-FAPI-46 PET Imaging",
+        "summary": "该研究通过68Ga-FAPI-46 PET成像评估肾脏肿瘤中的FAP表达，为肾脏肿瘤的分子分型提供新方法。",
+        "url": "https://doi.org/10.2967/jnumed.125.270346",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2026-01-01",
+        "category": "肿瘤",
+        "journal": "Journal of Nuclear Medicine"
+      },
+      {
+        "title": "CXCR4 PET/CT Predicts Left Ventricular Recovery 8 Months After Acute Myocardial Infarction",
+        "summary": "该研究揭示了CXCR4 PET/CT可预测急性心肌梗死8个月后的左心室功能恢复，为心肌修复评估提供新指标。",
+        "url": "https://doi.org/10.2967/jnumed.125.270807",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2025-11-01",
+        "category": "心血管",
+        "journal": "Journal of Nuclear Medicine"
+      },
+      {
+        "title": "Automated Total-Body Perfusion Imaging with 15O-Water PET Using Basis Functions",
+        "summary": "该研究开发了基于基函数的15O-水PET自动全身灌注成像方法，提高了全身血流量测量的效率和准确性。",
+        "url": "https://doi.org/10.2967/jnumed.124.269409",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2025-08-01",
+        "category": "技术方法",
+        "journal": "Journal of Nuclear Medicine"
+      },
+      {
+        "title": "Reliability and Practicability of FAP-RADS Version 1.0 for Structured Reporting of FAPI Imaging",
+        "summary": "该研究验证了FAP-RADS 1.0版本在FAPI显像结构化报告中的可靠性和实用性，为FAPI PET/CT的规范化报告提供标准。",
+        "url": "https://doi.org/10.2967/jnumed.125.271080",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2026-05-01",
+        "category": "技术方法",
+        "journal": "Journal of Nuclear Medicine"
+      },
+      {
+        "title": "Nuclear Medicine Imaging for the Diagnosis of ATTR Cardiac Amyloidosis",
+        "summary": "该综述总结了核医学显像在ATTR心脏淀粉样变诊断中的应用，包括99mTc-PYP、123I-MIBG和18F-Florbetapir等示踪剂的诊断价值。",
+        "url": "https://www.jstage.jst.go.jp/browse/anc/-char/en",
+        "source": "Annals of Nuclear Cardiology",
+        "date": "2025-10-31",
+        "category": "心血管",
+        "journal": "Annals of Nuclear Cardiology"
+      },
+      {
+        "title": "Dynamic Acquisition of [99mTc]Tc-Pyrophosphate SPECT/CT Images in Transthyretin Cardiac Amyloidosis",
+        "summary": "该初步研究评估了99mTc-PYP SPECT/CT动态采集在转甲状腺素蛋白心脏淀粉样变中的应用价值。",
+        "url": "https://doi.org/10.2967/jnumed.125.270405",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2026-02-01",
+        "category": "心血管",
+        "journal": "Journal of Nuclear Medicine"
+      },
+      {
+        "title": "Association of 18F-fluorodeoxyglucose uptake with cardiac events in cardiac sarcoidosis",
+        "summary": "该研究探讨了心脏结节病患者免疫抑制治疗后FDG摄取与心脏事件的关系，发现随访期FDG摄取可能与短期事件风险增加相关。",
+        "url": "https://doi.org/10.1371/journal.pone.0347595",
+        "source": "PLOS ONE",
+        "date": "2026-05-14",
+        "category": "心血管",
+        "journal": "Journal of Nuclear Cardiology"
+      },
+      {
+        "title": "177Lu-Lu-AMTG放射配体治疗的首个人体血清稳定性研究",
+        "summary": "研究证实177Lu-Lu-AMTG在转移性去势抵抗性前列腺癌患者中安全可行，与现有GRPR配体相比具有更优的体内血清稳定性。",
+        "url": "https://jnm.snmjournals.org/content/jnumed/66/6/896.full.pdf",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2025-04-30",
+        "category": "英文期刊",
+        "journal": "Journal of Nuclear Medicine",
+        "authors": "Thomas Günther, Bernd J. Krause等"
+      },
+      {
+        "title": "新型PSMA靶向PET示踪剂[18F]F-CTT1057在生化复发前列腺癌中的研究",
+        "summary": "GuideView Ⅱ/Ⅲ期研究显示该示踪剂在低PSA首次生化复发人群中达到预设区域水平正确定位率，是准确的PSMA靶向PET示踪剂。",
+        "url": "https://jnm.snmjournals.org/content/66/8/1210",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2025-08-01",
+        "category": "英文期刊",
+        "journal": "Journal of Nuclear Medicine",
+        "authors": "研究团队"
+      },
+      {
+        "title": "靶向PD-L1的纳米抗体显像探针[18F]F-THP-APN09 PET/CT研究",
+        "summary": "北京大学肿瘤医院团队研究证实该探针可单独用于预测可切除NSCLC患者免疫联合化疗疗效并辅助筛选适合患者。",
+        "url": "https://link.springer.com/article/10.1007/s00259-025-06056-9",
+        "source": "European Journal of Nuclear Medicine and Molecular Imaging",
+        "date": "2025-04-01",
+        "category": "英文期刊",
+        "journal": "European Journal of Nuclear Medicine and Molecular Imaging",
+        "authors": "Xin Zhou等"
+      },
+      {
+        "title": "AI驱动的PET图像质量幻影采集与分析新范式",
+        "summary": "该研究提出了新的PET图像质量评估方法，支持当前及未来各种轴向视野PET系统的标准化评价。",
+        "url": "https://jnm.snmjournals.org/content/66/supplement_1/252057",
+        "source": "Journal of Nuclear Medicine",
+        "date": "2025-06-01",
+        "category": "英文期刊",
+        "journal": "Journal of Nuclear Medicine",
+        "authors": "Timothy Turkington等"
+      },
+      {
+        "title": "神经内分泌肿瘤核素诊疗一体化临床应用专家共识(2025版)",
+        "summary": "共识阐述了NENs核素诊疗的适应证及实施规范，为核素显像和治疗提供标准化应用程序。",
+        "url": "https://chinanm.cma.org.cn/module/download/downfile.jsp?classid=0&filename=1db40a99d3f24405a9cc878e2922dbb4.pdf",
+        "source": "中华核医学与分子影像杂志",
+        "date": "2025-03-22",
+        "category": "中文期刊",
+        "journal": "中华核医学与分子影像杂志",
+        "authors": "杨志、汪静、陆明等"
+      },
+      {
+        "title": "淋巴瘤PET/CT及PET/MR显像临床应用指南（2025版）",
+        "summary": "该指南对淋巴瘤PET/CT及PET/MR显像的临床应用进行规范化指导，适用于淋巴瘤诊疗全流程。",
+        "url": "https://chinanm.cma.org.cn/art/2025/2/5/art_1367_59801.html",
+        "source": "中华核医学与分子影像杂志",
+        "date": "2025-02-05",
+        "category": "中文期刊",
+        "journal": "中华核医学与分子影像杂志",
+        "authors": "中华医学会核医学分会"
+      },
+      {
+        "title": "前列腺癌PSMA PET显像操作中国专家共识",
+        "summary": "共识为前列腺癌PSMA PET显像的操作规范提供标准化指导，确保显像质量与诊断准确性。",
+        "url": "https://chinanm.cma.org.cn/art/2025/1/15/art_1367_59701.html",
+        "source": "中华核医学与分子影像杂志",
+        "date": "2025-01-15",
+        "category": "中文期刊",
+        "journal": "中华核医学与分子影像杂志",
+        "authors": "中华医学会核医学分会"
+      },
+      {
+        "title": "乳腺癌18F-FES PET/CT显像技术操作规范及报告解读要素",
+        "summary": "该规范为乳腺癌18F-FES PET/CT显像的技术操作和报告解读提供标准化指导。",
+        "url": "https://chinanm.cma.org.cn/art/2025/11/10/art_1367_60301.html",
+        "source": "中华核医学与分子影像杂志",
+        "date": "2025-11-10",
+        "category": "中文期刊",
+        "journal": "中华核医学与分子影像杂志",
+        "authors": "中华医学会核医学分会、上海市抗癌协会肿瘤核医学专业委员会"
+      },
+      {
+        "title": "核医学影像技术最新进展综述",
+        "summary": "该综述综合评述了核医学成像技术的最新进展，涵盖CZT探测器、TOF、DOI等技术在PET/SPECT中的应用。",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12708544/",
+        "source": "Frontiers in Medicine",
+        "date": "2025-12-03",
+        "category": "英文期刊",
+        "journal": "Frontiers in Medicine",
+        "authors": "Shuyu Xu, Ge Liu, Qingyang Wei等"
+      }
+    ],
+    "journals_cn": [
+      {
+        "title": "神经内分泌肿瘤核素诊疗一体化临床应用专家共识(2025版)",
+        "journal": "中华核医学与分子影像杂志",
+        "authors": "杨志、汪静、陆明等",
+        "date": "2025-03-22"
+      },
+      {
+        "title": "淋巴瘤PET/CT及PET/MR显像临床应用指南（2025版）",
+        "journal": "中华核医学与分子影像杂志",
+        "authors": "中华医学会核医学分会",
+        "date": "2025-02-05"
+      },
+      {
+        "title": "前列腺癌PSMA PET显像操作中国专家共识",
+        "journal": "中华核医学与分子影像杂志",
+        "authors": "中华医学会核医学分会",
+        "date": "2025-01-15"
+      },
+      {
+        "title": "乳腺癌18F-FES PET/CT显像技术操作规范及报告解读要素",
+        "journal": "中华核医学与分子影像杂志",
+        "authors": "中华医学会核医学分会",
+        "date": "2025-11-10"
+      },
+      {
+        "title": "淀粉样蛋白PET脑显像技术规范专家共识",
+        "journal": "中华核医学与分子影像杂志",
+        "authors": "中华医学会核医学分会",
+        "date": "2024-07-12"
+      }
+    ],
+    "journals_en": [
+      {
+        "title": "First-in-Human Serum Stability Studies of [177Lu]Lu-AMTG",
+        "journal": "Journal of Nuclear Medicine",
+        "authors": "Thomas Günther, Bernd J. Krause等",
+        "date": "2025-04-30"
+      },
+      {
+        "title": "Theranostics: How nuclear medicine is changing precision oncology",
+        "journal": "CAS Insights",
+        "authors": "CAS",
+        "date": "2025-09-24"
+      },
+      {
+        "title": "Recent advances in radionuclide medical imaging techniques",
+        "journal": "Frontiers in Medicine",
+        "authors": "Shuyu Xu, Ge Liu等",
+        "date": "2025-12-03"
+      },
+      {
+        "title": "AI for radiopharmaceutical and molecular imaging",
+        "journal": "Reviews in Medical Physics",
+        "authors": "研究团队",
+        "date": "2025-12-01"
+      },
+      {
+        "title": "18F-FAPI-04 PET/CT for hepatocellular carcinoma recurrence",
+        "journal": "European Journal of Nuclear Medicine and Molecular Imaging",
+        "authors": "Jiucen Liang等",
+        "date": "2025-07-01"
+      }
+    ],
+    "update_time": "2026-06-09"
+  },
+  "radiopharma": {
+    "categories": [
+      "放射性药物研发",
+      "核素治疗",
+      "诊疗一体化",
+      "靶向治疗",
+      "新药审批"
+    ],
+    "items": [
+      {
+        "title": "Telix与United Imaging宣布战略合作推进核医学诊疗一体化",
+        "summary": "Telix Pharmaceuticals与联影医疗达成战略合作，共同推进前列腺癌等领域RDC产品研发与商业化，包括ProstACT Global III期研究及创新放射性药物开发",
+        "url": "https://markets.financialcontent.com/worldnow.kotv/quote/news?ChannelType=PRESSRELEASES&Symbol=NQ%3ATLX",
+        "source": "Telix Pharmaceuticals/联影医疗",
+        "date": "2026-06-02",
+        "category": "产业动态"
+      },
+      {
+        "title": "绵阳高选择性核药纯化技术突破：国产萃取分离树脂打破国外垄断",
+        "summary": "四川长晏科技成功量产高选择性冠醚基萃取分离树脂，可精准'抓取'医用同位素锶-89、铅-212等，性能指标与进口产品相当，成本降低50%以上",
+        "url": "http://m.toutiao.com/group/7648928577924219433/",
+        "source": "涪江观察/四川长晏科技",
+        "date": "2026-06-08",
+        "category": "核素生产"
+      },
+      {
+        "title": "诺华浙江海盐放射性药物生产基地计划2026年底投产",
+        "summary": "诺华在浙江海盐投资建设放射性药物生产基地，计划2026年底投产，利用秦山核电177Lu生产能力，保障Pluvicto®在中国市场的稳定供应",
+        "url": "http://m.toutiao.com/group/7648920875143676450/",
+        "source": "医药魔方/诺华",
+        "date": "2026-06-08",
+        "category": "产业动态"
+      },
+      {
+        "title": "阳光诺和氟[18F]代雌二醇注射液临床试验申请获NMPA受理",
+        "summary": "阳光诺和控股子公司诺核动力研发的氟[18F]代雌二醇注射液临床试验申请获国家药监局受理，用于复发或转移性乳腺癌患者ER阳性病灶检测",
+        "url": "https://c.m.163.com/news/a/KUT3CA5S05565EU3.html",
+        "source": "网易/阳光诺和",
+        "date": "2026-06-08",
+        "category": "国产核药"
+      },
+      {
+        "title": "诺宇医药累计融资4轮，68Ga-NYM005肾癌诊断核药进入临床后期",
+        "summary": "诺宇医药已完成A+轮融资，自主研发的肾癌诊断用核药68Ga-NYM005已进入临床后期阶段，在胰腺癌、肾癌等难治性癌症诊疗方面取得突破",
+        "url": "https://www.qcc.com/crun/1266a7ad112739d3502b5426ab868f97.html",
+        "source": "企查查/诺宇医药",
+        "date": "2026-06-09",
+        "category": "国产核药"
+      },
+      {
+        "title": "先通药业INR101前列腺癌PSMA PET III期临床试验进行中",
+        "summary": "云南白药布局核药领域，诊断核药INR101用于前列腺癌PSMA阳性病灶PET成像，已启动III期临床试验，仅用6个月完成I/IIa期临床试验",
+        "url": "http://m.toutiao.com/group/7647722327065379343/",
+        "source": "氨基观察/药智数据",
+        "date": "2026-06-05",
+        "category": "新药临床"
+      },
+      {
+        "title": "远大医药TLX101用于GBM的IPAX-2临床试验完成全部患者入组",
+        "summary": "远大医药核药领域战略合作伙伴Telix宣布，其全球创新RDC产品TLX101用于初诊GBM的海外I期临床试验(IPAX-2)已完成全部患者入组，未观察到剂量限制性毒性",
+        "url": "https://biz.ifeng.com/c/8tchjawdNeg",
+        "source": "凤凰网/远大医药",
+        "date": "2026-06-02",
+        "category": "新药临床"
+      },
+      {
+        "title": "Pluvicto PSMAddition研究：降低58% PSA进展风险",
+        "summary": "诺华公布PSMAddition研究数据，Pluvicto联合标准护理治疗转移性激素敏感性前列腺癌，PSA进展风险降低58%，预计2026年下半年获监管批准",
+        "url": "https://www.novartis.com/news/media-releases/new-psmaddition-data-show-58-lower-risk-psa-progression-pluvicto-metastatic-hormone-sensitive-prostate-cancer",
+        "source": "Novartis",
+        "date": "2026-05-17",
+        "category": "新药审批"
+      },
+      {
+        "title": "浙江省肿瘤医院启动225Ac-PSMA靶向α核素治疗晚期前列腺癌国际多中心临床研究",
+        "summary": "浙江省肿瘤医院核医学科正式启动225Ac-PSMA靶向α核素治疗国际多中心临床研究，并完成浙江首例患者给药，标志着α核素治疗正式进入临床研究阶段",
+        "url": "https://www.ccnta.cn/article/25666.html",
+        "source": "中国核技术网",
+        "date": "2026-06-02",
+        "category": "α核素"
+      },
+      {
+        "title": "先通药业XTR022(225Ac-XT381)亮相ASCO 2026，PSA50缓解率76.9%",
+        "summary": "先通药业自主研发的α粒子放射性配体疗法XTR022在ASCO 2026壁报展示，PSMA阳性mCRPC患者PSA50缓解率76.9%，ORR 33.3%",
+        "url": "https://c.m.163.com/news/a/KUE6TFOB05118K9D.html",
+        "source": "ASCO 2026/先通药业",
+        "date": "2026-06-02",
+        "category": "α核素"
+      },
+      {
+        "title": "ASCO 2026：诺华225Ac-PSMA首个人体试验数据发布",
+        "summary": "诺华在ASCO 2026公布首个人体225Ac-PSMA剂量递增结果(AcTION试验)，mCRPC患者PSA水平下降及影像学缓解，安全性可控，支持α核素RLT继续推进临床开发",
+        "url": "https://c.m.163.com/news/a/KUE6TFOB05118K9D.html",
+        "source": "ASCO 2026/诺华",
+        "date": "2026-06-02",
+        "category": "α核素"
+      },
+      {
+        "title": "177Lu-前列地尔前列腺癌诊疗应用",
+        "summary": "177Lu标记前列地尔在前列腺癌诊疗中的应用研究，为转移性前列腺癌核素治疗提供新方案",
+        "url": "https://chinanm.cma.org.cn/art/2024/12/31/art_1367_59555.html",
+        "source": "中华医学会核医学分会",
+        "date": "2026-06-08",
+        "category": "诊疗一体化"
+      },
+      {
+        "title": "神经内分泌肿瘤177Lu-PSMA诊疗一体化临床应用",
+        "summary": "177Lu-PSMA在神经内分泌肿瘤诊疗一体化中的临床应用，实现精准诊断与靶向治疗双重目标",
+        "url": "https://chinanm.cma.org.cn/art/2024/12/31/art_1367_59560.html",
+        "source": "中华医学会核医学分会",
+        "date": "2026-06-08",
+        "category": "诊疗一体化"
+      },
+      {
+        "title": "阳光诺和核药赛道突破：氟[18F]代雌二醇注射液临床试验申请获受理",
+        "summary": "阳光诺和控股子公司诺核动力研发的氟[18F]代雌二醇注射液临床试验申请获NMPA受理，用于复发或转移性乳腺癌患者ER阳性病灶检测。",
+        "url": "https://c.m.163.com/news/a/KUT3CA5S05565EU3.html",
+        "source": "网易",
+        "date": "2026-06-08",
+        "category": "国产核药"
+      },
+      {
+        "title": "诺华浙江海盐放射性药物生产基地计划2026年底投产",
+        "summary": "诺华在浙江海盐投资建设放射性药物生产基地，计划2026年底投产，利用秦山核电177Lu生产能力，保障Pluvicto®在中国市场的稳定供应。",
+        "url": "http://m.toutiao.com/group/7648920875143676450/",
+        "source": "今日头条/医药魔方",
+        "date": "2026-06-08",
+        "category": "产业动态"
+      },
+      {
+        "title": "吉伦泰¹⁷⁷Lu-AB-3PRGD2靶向整合素αvβ3治疗晚期实体瘤",
+        "summary": "吉伦泰自主研发靶向整合素αvβ3的治疗核药¹⁷⁷Lu-AB-3PRGD2在ASCO 2026口头报告，50%达SD，20%达PR，中位PFS 6.4个月，已启动1类创新药申报。",
+        "url": "http://www.baiyyy.com/news/details/471.html",
+        "source": "ASCO 2026/吉伦泰",
+        "date": "2026-06-03",
+        "category": "β核素"
+      },
+      {
+        "title": "ASCO 2026: α核素引爆！从β到α，中国核药抢占全球风口",
+        "summary": "ASCO 2026会议上，诺华公布225Ac-PSMA首个人体试验数据，中国先通药业的225Ac-XT381也公布临床数据，PSA50缓解率达76.9%。",
+        "url": "https://m.sohu.com/a/1031070068_133140/",
+        "source": "搜狐",
+        "date": "2026-06-02",
+        "category": "诊疗一体化"
+      },
+      {
+        "title": "ASCO 2026: 诺华225Ac-PSMA首次人体试验数据发布",
+        "summary": "诺华在ASCO 2026公布首个人体225Ac-PSMA剂量递增结果（AcTION试验），mCRPC患者PSA水平下降及影像学缓解，安全性可控，支持α核素RLT继续推进临床开发。",
+        "url": "https://c.m.163.com/news/a/KUE6TFOB05118K9D.html",
+        "source": "ASCO 2026/诺华",
+        "date": "2026-06-02",
+        "category": "α核素"
+      },
+      {
+        "title": "先通药业XTR022（225Ac-XT381）亮相ASCO 2026，PSA50缓解率76.9%",
+        "summary": "先通药业自主研发的α粒子放射性配体疗法XTR022在ASCO 2026壁报展示，PSMA阳性mCRPC患者PSA50缓解率76.9%，PSA90缓解率38.5%，ORR 33.3%。",
+        "url": "https://c.m.163.com/news/a/KUE6TFOB05118K9D.html",
+        "source": "ASCO 2026/先通药业",
+        "date": "2026-06-02",
+        "category": "α核素"
+      },
+      {
+        "title": "Novel PRRT approach shows promise in advanced neuroendocrine tumors",
+        "summary": "SNMMI 2026会议上公布的新型PRRT研究显示，225Ac-DOTA-LM3在晚期神经内分泌肿瘤患者中显示出可控的安全性和令人鼓舞的抗肿瘤活性。",
+        "url": "https://www.news-medical.net/news/20260531/Novel-PRRT-approach-shows-promise-in-advanced-neuroendocrine-tumors.aspx",
+        "source": "News-Medical",
+        "date": "2026-05-31",
+        "category": "国际新药"
+      },
+      {
+        "title": "诺宇医药68Ga-NY108启动前列腺癌III期临床试验",
+        "summary": "诺宇医药正式启动68Ga-NY108针对前列腺癌的III期临床试验，该探针通过高特异性配体实现病灶精准显像与分期评估，进入患者入组准备阶段。",
+        "url": "https://www.cyagen.cn/drug-discovery-news/prostate-cancer-radiopharmaceutical-progress",
+        "source": "赛业生物/诺宇医药",
+        "date": "2026-05-30",
+        "category": "新药临床"
+      },
+      {
+        "title": "Molecular Targeting Technologies Reports Clinical Data Supporting Two-Cycle EBTATE",
+        "summary": "MTTI公司在SNMMI 2026上报告了新一代PRRT药物177Lu-DOTA-EB-TATE的临床数据，显示仅两个治疗周期即可获得有意义的临床应答。",
+        "url": "https://www.biospace.com/press-releases/molecular-targeting-technologies-reports-clinical-data-supporting-two-cycle-ebtate-and-enhanced-tumor-targeting-in-gep-net-patients-at-snmmi-2026",
+        "source": "BioSpace",
+        "date": "2026-05-28",
+        "category": "国际新药"
+      },
+      {
+        "title": "核药风起 超80家本土企业加速卡位",
+        "summary": "国内核药领域企业已增至超80家，行业管线布局持续丰富，截至2026年5月，国内备案的核药临床试验超110项。",
+        "url": "http://m.toutiao.com/group/7644756264093794843/",
+        "source": "财联社",
+        "date": "2026-05-28",
+        "category": "行业综述"
+      },
+      {
+        "title": "核药临床策略分会：从经验给药走向精准定量时代",
+        "summary": "核药临床策略分会汇聚复旦中山石洪成、西南医科大陈跃、联影周云等专家，围绕剂量学个体化、联合治疗模式、新适应症探索等关键议题深入讨论，177Lu/225Ac临床转化成焦点",
+        "url": "https://rs.yiigle.com/cmaid/1679688",
+        "source": "中华医学会核医学分会",
+        "date": "2026-05-27",
+        "category": "诊疗一体化"
+      },
+      {
+        "title": "核药百年蜕变，如何成为精准医疗的核心支柱",
+        "summary": "综述分析了核药百年发展历程，指出诊断同位素领域形成非金属与金属同位素双轨并行格局，诊疗一体化成为核医学核心发展趋势。",
+        "url": "https://m.xianjichina.com/special/detail_603643.html",
+        "source": "贤集网",
+        "date": "2026-05-26",
+        "category": "行业综述"
+      },
+      {
+        "title": "临床核素治疗选择：90Y与177Lu的适应症界定与场景适配",
+        "summary": "从核药CRO视角分析90Y与177Lu两种主流β核素的物理特性差异、适用场景及联合策略，90Y诱导减瘤+177Lu维持联合方案中位PFS达64个月。",
+        "url": "https://www.unionclin.com/News/536.html",
+        "source": "临影医疗/联合临床",
+        "date": "2026-05-25",
+        "category": "β核素"
+      },
+      {
+        "title": "68Ga-DOTATATE注射液质量控制规范（团体标准征求意见稿）",
+        "summary": "中国同位素与辐射行业协会发布68Ga-DOTATATE注射液质量控制规范征求意见稿，规定放射化学纯度不低于95%、放射性浓度不小于25MBq/mL等技术指标。",
+        "url": "https://m.chemicalbook.com/SupplierNews_378982.htm",
+        "source": "中国同位素与辐射行业协会",
+        "date": "2026-05-20",
+        "category": "标准规范"
+      },
+      {
+        "title": "New PSMAddition data show 58% lower risk of PSA progression with Pluvicto",
+        "summary": "诺华公布的PSMAddition研究数据显示，Pluvicto联合标准护理治疗转移性激素敏感性前列腺癌，PSA进展风险降低58%，预计2026年下半年获得监管批准。",
+        "url": "https://www.novartis.com/news/media-releases/new-psmaddition-data-show-58-lower-risk-psa-progression-pluvicto-metastatic-hormone-sensitive-prostate-cancer",
+        "source": "Novartis",
+        "date": "2026-05-17",
+        "category": "新药审批"
+      },
+      {
+        "title": "国家药监局2025年批准6个品种放射性药品",
+        "summary": "2025年度药品审评报告显示全年批准6个品种放射性药品，创新药审评审批持续提速。",
+        "url": "http://m.toutiao.com/group/7640368837795316274/",
+        "source": "新京报",
+        "date": "2026-05-16",
+        "category": "新药审批"
+      },
+      {
+        "title": "中国散裂中子源实现Ac-225、Ra-223、Pb-212居里级量产",
+        "summary": "中科院高能所团队攻克α同位素分离纯化核心技术，国际首次实现锕-225、镭-223、铅-212居里级量产，核纯度超99%，结束我国高端抗癌核药原料依赖进口历史。",
+        "url": "https://m.chemicalbook.com/SupplierNews_378982.htm",
+        "source": "Chemical Book/中科院高能所",
+        "date": "2026-05-14",
+        "category": "核素生产"
+      },
+      {
+        "title": "中核集团10MeV超紧凑医用回旋加速器研制成功",
+        "summary": "中核集团原子能院研制成功国内首台10MeV超紧凑医用回旋加速器，可直接部署于医院核医学科，生产F-18、Ga-68、C-11等短寿命同位素，推动'一县一科'落地。",
+        "url": "https://m.chemicalbook.com/SupplierNews_378982.htm",
+        "source": "Chemical Book/中核集团",
+        "date": "2026-05-14",
+        "category": "核素生产"
+      },
+      {
+        "title": "瑞迪奥医药研发的我国首个广谱肿瘤SPECT显像1类创新核药获批",
+        "summary": "2026年4月2日，佛山瑞迪奥医药申报的锝[99mTc]佩昔瑞特加肽注射液正式获得NMPA批准上市，这是我国首个自主研发的广谱肿瘤SPECT显像1类创新核药。",
+        "url": "https://www.cira.net.cn/news/show-4717.html",
+        "source": "中国同位素与辐射行业协会",
+        "date": "2026-04-02",
+        "category": "国产核药"
+      },
+      {
+        "title": "核药创新进展与诊疗一体化展望（2025年）",
+        "summary": "该综述系统梳理了2025年全球及中国放射性药物领域在诊疗一体化深化背景下的关键进展与演进趋势。",
+        "url": "https://lifescience.sinh.ac.cn/webadmin/upload/20260422085806_4089_6015.pdf",
+        "source": "生命科学通报",
+        "date": "2026-02-01",
+        "category": "诊疗一体化"
+      },
+      {
+        "title": "诺华派威妥（177Lu-PSMA）双适应症在中国获批",
+        "summary": "诺华公司放射配体疗法药物派威妥（镥[177Lu]特昔维匹肽注射液）获国家药监局批准两个适应症，用于PSMA阳性转移性去势抵抗性前列腺癌。",
+        "url": "http://www.cnr.cn/shanghai/rdzt/nhjbh/zbhd/20251213/t20251213_527458622.shtml",
+        "source": "央广网",
+        "date": "2025-12-13",
+        "category": "新药审批"
+      },
+      {
+        "title": "68Ga与177Lu标记Nectin4抗体片段的诊疗一体化研究",
+        "summary": "EANM 2025发布的研究首次开发以Nectin4为靶点的放射性诊疗探针，实现非侵入性肿瘤监测与精准放疗。",
+        "url": "https://www.medsci.cn/article/show_article.do?id=8ff889951885",
+        "source": "EANM 2025",
+        "date": "2025-09-28",
+        "category": "诊疗一体化"
+      },
+      {
+        "title": "靶向α疗法225Ac-PSMA-617在mCRPC中的研究进展",
+        "summary": "225Ac-PSMA-617在转移性去势抵抗性前列腺癌患者中显示91% PSA下降率和15个月中位生存期。",
+        "url": "https://m.ebiotrade.com/newsf/2025-9/20250920011108057.htm",
+        "source": "Frontiers in Oncology",
+        "date": "2025-09-20",
+        "category": "靶向治疗"
+      },
+      {
+        "title": "177Lu-PSMA-617中国专家共识发布",
+        "summary": "中国医师协会泌尿外科医师分会、核医学医师分会联合发布177Lu-PSMA放射性配体疗法治疗前列腺癌安全管理中国专家共识。",
+        "url": "https://chinanm.cma.org.cn/art/2025/7/10/art_1367_60033.html",
+        "source": "中华泌尿外科杂志",
+        "date": "2025-07-10",
+        "category": "靶向治疗"
+      },
+      {
+        "title": "FDA expands Pluvicto's metastatic castration-resistant prostate cancer indication",
+        "summary": "2025年3月28日，FDA批准Pluvicto扩展适应症，用于仅接受过ARPI治疗的PSMA阳性mCRPC患者，标志着该药进入更早治疗线。",
+        "url": "https://www.fda.gov/drugs/resources-information-approved-drugs/oncology-cancerhematologic-malignancies-approval-notifications",
+        "source": "FDA",
+        "date": "2025-03-28",
+        "category": "新药审批"
+      },
+      {
+        "title": "68Ga-DOTATATE联合18F-FDG诊疗一体化在神经内分泌肿瘤中的应用",
+        "summary": "研究证实68Ga-DOTATATE联合18F-FDG双时相显像可提高神经内分泌肿瘤的诊断准确率。",
+        "url": "https://chinanm.cma.org.cn/art/2025/3/22/art_1367_59901.html",
+        "source": "中华核医学与分子影像杂志",
+        "date": "2025-03-22",
+        "category": "诊疗一体化"
+      },
+      {
+        "title": "国务院优化放射性药品审评审批政策",
+        "summary": "国务院办公厅发布意见，对临床急需的放射性药品予以优先审评审批，加快创新药械上市。",
+        "url": "https://www.gov.cn/gongbao/2025/issue_11806/202501/content_6999388.html",
+        "source": "中国政府网",
+        "date": "2025-01-20",
+        "category": "新药审批"
+      },
+      {
+        "title": "177Lu-EB-FAPI放射配体治疗为碘难治性甲状腺癌提供新策略",
+        "summary": "厦门大学附属第一医院研究首次验证177Lu-EB-FAPI在转移性碘难治性甲状腺癌患者中的安全性、可行性和初步疗效。",
+        "url": "https://www.xmfh.com.cn/info/3849/14376.htm",
+        "source": "Clinical Cancer Research",
+        "date": "2023-11-13",
+        "category": "核素治疗"
+      }
+    ],
+    "update_time": "2026-06-09"
+  },
+  "equipment": {
+    "categories": [
+      "新装机信息",
+      "配置许可",
+      "设备升级",
+      "投入运营"
+    ],
+    "items": [
+      {
+        "title": "海尔医疗'开泰'PET-CT获NMPA批准上市",
+        "summary": "海尔医疗历时四年研发的旗舰产品'开泰'超高端全数字化PET-CT于2026年5月24日获得NMPA注册批准，型号HR-PET/CT-5800，已在全国5家三甲医院完成多中心临床试验",
+        "url": "http://www.sqrb.com.cn/wyvahHXW/news/index.htm",
+        "source": "商丘网/行业分析",
+        "date": "2026-06-03",
+        "category": "新装机信息"
+      },
+      {
+        "title": "联影医疗PET-CT产品已进入沙特和阿联酋27家顶级医院",
+        "summary": "联影医疗产品已覆盖全球超过100个国家的16400余家医疗机构，PET-CT设备已进入中东沙特和阿联酋27家顶级医院，2026年Q1中东销售额同比增长89%",
+        "url": "http://m.toutiao.com/group/7647001338098631220/",
+        "source": "壹店臻选/行业分析",
+        "date": "2026-06-03",
+        "category": "装机动态"
+      },
+      {
+        "title": "武汉大学中南医院PET-CT采购项目公开招标，预算8500万元",
+        "summary": "武汉大学中南医院核医学科PET/CT采购项目公开招标，采购预算8500万元，要求设备具备全身动态采集能力，降低患者辐射剂量",
+        "url": "https://www.ccgp-hubei.gov.cn/notice/202606/notice_44b30e175ff549cb925234a400b75542.html",
+        "source": "湖北省政府采购网",
+        "date": "2026-06-04",
+        "category": "招标采购"
+      },
+      {
+        "title": "成都市温江区人民医院核医学科设备采购项目废标后重新招标",
+        "summary": "采购预算876.9万元，包括医用电子生理参数检测仪器、核医学诊断设备及介入诊断治疗用器械，合同包1因通过符合性审查投标人不足3家废标，需重新开展采购活动",
+        "url": "http://www.ccgp.gov.cn/cggg/dfgg/qtgg/202606/t20260608_26707872.htm",
+        "source": "中国政府采购网",
+        "date": "2026-06-08",
+        "category": "招标采购"
+      },
+      {
+        "title": "联影uMI Panorama GS在新加坡中央医院正式启用",
+        "summary": "联影新一代长轴PET/CT在亚洲排名第一的新加坡中央医院启用，148cm超大轴向视野，180ps级时间分辨率，1.4mm空间分辨率，辐射剂量可降至传统设备1/40",
+        "url": "http://m.toutiao.com/group/7648830908421718537/",
+        "source": "上观新闻/联影医疗",
+        "date": "2026-06-08",
+        "category": "装机启用"
+      },
+      {
+        "title": "中南大学湘雅三医院SPECT/CT手机自助开单服务上线",
+        "summary": "湘雅三医院核医学科创新推出SPECT/CT手机自助开单服务，为长期规律复查患者提供便捷预约通道",
+        "url": "http://www.caonmp.com/#news",
+        "source": "中国医师协会核医学医师分会",
+        "date": "2026-06-08",
+        "category": "投入运营"
+      },
+      {
+        "title": "CZT心脏专用SPECT设备推动核医学心脏成像升级",
+        "summary": "CZT半导体探测器技术应用于心脏专用SPECT设备，实现更高灵敏度和空间分辨率，推动心脏核医学成像技术升级",
+        "url": "https://chinanm.cma.org.cn/art/2024/12/31/art_1367_59562.html",
+        "source": "中华医学会核医学分会",
+        "date": "2026-06-08",
+        "category": "设备升级"
+      },
+      {
+        "title": "联影新一代长轴PET/CT在新加坡中央医院启用",
+        "summary": "联影uMI Panorama GS在新加坡中央医院正式启用，148cm超大轴向视野，180ps级时间分辨率，1.4mm空间分辨率，灵敏度达传统PET/CT数倍，辐射剂量可降至1/40。",
+        "url": "http://m.toutiao.com/group/7648830908421718537/",
+        "source": "上观新闻/联影医疗",
+        "date": "2026-06-08",
+        "category": "装机启用"
+      },
+      {
+        "title": "Total-body PET装机医院全球已超20家",
+        "summary": "联影医疗PET/CT长轴机已在全球装机约20台，主要集中在欧洲、北美和中国的顶尖医院，为临床提供新的诊断视角。",
+        "url": "http://m.toutiao.com/group/7647142926308344339/",
+        "source": "奥普瑞特",
+        "date": "2026-06-04",
+        "category": "装机动态"
+      },
+      {
+        "title": "北京大学人民医院新一代长轴PET/CT正式启用",
+        "summary": "北京大学人民医院核医学科新一代长轴PET/CT设备揭牌，具备更长轴向视野、更高探测灵敏度，全身扫描时间大幅缩短，同时降低显像剂用量和辐射剂量。",
+        "url": "http://m.toutiao.com/group/7646415836115026442/",
+        "source": "北京大学人民医院",
+        "date": "2026-06-01",
+        "category": "装机启用"
+      },
+      {
+        "title": "宁夏医科大学总医院PET-CT保修项目中标公告",
+        "summary": "宁夏医科大学总医院PET-CT保修项目由浙江瑞派医疗科技有限公司中标，中标金额96万元/年，服务期限三年。",
+        "url": "http://www.ccgp.gov.cn/cggg/dfgg/zbgg/202605/t20260518_26583612.htm",
+        "source": "中国政府采购网",
+        "date": "2026-05-18",
+        "category": "招标采购"
+      },
+      {
+        "title": "我国核医学设备整体覆盖不足且难以普惠",
+        "summary": "分析指出PET-CT设备价格昂贵（2000万-5000万元），国内装机量仅有数百台，主要集中在三级以上医院，县级医院核医学科覆盖率极低。",
+        "url": "https://m.36kr.com/p/2370723117213448",
+        "source": "36氪",
+        "date": "2026-05-17",
+        "category": "配置规划"
+      },
+      {
+        "title": "海军特色医学中心全新一代PET-CT正式投入临床使用",
+        "summary": "海军特色医学中心引进全新一代PET-CT设备，搭载数字光导芯平台，2.9mm最优NEMA分辨率、16cps/kBq最高灵敏度，与上海市长宁区医学会联合举办学术研讨会。",
+        "url": "https://m.sohu.com/a/1023101606_121106832/",
+        "source": "搜狐新闻/海军特色医学中心",
+        "date": "2026-05-15",
+        "category": "装机启用"
+      },
+      {
+        "title": "河南科技大学第一附属医院高端PET-CT采购项目中标公告",
+        "summary": "河南科技大学第一附属医院采购西门子Biograph Mission P高端PET-CT一套，中标金额2478万元。",
+        "url": "http://www.ccgp.gov.cn/cggg/dfgg/zbgg/202605/t20260511_26543204.htm",
+        "source": "中国政府采购网",
+        "date": "2026-05-11",
+        "category": "招标采购"
+      },
+      {
+        "title": "打破海外品牌垄断，国产SPECT/CT设备落地广州",
+        "summary": "麓影科技自主研发的SPECT/CT设备在广州增城落地研发生产基地，有望打破进口品牌在国内市场二十余年的垄断。",
+        "url": "http://m.toutiao.com/group/7638056346851525158/",
+        "source": "21世纪经济报道",
+        "date": "2026-05-10",
+        "category": "国产设备"
+      },
+      {
+        "title": "国内首台10MeV超紧凑医用回旋加速器研制成功",
+        "summary": "中核集团中国原子能科学研究院自主研制的国内首台10MeV超紧凑医用回旋加速器成功出束，具备生产氟-18、镓-68、碳-11等多种医用同位素的能力。",
+        "url": "https://www.cira.net.cn/news/show-4717.html",
+        "source": "中国同位素与辐射行业协会",
+        "date": "2026-04-18",
+        "category": "国产设备"
+      },
+      {
+        "title": "台州博爱医院引进台州市首台PET-CT",
+        "summary": "台州博爱医院引进uMI光导数字化PET-CT设备，经调试后正式上线，弥补台州市主城区PET-CT设备空白。",
+        "url": "https://www.bo-ai.com/news_detail.asp?id=4280",
+        "source": "台州博爱医院",
+        "date": "2025-11-17",
+        "category": "新装机信息"
+      },
+      {
+        "title": "河南省人民医院等医疗机构获PET/CT配置许可",
+        "summary": "河南省卫健委批准河南省人民医院新增配置2台PET/CT，河南省肿瘤医院、洛阳市中心医院、三门峡市中心医院各新增配置1台PET/CT。",
+        "url": "https://wsjkw.henan.gov.cn/2025/08-22/3204570.html",
+        "source": "河南省卫生健康委员会",
+        "date": "2025-08-20",
+        "category": "配置许可"
+      },
+      {
+        "title": "广西中医药大学第一附属医院仙葫院区新建PET/CT项目",
+        "summary": "广西中医药大学第一附属医院仙葫院区新建PET/CT应用项目环境影响报告表进行公示，拟配置1套PET/CT设备。",
+        "url": "http://sthjt.gxzf.gov.cn/zfxxgk/zfxxgkgl/fdzdgknr/hjjccf/xzxk/npzxm/P020250923588827766148.pdf",
+        "source": "广西壮族自治区生态环境厅",
+        "date": "2025-08-01",
+        "category": "新装机信息"
+      },
+      {
+        "title": "康复大学青岛中心医院引进西门子Biograph Vision PET-CT",
+        "summary": "康复大学青岛中心医院引进目前青岛市最先进的SIEMENS高端PET-CT设备Biograph Vision，扫描速度比传统设备快3倍。",
+        "url": "https://m.guanhai.com.cn/p/396770.html",
+        "source": "青岛日报社",
+        "date": "2025-07-10",
+        "category": "新装机信息"
+      },
+      {
+        "title": "安徽省启动2025年乙类大型医用设备配置许可审批",
+        "summary": "安徽省卫健委开展2025年乙类大型医用设备配置许可审批工作，涉及PET/MR、PET/CT等设备。",
+        "url": "https://wjw.ah.gov.cn/public/7001/57847611.html",
+        "source": "安徽省卫生健康委员会",
+        "date": "2025-06-03",
+        "category": "配置许可"
+      },
+      {
+        "title": "2025年中国PET-CT新增装机量达1420台",
+        "summary": "据行业统计，2025年国内PET-CT装机量达约1420台，较2024年增长12.7%，其中国产设备新增装机占比达63.4%。",
+        "url": "https://www.docin.com/touch_new/preview_new.do?id=4990232246",
+        "source": "博研咨询",
+        "date": "2025-05-09",
+        "category": "行业统计"
+      },
+      {
+        "title": "重庆医科大学附属第一医院PET/CT项目竣工验收",
+        "summary": "重庆医科大学附属第一医院改建PET/CT、PET/MR项目(PET/CT部分)完成竣工环境保护验收，项目投入运行时间2025年3月14日。",
+        "url": "https://www.hospital-cqmu.com/oss/20250609/192432483.pdf",
+        "source": "重庆医科大学附属第一医院",
+        "date": "2025-05-01",
+        "category": "投入运营"
+      },
+      {
+        "title": "河北医科大学第四医院引进河北省首台联影uEXPLORER PET/CT",
+        "summary": "河北省首台超高端联影全景动态uEXPLORER 2米超长轴PET/CT在河北医科大学第四医院东院区核医学科成功投入使用。",
+        "url": "http://www.hbydsy.com/info/1012/7850.htm",
+        "source": "河北医科大学第四医院",
+        "date": "2025-02-19",
+        "category": "新装机信息"
+      }
+    ],
+    "update_time": "2026-06-09"
+  },
+  "changelog": {
+    "update_time": "2026-06-09",
+    "updates": [
+      {
+        "date": "2026-06-09",
+        "time": "15:50",
+        "title": "2026年6月9日下午数据更新",
+        "items": [
+          {
+            "name": "山西省肿瘤医院成功开展177Lu-PSMA和225Ac-PSMA靶向核素治疗临床试验",
+            "category": "新技术与临床研究",
+            "url": "http://m.toutiao.com/group/7649254113485619758/"
+          },
+          {
+            "name": "B7-H3靶向PET平台导航骨肉瘤精准切除及切缘验证 - SNMMI 2026",
+            "category": "新技术与临床研究",
+            "url": "https://mobile.medimaging.net/nuclear-medicine/articles/294811110/targeted-pet-platform-guides-osteosarcoma-resection-and-margin-verification.html"
+          },
+          {
+            "name": "ASNC发布首届研究基金$125K，聚焦PET、SPECT和AI驱动成像",
+            "category": "新技术与临床研究",
+            "url": "https://universityresearchtimes.com/agp-article/918187172-asnc-awards-125k-in-inaugural-research-grants"
+          },
+          {
+            "name": "中国抗癌协会肿瘤核医学专委会2026年学术年会在石家庄召开",
+            "category": "新技术与临床研究",
+            "url": "https://m.sohu.com/a/1033826008_121123850/"
+          },
+          {
+            "name": "Telix与United Imaging宣布战略合作推进核医学诊疗一体化",
+            "category": "核素药物",
+            "url": "https://markets.financialcontent.com/worldnow.kotv/quote/news?ChannelType=PRESSRELEASES&Symbol=NQ%3ATLX"
+          },
+          {
+            "name": "绵阳高选择性核药纯化技术突破：国产萃取分离树脂打破国外垄断",
+            "category": "核素药物",
+            "url": "http://m.toutiao.com/group/7648928577924219433/"
+          },
+          {
+            "name": "诺华浙江海盐放射性药物生产基地计划2026年底投产",
+            "category": "核素药物",
+            "url": "http://m.toutiao.com/group/7648920875143676450/"
+          },
+          {
+            "name": "阳光诺和氟[18F]代雌二醇注射液临床试验申请获NMPA受理",
+            "category": "核素药物",
+            "url": "https://c.m.163.com/news/a/KUT3CA5S05565EU3.html"
+          },
+          {
+            "name": "诺宇医药累计融资4轮，68Ga-NYM005肾癌诊断核药进入临床后期",
+            "category": "核素药物",
+            "url": "https://www.qcc.com/crun/1266a7ad112739d3502b5426ab868f97.html"
+          },
+          {
+            "name": "成都市温江区人民医院核医学科设备采购项目废标后重新招标",
+            "category": "PET-CT装机",
+            "url": "http://www.ccgp.gov.cn/cggg/dfgg/qtgg/202606/t20260608_26707872.htm"
+          },
+          {
+            "name": "全国首部《瘢痕放射治疗临床应用中国专家共识》在昆正式发布",
+            "category": "学会指南",
+            "url": "https://www.ccwb.cn/content/202606/08/c886828.html"
+          }
+        ]
+      },
+      {
+        "date": "2026-06-09",
+        "time": "07:17",
+        "title": "2026年6月9日数据更新",
+        "items": [
+          {
+            "name": "分化型甲状腺癌术后核医学诊疗临床路径总结2026",
+            "category": "学会指南",
+            "url": "https://m.book118.com/html/2026/0603/8116025140010076.shtm"
+          },
+          {
+            "name": "NICE Guideline on 99mTc-Sestamibi SPECT/CT in Kidney Cancer",
+            "category": "学会指南",
+            "url": "https://www.nice.org.uk/guidance/ng256"
+          },
+          {
+            "name": "国内首个α-syn PET示踪剂SST001正式启动帕金森病注册临床研究",
+            "category": "新技术与临床研究",
+            "url": "http://m.toutiao.com/group/7646787875568108073/"
+          },
+          {
+            "name": "海尔医疗与联影uExcel同日获NMPA批准",
+            "category": "新技术与临床研究",
+            "url": "http://www.sqrb.com.cn/wyvahHXW/news/index.htm"
+          },
+          {
+            "name": "齐鲁医院PET/CT AI研究成果发表于Information Fusion",
+            "category": "新技术与临床研究",
+            "url": "http://m.toutiao.com/group/7646615272882717190/"
+          },
+          {
+            "name": "新型PET示踪剂64Cu-DOTA-ECL1i追踪免疫治疗心脏炎症",
+            "category": "新技术与临床研究",
+            "url": "http://www.familydoctor.cn/news/xinxing-pet-chengxiang-jishu-zhuizong-zhongliu-jinzhan-hexin-yanzheng-434088.html"
+          },
+          {
+            "name": "JNM Vol. 67, Issue 6 (June 2026)",
+            "category": "权威期刊",
+            "url": "https://jnm.snmjournals.org/content/67/6"
+          },
+          {
+            "name": "Translational Theranostics in Glioblastoma: FAPI-46",
+            "category": "权威期刊",
+            "url": "https://jnm.snmjournals.org/content/early/2026/06/04/jnumed.125.271759"
+          },
+          {
+            "name": "ASCO 2026：诺华225Ac-PSMA首个人体试验数据发布",
+            "category": "核素药物",
+            "url": "https://c.m.163.com/news/a/KUE6TFOB05118K9D.html"
+          },
+          {
+            "name": "先通药业XTR022(225Ac-XT381)亮相ASCO 2026",
+            "category": "核素药物",
+            "url": "https://c.m.163.com/news/a/KUE6TFOB05118K9D.html"
+          },
+          {
+            "name": "浙江省肿瘤医院启动225Ac-PSMA靶向α核素治疗临床研究",
+            "category": "核素药物",
+            "url": "https://www.ccnta.cn/article/25666.html"
+          },
+          {
+            "name": "联影uMI Panorama GS在新加坡中央医院启用",
+            "category": "PET-CT装机",
+            "url": "http://m.toutiao.com/group/7648830908421718537/"
+          },
+          {
+            "name": "武汉大学中南医院PET-CT采购项目公开招标",
+            "category": "PET-CT装机",
+            "url": "https://www.ccgp-hubei.gov.cn/notice/202606/notice_44b30e175ff549cb925234a400b75542.html"
+          },
+          {
+            "name": "海尔医疗'开泰'PET-CT获NMPA批准上市",
+            "category": "PET-CT装机",
+            "url": "http://www.sqrb.com.cn/wyvahHXW/news/index.htm"
+          }
+        ]
+      },
+      {
+        "date": "2026-06-08",
+        "time": "18:27",
+        "title": "新增国际核医学学会指南",
+        "items": [
+          {
+            "name": "EANM Procedure Guidelines for [18F]FDG PET/CT Tumour Imaging v3.0",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-024-06678-x"
+          },
+          {
+            "name": "Joint EANM/SNMMI Recommendations on Tau PET Imaging in Alzheimer's Disease",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-026-07031-z"
+          },
+          {
+            "name": "SNMMI/ACNM Guideline for Post-Treatment Imaging of 177Lu-based Radiopharmaceutical Therapies",
+            "category": "学会指南",
+            "url": "https://captions.snmmi.org/common/Uploaded%20files/Web/Clinical%20Practice/Procedure%20Standards/2025/Post%20Treatment%20Imaging%20with%20Lu177-JNM%20Summary.pdf"
+          },
+          {
+            "name": "SNMMI/EANM/ASNC/ACNM Guideline for 18F-Flurpiridaz PET Myocardial Perfusion Imaging",
+            "category": "学会指南",
+            "url": "https://jnm.snmjournals.org/content/66/10/1538"
+          },
+          {
+            "name": "SNMMI/EANM/ACNM Guideline on Molecular Imaging for Renal Mass Characterization",
+            "category": "学会指南",
+            "url": "https://jnm.snmjournals.org/content/early/2025/10/09/jnumed.125.271332"
+          },
+          {
+            "name": "SNMMI/ACNM Practice Guideline for Radiopharmaceuticals 5.0",
+            "category": "学会指南",
+            "url": "https://tech.snmjournals.org/content/early/2025/04/01/jnmt.125.269834.full"
+          },
+          {
+            "name": "EANM/EANO/RANO/SNMMI Guideline for PET Imaging of Brain Metastases v1.0",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-024-06858-5"
+          },
+          {
+            "name": "SNMMI/EANM Practice Guideline for FAP PET Imaging",
+            "category": "学会指南",
+            "url": "https://captions.snmmi.org/common/Uploaded%20files/Web/Clinical%20Practice/Procedure%20Standards/2024/SNMMI_%20EANM%20FAP%20PET%20Procedure%20Standard.pdf"
+          },
+          {
+            "name": "AUC for 18F-FDG PET/CT for Initial Staging of Malignant Disease",
+            "category": "学会指南",
+            "url": "https://snmmi.org/common/Uploaded%20files/Web/Clinical%20Practice/Appropriate%20Use%20Criteria/AUC%20for%2018F-FDG%20PET_CT%20for%20Initial%20Staging%20of%20Malignant%20Disease%20Updated%20V2-FINAL.pdf"
+          },
+          {
+            "name": "Updated AUC for Amyloid and Tau PET",
+            "category": "学会指南",
+            "url": "https://alz-journals.onlinelibrary.wiley.com/doi/full/10.1002/alz.14338"
+          },
+          {
+            "name": "AUC for PSMA PET Imaging",
+            "category": "学会指南",
+            "url": "https://jnm.snmjournals.org/content/62/12/1756"
+          },
+          {
+            "name": "SNMMI Consensus Statement on 177Lu-PSMA-617 Radionuclide Therapy",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s11307-023-01818-z"
+          },
+          {
+            "name": "SNMMI/EANM Practice Guideline for Brain [18F]FDG PET Imaging v2.0",
+            "category": "学会指南",
+            "url": "https://jnm.snmjournals.org/content/66/Supplement_2/S45.full"
+          },
+          {
+            "name": "EANM/SNMMI Guideline for 18F-FDG Hybrid PET in Infection and Inflammation v2.0",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-024-06915-3"
+          },
+          {
+            "name": "Joint EANM-SNMMI Guideline on 2-18F-FDG PET/CT in Breast Cancer",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-024-06696-9"
+          },
+          {
+            "name": "EANM Practice Guidelines for PET and SPECT for Epilepsy",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-024-06651-8"
+          },
+          {
+            "name": "EANM/EANO/RANO/SNMMI Guideline for Somatostatin Receptor Ligands in Meningiomas",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-024-06728-4"
+          },
+          {
+            "name": "EANM/SNMMI Guideline for Paediatric Bone Hybrid Imaging with 99mTc",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-025-07022-z"
+          },
+          {
+            "name": "EANM Guidelines on [18F]FDG PET/CT in Plasma Cell Disorders",
+            "category": "学会指南",
+            "url": "https://link.springer.com/article/10.1007/s00259-024-06858-9"
+          },
+          {
+            "name": "EANM Guidelines for PET-CT and PET-MR Routine Quality Control",
+            "category": "学会指南",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10068535/"
+          },
+          {
+            "name": "FDG PET, PET/CT 診療ガイドライン 2020 (JSNM)",
+            "category": "学会指南",
+            "url": "https://jsnm.org/wp_jsnm/wp-content/uploads/2018/09/FDG_PET_petct_GL2020.pdf"
+          },
+          {
+            "name": "Clinical Practice Guidelines for 18F-Fluciclovine 2024 (JSNM)",
+            "category": "学会指南",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12378485/"
+          },
+          {
+            "name": "FDG PET/MRI 診療ガイドライン 2019 (JSNM)",
+            "category": "学会指南",
+            "url": "https://jsnm.org/archives/5171/"
+          },
+          {
+            "name": "FDG-PETがん検診ガイドライン 第3版 (JSNM)",
+            "category": "学会指南",
+            "url": "https://jcpet.jp/cancer-screening/guideline.html"
+          },
+          {
+            "name": "PET-MRI Guideline & Standard PET Imaging Protocols (JSNM)",
+            "category": "学会指南",
+            "url": "https://jsnm.org/english/e_guidelines/"
+          },
+          {
+            "name": "Japanese Consensus Guidelines for Pediatric Nuclear Medicine (JSNM)",
+            "category": "学会指南",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4061477/"
+          }
+        ]
+      },
+      {
+        "date": "2026-06-08",
+        "time": "18:14",
+        "title": "手机端排版优化",
+        "items": [
+          {
+            "name": "移动端响应式布局全面优化",
+            "category": "网页优化",
+            "url": ""
+          },
+          {
+            "name": "导航栏改为横向滑动标签页",
+            "category": "网页优化",
+            "url": ""
+          },
+          {
+            "name": "超小屏幕(≤380px)适配",
+            "category": "网页优化",
+            "url": ""
+          }
+        ]
+      }
+    ]
+  }
 };
+
+const SECTIONS = [
+  {key:"guidelines",name:"📋 学会指南",color:"#27ae60"},
+  {key:"research",name:"🔬 新技术与临床研究",color:"#2980b9"},
+  {key:"journals",name:"📖 权威期刊论文",color:"#8e44ad"},
+  {key:"radiopharma",name:"💊 核素药物与治疗进展",color:"#e67e22"},
+  {key:"equipment",name:"🖥 PET-CT装机信息",color:"#c0392b"},
+  {key:"changelog",name:"📝 更新日志",color:"#16a085"}
+];
+
+let currentSection = 'guidelines';
+let sortKey = {};
+
+function init() {
+  renderTabs();
+  renderAllSections();
+  updateStats();
+  // Hash navigation
+  const h = location.hash.slice(1);
+  if (h && SECTIONS.some(s=>s.key===h)) switchSection(h);
+}
+
+function renderTabs() {
+  const tabs = document.getElementById('tabs');
+  tabs.innerHTML = SECTIONS.map(s =>
+    `<div class="tab ${s.key===currentSection?'active':''}" onclick="switchSection('${s.key}')">${s.name}</div>`
+  ).join('');
+}
+
+function switchSection(key) {
+  currentSection = key;
+  renderTabs();
+  document.querySelectorAll('.section').forEach(el => {
+    el.classList.toggle('active', el.id === 'sec-'+key);
+  });
+  location.hash = key;
+}
+
+function renderAllSections() {
+  const container = document.getElementById('sections');
+  let html = '';
+  SECTIONS.forEach(s => {
+    if (s.key === 'changelog') {
+      html += renderChangelogSection(s);
+    } else {
+      html += renderDataSection(s);
+    }
+  });
+  container.innerHTML = html;
+}
+
+function renderDataSection(s) {
+  const data = DATA[s.key];
+  if (!data) return '';
+  const cats = data.categories || [];
+  const items = data.items || [];
+  return `<div class="section ${s.key===currentSection?'active':''}" id="sec-${s.key}">
+    <div class="section-header">
+      <h2>${s.name}</h2>
+      <div class="sort-btns">
+        <span class="count">共 ${items.length} 条</span>
+        <button class="sort-btn active" onclick="sortItems('${s.key}','date',this)">按时间</button>
+        <button class="sort-btn" onclick="sortItems('${s.key}','source',this)">按来源</button>
+        ${cats.map(c=>`<button class="sort-btn" onclick="filterCategory('${s.key}','${c}',this)">${c}</button>`).join('')}
+      </div>
+    </div>
+    <div class="cards" id="cards-${s.key}">${renderCards(s.key, items)}</div>
+  </div>`;
+}
+
+function renderCards(sectionKey, items) {
+  if (!items || items.length === 0) return '<div class="no-result">暂无数据</div>';
+  return items.map((item, idx) => {
+    const isJournal = sectionKey === 'journals';
+    const clickAction = isJournal
+      ? `onclick="openPoster(${idx})"`
+      : `onclick="window.open('${escapeAttr(item.url)}','_blank')"`;
+    return `<div class="card ${sectionKey}" ${clickAction}>
+      <div class="title">${escapeHtml(item.title)}</div>
+      <div class="summary">${escapeHtml(item.summary)}</div>
+      ${isJournal ? '<div class="poster-hint">📄 点击查看学术海报</div>' : ''}
+      <div class="meta">
+        <span class="source">${escapeHtml(item.source || '')}</span>
+        <span class="cat">${escapeHtml(item.category || '')}</span>
+        <span>${escapeHtml(item.date || '')}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderChangelogSection(s) {
+  const data = DATA.changelog;
+  if (!data) return '';
+  const updates = data.updates || [];
+  return `<div class="section ${s.key===currentSection?'active':''}" id="sec-${s.key}">
+    <div class="section-header">
+      <h2>${s.name}</h2>
+      <span class="count">共 ${updates.length} 次更新</span>
+    </div>
+    <div class="cards">${renderChangelog(updates)}</div>
+  </div>`;
+}
+
+function renderChangelog(updates) {
+  if (!updates || updates.length === 0) return '<div class="no-result">暂无更新记录</div>';
+  return updates.map(u => `<div class="card changelog">
+    <div class="changelog-group">
+      <div class="changelog-date">${u.date}</div>
+      <div class="changelog-time">${u.time || ''}</div>
+      <div class="changelog-title">${escapeHtml(u.title)}</div>
+      ${(u.items||[]).map(i => `<div class="changelog-item">
+        <span class="changelog-cat">${escapeHtml(i.category)}</span>
+        <a class="changelog-link" href="${escapeAttr(i.url)}" target="_blank">${escapeHtml(i.name)}</a>
+      </div>`).join('')}
+    </div>
+  </div>`).join('');
+}
+
+function sortItems(sectionKey, key, btn) {
+  const section = document.getElementById('sec-'+sectionKey);
+  section.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  let items = [...DATA[sectionKey].items];
+  if (key === 'date') {
+    items.sort((a,b) => (b.date||'').localeCompare(a.date||''));
+  } else if (key === 'source') {
+    items.sort((a,b) => (a.source||'').localeCompare(b.source||''));
+  }
+  document.getElementById('cards-'+sectionKey).innerHTML = renderCards(sectionKey, items);
+}
+
+function filterCategory(sectionKey, cat, btn) {
+  const section = document.getElementById('sec-'+sectionKey);
+  section.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  let items = DATA[sectionKey].items.filter(i => i.category === cat);
+  document.getElementById('cards-'+sectionKey).innerHTML = renderCards(sectionKey, items);
+}
+
+function doSearch() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  if (!q) {
+    renderAllSections();
+    switchSection(currentSection);
+    return;
+  }
+  SECTIONS.forEach(s => {
+    if (s.key === 'changelog') return;
+    const items = (DATA[s.key]?.items||[]).filter(i =>
+      (i.title||'').toLowerCase().includes(q) ||
+      (i.summary||'').toLowerCase().includes(q) ||
+      (i.source||'').toLowerCase().includes(q)
+    );
+    const el = document.getElementById('cards-'+s.key);
+    if (el) el.innerHTML = renderCards(s.key, items);
+  });
+}
+
+function updateStats() {
+  let total = 0;
+  SECTIONS.forEach(s => {
+    if (s.key !== 'changelog') total += (DATA[s.key]?.items?.length || 0);
+  });
+  document.getElementById('stats').textContent = `收录 ${total} 条资讯 · 6大板块`;
+}
+
+/* Academic Poster */
+function openPoster(idx) {
+  const items = DATA.journals.items;
+  if (!items || !items[idx]) return;
+  const item = items[idx];
+  const poster = item.poster || null;
+  const overlay = document.getElementById('posterOverlay');
+  const container = document.getElementById('posterContainer');
+
+  let html = `<button class="poster-close" onclick="closePoster()">✕</button>`;
+
+  // Header
+  html += `<div class="poster-header">
+    <h2>${escapeHtml(item.title)}</h2>
+    <div class="poster-meta">
+      ${item.journal ? `<span>📓 ${escapeHtml(item.journal)}</span>` : ''}
+      ${item.authors ? `<span>✍️ ${escapeHtml(item.authors)}</span>` : ''}
+      ${item.date ? `<span>📅 ${escapeHtml(item.date)}</span>` : ''}
+      ${item.category ? `<span>🏷️ ${escapeHtml(item.category)}</span>` : ''}
+    </div>
+  </div>`;
+
+  if (poster) {
+    // Full poster content
+    html += `<div class="poster-body">`;
+
+    // Central idea
+    if (poster.central_idea) {
+      html += `<div class="poster-section">
+        <div class="poster-section-title"><span class="icon">💡</span> 中心思想</div>
+        <div class="poster-section-content">${poster.central_idea}</div>
+      </div>`;
+    }
+
+    // Core content
+    if (poster.core_content) {
+      html += `<div class="poster-section">
+        <div class="poster-section-title"><span class="icon">🔬</span> 核心内容</div>
+        <div class="poster-section-content">${poster.core_content}</div>
+      </div>`;
+    }
+
+    // Key findings
+    if (poster.key_findings && poster.key_findings.length > 0) {
+      html += `<div class="poster-section">
+        <div class="poster-section-title"><span class="icon">📊</span> 关键发现</div>
+        <div class="poster-section-content"><ul>${poster.key_findings.map(f=>`<li>${f}</li>`).join('')}</ul></div>
+      </div>`;
+    }
+
+    // Key tables
+    if (poster.tables && poster.tables.length > 0) {
+      poster.tables.forEach((table, ti) => {
+        html += `<div class="poster-section">
+          <div class="poster-section-title"><span class="icon">📋</span> ${escapeHtml(table.title || '关键表格 '+(ti+1))}</div>
+          <div class="poster-section-content"><table class="poster-table"><thead><tr>${(table.headers||[]).map(h=>`<th>${escapeHtml(h)}</th>`).join('')}</tr></thead><tbody>${(table.rows||[]).map(row=>`<tr>${row.map(cell=>`<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+        </div>`;
+      });
+    }
+
+    // Clinical significance
+    if (poster.clinical_significance) {
+      html += `<div class="poster-section">
+        <div class="poster-section-title"><span class="icon">🏥</span> 临床意义</div>
+        <div class="poster-section-content">${poster.clinical_significance}</div>
+      </div>`;
+    }
+
+    html += `</div>`;
+  } else {
+    // No detailed poster data yet - show summary
+    html += `<div class="poster-body">
+      <div class="poster-section">
+        <div class="poster-section-title"><span class="icon">📝</span> 摘要</div>
+        <div class="poster-section-content">${escapeHtml(item.summary)}</div>
+      </div>
+      <div class="poster-section">
+        <div class="poster-section-title"><span class="icon">ℹ️</span> 文献信息</div>
+        <div class="poster-section-content">
+          <ul>
+            ${item.journal ? `<li><strong>期刊：</strong>${escapeHtml(item.journal)}</li>` : ''}
+            ${item.authors ? `<li><strong>作者：</strong>${escapeHtml(item.authors)}</li>` : ''}
+            ${item.date ? `<li><strong>日期：</strong>${escapeHtml(item.date)}</li>` : ''}
+            ${item.source ? `<li><strong>来源：</strong>${escapeHtml(item.source)}</li>` : ''}
+          </ul>
+        </div>
+      </div>
+      <div class="poster-loading">📄 详细学术海报内容正在准备中，请先查看原文</div>
+    </div>`;
+  }
+
+  // Footer with original link
+  html += `<div class="poster-footer">
+    <a class="poster-link" href="${escapeAttr(item.url)}" target="_blank">🔗 查看原文</a>
+  </div>`;
+
+  container.innerHTML = html;
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePoster() {
+  const overlay = document.getElementById('posterOverlay');
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Close poster on ESC or clicking overlay background
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePoster(); });
+document.getElementById('posterOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('posterOverlay')) closePoster();
+});
+
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escapeAttr(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+init();
 </script>
+</body>
+</html>
