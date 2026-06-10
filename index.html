@@ -3203,5 +3203,304 @@ const DATA = {
 };
 const TODAY = "2026-06-10";
 
+const SECTIONS = [
+  {key:"guidelines",name:"📋 学会指南",color:"#27ae60"},
+  {key:"research",name:"🔬 新技术与临床研究",color:"#2980b9"},
+  {key:"journals",name:"📖 权威期刊论文",color:"#8e44ad"},
+  {key:"radiopharma",name:"💊 核素药物与治疗进展",color:"#e67e22"},
+  {key:"equipment",name:"🖥 PET-CT装机信息",color:"#c0392b"},
+  {key:"changelog",name:"📝 更新日志",color:"#16a085"}
+];
+
+let currentSection = 'guidelines';
+let sortKey = {};
+
+function init() {
+  renderTabs();
+  renderAllSections();
+  updateStats();
+  // Hash navigation
+  const h = location.hash.slice(1);
+  if (h && SECTIONS.some(s=>s.key===h)) switchSection(h);
+}
+
+function renderTabs() {
+  const tabs = document.getElementById('tabs');
+  tabs.innerHTML = SECTIONS.map(s =>
+    `<div class="tab ${s.key===currentSection?'active':''}" onclick="switchSection('${s.key}')">${s.name}</div>`
+  ).join('');
+}
+
+function switchSection(key) {
+  currentSection = key;
+  renderTabs();
+  document.querySelectorAll('.section').forEach(el => {
+    el.classList.toggle('active', el.id === 'sec-'+key);
+  });
+  location.hash = key;
+}
+
+function renderAllSections() {
+  const container = document.getElementById('sections');
+  let html = '';
+  SECTIONS.forEach(s => {
+    if (s.key === 'changelog') {
+      html += renderChangelogSection(s);
+    } else {
+      html += renderDataSection(s);
+    }
+  });
+  container.innerHTML = html;
+}
+
+function renderDataSection(s) {
+  const data = DATA[s.key];
+  if (!data) return '';
+  const cats = data.categories || [];
+  const items = data.items || [];
+  return `<div class="section ${s.key===currentSection?'active':''}" id="sec-${s.key}">
+    <div class="section-header">
+      <h2>${s.name}</h2>
+      <div class="sort-btns">
+        <span class="count">共 ${items.length} 条</span>
+        <button class="sort-btn active" onclick="sortItems('${s.key}','date',this)">按时间</button>
+        <button class="sort-btn" onclick="sortItems('${s.key}','source',this)">按来源</button>
+        ${cats.map(c=>`<button class="sort-btn" onclick="filterCategory('${s.key}','${c}',this)">${c}</button>`).join('')}
+      </div>
+    </div>
+    <div class="cards" id="cards-${s.key}">${renderCards(s.key, items)}</div>
+  </div>`;
+}
+
+function renderCards(sectionKey, items) {
+  if (!items || items.length === 0) return '<div class="no-result">暂无数据</div>';
+  return items.map((item, idx) => {
+    const isJournal = sectionKey === 'journals';
+    const posterReady = isJournal && item.poster
+      && (item.poster.central_idea || '').length > 30
+      && (item.poster.core_content || '').length > 80
+      && (item.poster.key_findings || []).length >= 3
+      && (item.poster.clinical_significance || '').length > 30;
+    const clickAction = isJournal
+      ? (posterReady ? `onclick="openPoster(${idx})"` : '')
+      : `onclick="window.open('${escapeAttr(item.url)}','_blank')"`;
+    const cardStyle = isJournal && !posterReady ? 'style="cursor:default"' : '';
+    return `<div class="card ${sectionKey}" ${clickAction} ${cardStyle}>
+      <div class="title">${escapeHtml(item.title)}</div>
+      <div class="summary">${escapeHtml(item.summary)}</div>
+      ${isJournal ? (posterReady
+        ? '<div class="poster-hint">📄 点击查看学术海报</div>'
+        : '<div class="poster-hint-disabled">🚧 海报制作中</div>') : ''}
+      <div class="meta">
+        <span class="source">${escapeHtml(item.source || '')}</span>
+        <span class="cat">${escapeHtml(item.category || '')}</span>
+        <span>${escapeHtml(item.date || '')}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderChangelogSection(s) {
+  const data = DATA.changelog;
+  if (!data) return '';
+  const updates = data.updates || [];
+  return `<div class="section ${s.key===currentSection?'active':''}" id="sec-${s.key}">
+    <div class="section-header">
+      <h2>${s.name}</h2>
+      <span class="count">共 ${updates.length} 次更新</span>
+    </div>
+    <div class="cards">${renderChangelog(updates)}</div>
+  </div>`;
+}
+
+function renderChangelog(updates) {
+  if (!updates || updates.length === 0) return '<div class="no-result">暂无更新记录</div>';
+  return updates.map(u => `<div class="card changelog">
+    <div class="changelog-group">
+      <div class="changelog-date">${u.date}</div>
+      <div class="changelog-time">${u.time || ''}</div>
+      <div class="changelog-title">${escapeHtml(u.title)}</div>
+      ${(u.items||[]).map(i => `<div class="changelog-item">
+        <span class="changelog-cat">${escapeHtml(i.category)}</span>
+        <a class="changelog-link" href="${escapeAttr(i.url)}" target="_blank">${escapeHtml(i.name)}</a>
+      </div>`).join('')}
+    </div>
+  </div>`).join('');
+}
+
+function sortItems(sectionKey, key, btn) {
+  const section = document.getElementById('sec-'+sectionKey);
+  section.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  let items = [...DATA[sectionKey].items];
+  if (key === 'date') {
+    items.sort((a,b) => (b.date||'').localeCompare(a.date||''));
+  } else if (key === 'source') {
+    items.sort((a,b) => (a.source||'').localeCompare(b.source||''));
+  }
+  document.getElementById('cards-'+sectionKey).innerHTML = renderCards(sectionKey, items);
+}
+
+function filterCategory(sectionKey, cat, btn) {
+  const section = document.getElementById('sec-'+sectionKey);
+  section.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  let items = DATA[sectionKey].items.filter(i => i.category === cat);
+  document.getElementById('cards-'+sectionKey).innerHTML = renderCards(sectionKey, items);
+}
+
+function doSearch() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  if (!q) {
+    renderAllSections();
+    switchSection(currentSection);
+    return;
+  }
+  SECTIONS.forEach(s => {
+    if (s.key === 'changelog') return;
+    const items = (DATA[s.key]?.items||[]).filter(i =>
+      (i.title||'').toLowerCase().includes(q) ||
+      (i.summary||'').toLowerCase().includes(q) ||
+      (i.source||'').toLowerCase().includes(q)
+    );
+    const el = document.getElementById('cards-'+s.key);
+    if (el) el.innerHTML = renderCards(s.key, items);
+  });
+}
+
+function updateStats() {
+  let total = 0;
+  SECTIONS.forEach(s => {
+    if (s.key !== 'changelog') total += (DATA[s.key]?.items?.length || 0);
+  });
+  document.getElementById('stats').textContent = `收录 ${total} 条资讯 · 6大板块`;
+}
+
+/* Academic Poster */
+function openPoster(idx) {
+  const items = DATA.journals.items;
+  if (!items || !items[idx]) return;
+  const item = items[idx];
+  const poster = item.poster || null;
+  const overlay = document.getElementById('posterOverlay');
+  const container = document.getElementById('posterContainer');
+
+  let html = `<button class="poster-close" onclick="closePoster()">✕</button>`;
+
+  // Header
+  html += `<div class="poster-header">
+    <h2>${escapeHtml(item.title)}</h2>
+    <div class="poster-meta">
+      ${item.journal ? `<span>📓 ${escapeHtml(item.journal)}</span>` : ''}
+      ${item.authors ? `<span>✍️ ${escapeHtml(item.authors)}</span>` : ''}
+      ${item.date ? `<span>📅 ${escapeHtml(item.date)}</span>` : ''}
+      ${item.category ? `<span>🏷️ ${escapeHtml(item.category)}</span>` : ''}
+    </div>
+  </div>`;
+
+  if (poster) {
+    // Full poster content
+    html += `<div class="poster-body">`;
+
+    // Central idea
+    if (poster.central_idea) {
+      html += `<div class="poster-section">
+        <div class="poster-section-title"><span class="icon">💡</span> 中心思想</div>
+        <div class="poster-section-content">${poster.central_idea}</div>
+      </div>`;
+    }
+
+    // Core content
+    if (poster.core_content) {
+      html += `<div class="poster-section">
+        <div class="poster-section-title"><span class="icon">🔬</span> 核心内容</div>
+        <div class="poster-section-content">${poster.core_content}</div>
+      </div>`;
+    }
+
+    // Key findings
+    if (poster.key_findings && poster.key_findings.length > 0) {
+      html += `<div class="poster-section">
+        <div class="poster-section-title"><span class="icon">📊</span> 关键发现</div>
+        <div class="poster-section-content"><ul>${poster.key_findings.map(f=>`<li>${f}</li>`).join('')}</ul></div>
+      </div>`;
+    }
+
+    // Key tables
+    if (poster.tables && poster.tables.length > 0) {
+      poster.tables.forEach((table, ti) => {
+        html += `<div class="poster-section">
+          <div class="poster-section-title"><span class="icon">📋</span> ${escapeHtml(table.title || '关键表格 '+(ti+1))}</div>
+          <div class="poster-section-content"><table class="poster-table"><thead><tr>${(table.headers||[]).map(h=>`<th>${escapeHtml(h)}</th>`).join('')}</tr></thead><tbody>${(table.rows||[]).map(row=>`<tr>${row.map(cell=>`<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+        </div>`;
+      });
+    }
+
+    // Clinical significance
+    if (poster.clinical_significance) {
+      html += `<div class="poster-section">
+        <div class="poster-section-title"><span class="icon">🏥</span> 临床意义</div>
+        <div class="poster-section-content">${poster.clinical_significance}</div>
+      </div>`;
+    }
+
+    html += `</div>`;
+  } else {
+    // No detailed poster data yet - show summary
+    html += `<div class="poster-body">
+      <div class="poster-section">
+        <div class="poster-section-title"><span class="icon">📝</span> 摘要</div>
+        <div class="poster-section-content">${escapeHtml(item.summary)}</div>
+      </div>
+      <div class="poster-section">
+        <div class="poster-section-title"><span class="icon">ℹ️</span> 文献信息</div>
+        <div class="poster-section-content">
+          <ul>
+            ${item.journal ? `<li><strong>期刊：</strong>${escapeHtml(item.journal)}</li>` : ''}
+            ${item.authors ? `<li><strong>作者：</strong>${escapeHtml(item.authors)}</li>` : ''}
+            ${item.date ? `<li><strong>日期：</strong>${escapeHtml(item.date)}</li>` : ''}
+            ${item.source ? `<li><strong>来源：</strong>${escapeHtml(item.source)}</li>` : ''}
+          </ul>
+        </div>
+      </div>
+      <div class="poster-loading">📄 详细学术海报内容正在准备中，请先查看原文</div>
+    </div>`;
+  }
+
+  // Footer with original link
+  html += `<div class="poster-footer">
+    <a class="poster-link" href="${escapeAttr(item.url)}" target="_blank">🔗 查看原文</a>
+  </div>`;
+
+  container.innerHTML = html;
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePoster() {
+  const overlay = document.getElementById('posterOverlay');
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Close poster on ESC or clicking overlay background
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePoster(); });
+document.getElementById('posterOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('posterOverlay')) closePoster();
+});
+
+function escapeHtml(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escapeAttr(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+
+init();
+
+</script>
 </body>
 </html>
