@@ -85,6 +85,25 @@ body{overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","
 .poster-table td{padding:8px 12px;border-bottom:1px solid #edf0f5;color:#2c3e50}
 .poster-table tr:hover td{background:#f5f8fc}
 .poster-table-caption{font-size:11px;color:#666;text-align:center;margin-top:4px;font-style:italic}
+/* Poster Figures */
+.poster-figures{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0}
+.poster-figure-card{background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.poster-figure-img{width:100%;display:block;cursor:zoom-in;background:#f0f3f8;min-height:120px;object-fit:contain;max-height:360px}
+.poster-figure-img:hover{opacity:0.92}
+.poster-figure-caption{padding:8px 12px;font-size:11px;color:#555;line-height:1.5;background:#fafbfe;border-top:1px solid #edf0f5}
+.poster-figure-caption strong{color:#1a3a5c}
+/* Single figure full width */
+.poster-figures.single{grid-template-columns:1fr;max-width:720px;margin:0 auto}
+/* Figure zoom overlay */
+.figure-zoom-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:10002;cursor:zoom-out;align-items:center;justify-content:center}
+.figure-zoom-overlay.active{display:flex}
+.figure-zoom-overlay img{max-width:95vw;max-height:95vh;object-fit:contain;border-radius:4px}
+@media(max-width:768px){
+.poster-figures{grid-template-columns:1fr;gap:10px}
+.poster-figure-img{max-height:260px}
+.poster-figure-caption{font-size:10px}
+}
+
 /* Footer */
 .poster-footer{padding:16px 32px 24px;text-align:center;border-top:1px solid #dde5ef;background:#f8fafe}
 .poster-link{display:inline-block;padding:10px 28px;background:linear-gradient(135deg,#1a3a5c,#2c5f8a);color:#fff;border-radius:20px;text-decoration:none;font-size:14px;font-weight:500;transition:transform .2s,box-shadow .2s}
@@ -1641,62 +1660,129 @@ const DATA = {
           "central_idea": "评估新型PET示踪剂68Ga-NYM046（靶向碳酸酐酶IX）在透明细胞肾癌诊断中的价值，发现其原发灶检出率、灵敏度和SUVmax均显著优于传统18F-FDG PET/CT。",
           "core_content": "<p>透明细胞肾癌（ccRCC）是肾癌最常见亚型，传统FDG PET/CT因肾脏生理性排泄影响诊断效能。68Ga-NYM046靶向碳酸酐酶IX（CAIX），在ccRCC中高表达。</p><ul><li>12例ccRCC患者完成配对68Ga-NYM046和18F-FDG PET/CT</li><li>评估原发灶、淋巴结和远处转移的检出效能</li><li>SUVmax半定量分析和CAIX免疫组化相关性</li></ul>",
           "key_findings": [
-            "68Ga-NYM046原发灶检出率100%（9/9）vs FDG 11%（1/9）（P=0.008）",
-            "原发灶SUVmax中位数：68Ga-NYM046 13.5 vs FDG 2.4（P=0.008）",
-            "远处转移检出：137/147 vs 127/147（P=0.041）",
-            "SUVmax与CAIX表达相关性R²=0.8274",
-            "淋巴结转移：FDG略优（中位数SUVmax 7.6 vs 5.9，P=0.001）"
+            "临床前：OS-RC-2移植瘤模型中⁶⁸Ga-NYM046注射后1h肿瘤摄取7.21±2.39 %ID/g，肾脏和胃呈高摄取分布",
+            "原发灶检出：⁶⁸Ga-NYM046检出9/9（100%）vs ¹⁸F-FDG 1/9（11%），差异显著（P=0.008）",
+            "原发灶SUVmax：⁶⁸Ga-NYM046中位数13.5 vs ¹⁸F-FDG 2.4（z=−2.668, P=0.008），提升5.6倍",
+            "远处转移检出：⁶⁸Ga-NYM046 137/147（93%）vs ¹⁸F-FDG 127/147（86%），P=0.041",
+            "淋巴结SUVmax：¹⁸F-FDG反而更高（中位数7.6 vs 5.9，z=−3.236, P=0.001）",
+            "远处转移SUVmax：两种示踪剂无显著差异（中位数5.0 vs 5.0，P=0.703）",
+            "⁶⁸Ga-NYM046摄取与CAIX表达高度相关，R²=0.8274，验证了CAIX靶向特异性"
           ],
           "tables": [
             {
-              "title": "12例ccRCC患者68Ga-NYM046 vs 18F-FDG PET/CT对比",
+              "title": "12例ccRCC患者临床特征",
               "headers": [
-                "指标",
-                "68Ga-NYM046",
-                "18F-FDG",
+                "特征",
+                "数值"
+              ],
+              "rows": [
+                [
+                  "患者数",
+                  "12"
+                ],
+                [
+                  "性别（男/女）",
+                  "9/3"
+                ],
+                [
+                  "中位年龄（岁）",
+                  "59（范围38-81）"
+                ],
+                [
+                  "原发灶数",
+                  "9"
+                ],
+                [
+                  "受累淋巴结数",
+                  "96"
+                ],
+                [
+                  "远处转移数",
+                  "147"
+                ],
+                [
+                  "不良反应",
+                  "0例"
+                ]
+              ],
+              "caption": "Table 1. 入组患者基线特征"
+            },
+            {
+              "title": "⁶⁸Ga-NYM046 vs ¹⁸F-FDG PET/CT检出效能对比",
+              "headers": [
+                "评估指标",
+                "⁶⁸Ga-NYM046",
+                "¹⁸F-FDG",
+                "统计量",
                 "P值"
               ],
               "rows": [
                 [
-                  "原发灶检出率",
-                  "100% (9/9)",
-                  "11% (1/9)",
+                  "原发灶检出",
+                  "9/9 (100%)",
+                  "1/9 (11%)",
+                  "—",
                   "0.008"
+                ],
+                [
+                  "淋巴结检出",
+                  "95/96",
+                  "92/96",
+                  "—",
+                  "—"
                 ],
                 [
                   "远处转移检出",
                   "137/147 (93%)",
                   "127/147 (86%)",
+                  "—",
                   "0.041"
                 ],
                 [
                   "原发灶SUVmax中位数",
                   "13.5",
                   "2.4",
+                  "z=−2.668",
                   "0.008"
                 ],
                 [
                   "淋巴结SUVmax中位数",
                   "5.9",
                   "7.6",
+                  "z=−3.236",
                   "0.001"
                 ],
                 [
-                  "SUVmax-CAIX相关性R²",
-                  "0.8274",
-                  "—",
-                  "—"
+                  "远处转移SUVmax中位数",
+                  "5.0",
+                  "5.0",
+                  "z=−0.381",
+                  "0.703"
                 ]
               ],
-              "caption": "12例透明细胞肾癌患者的配对PET/CT对比研究"
+              "caption": "Table 2. 配对PET/CT两种示踪剂检出与定量对比"
             }
           ],
           "clinical_significance": "68Ga-NYM046 PET/CT有望成为ccRCC诊断和分期的优选影像方法，特别适合原发灶评估和FDG PET/CT诊断困难的病例。SUVmax与CAIX表达的高度相关性支持其作为ccRCC精准影像工具的潜力。",
-          "background": "透明细胞肾癌（ccRCC）占肾癌70%-80%，传统影像对鉴别诊断和转移评估有时面临挑战。FDG PET/CT因肾脏生理性排泄导致本底高，对肾内病灶检出受限。CAIX在ccRCC中高表达（>90%），是理想的治疗靶点。68Ga-NYM046是新型CAIX靶向PET示踪剂。",
-          "methods": "临床前评估：小鼠OS-RC-2移植瘤模型评估68Ga-NYM046体内生物分布。临床研究：12例ccRCC患者（中位年龄59岁，范围38-81岁），完成配对68Ga-NYM046和18F-FDG PET/CT。评估原发灶（9个）、淋巴结（96个）和远处转移（147个）的检出率和SUVmax。进行CAIX免疫组化与SUVmax的相关性分析。",
-          "conclusion": "68Ga-NYM046 PET/CT在ccRCC原发灶检出方面显著优于18F-FDG PET/CT，高SUVmax与CAIX高表达相关。远处转移检出亦有提升，为ccRCC精准成像提供了新选择。",
-          "authors": "Kequan Lou, Jialiang Wang, Huihui He et al.",
-          "affiliation": "Department of Nuclear Medicine, Affiliated Hospital of Jiangnan University, Wuxi, China"
+          "background": "肾恶性肿瘤占全球肿瘤年发病率的2%，其中透明细胞肾癌（ccRCC）是最常见亚型。治疗成功与否取决于早期诊断和准确分期，约20%-30%的术后患者存在转移复发风险，且复发可出现在胰腺、腹膜腔、肠道等非常规部位。¹⁸F-FDG PET/CT是常用的全身肿瘤评估方法，但对ccRCC原发灶的诊断效能令人失望——既往荟萃分析显示其灵敏度仅62%，且因肾脏生理性高本底和炎症干扰，对转移灶的灵敏度波动于63.6%-90.0%。因此，开发替代诊断策略迫在眉睫。碳酸酐酶IX（CAIX）属碳酸酐酶家族，由缺氧诱导，与酸性肿瘤微环境及肿瘤侵袭性相关。CAIX在几乎所有ccRCC中高表达（由VHL基因失活触发），而在成人正常组织中表达极低（胃、胆管上皮和胆囊除外）。先前开发的CAIX靶向大分子抗体（girentuximab/¹³¹I-G250、⁸⁹Zr-girentuximab）存在肿瘤穿透有限、血清除慢等局限。NYM046是基于乙酰唑胺的小分子CAIX靶向化合物，含DOTA螯合结构用于⁶⁸Ga标记，具有药代动力学更优、成本低、患者依从性好等优势。",
+          "methods": "【放射性药物制备】NYM046由上海Bioduro-Biolife合成，含DOTA螯合结构。⁶⁸Ga由⁶⁸Ge/⁶⁸Ga发生器淋洗获得，标记条件优化后放射化学纯度>95%。【临床前研究】OS-RC-2移植瘤小鼠模型评估⁶⁸Ga-NYM046体内生物分布，测定注射后各时间点肿瘤及主要器官的摄取值（%ID/g）。【临床研究】前瞻性入组12例ccRCC患者（男9/女3，中位年龄59岁，范围38-81岁），均完成配对⁶⁸Ga-NYM046和¹⁸F-FDG PET/CT扫描。评估原发灶（9个）、淋巴结（96个）和远处转移（147个）的检出率和SUVmax。采用Wilcoxon符号秩检验比较两种示踪剂的差异。进行CAIX免疫组化与SUVmax的相关性分析。⁶⁸Ga-NYM046注射后2周随访未观察到不良反应。",
+          "conclusion": "⁶⁸Ga-NYM046 PET/CT在ccRCC原发灶检出方面显著优于¹⁸F-FDG PET/CT（100% vs 11%，SUVmax提升5.6倍），远处转移检出率亦有提高（93% vs 86%），且SUVmax与CAIX表达高度相关（R²=0.8274），验证了其CAIX靶向特异性。淋巴结方面¹⁸F-FDG SUVmax更高，提示两种示踪剂具有互补价值。⁶⁸Ga-NYM046作为小分子探针，克服了抗体类药物穿透性差和清除慢的局限，有望成为ccRCC诊断和分期的优选影像方法，特别适合原发灶评估和FDG诊断困难的病例。安全性良好，12例受试者无不良反应。",
+          "authors": "Kequan Lou, Jialiang Wang, Huihui He, Yanjuan Wang, Yuanyuan Mi, Wenjin Li, Liping Chen, Yu Zhang, Yongmao, Jianguo Lin, Haitian Fu, Chunjing Yu",
+          "affiliation": "Department of Nuclear Medicine, Affiliated Hospital of Jiangnan University, Wuxi, China; Department of Urological Surgery, Affiliated Hospital of Jiangnan University; Wuxi School of Medicine, Jiangnan University; Department of Oncology, Affiliated Hospital of Jiangnan University; Jiangsu Key Laboratory of Molecular Nuclear Medicine, Jiangsu Institute of Nuclear Medicine",
+          "figures": [
+            {
+              "url": "https://figures.semanticscholar.org/4a9333187eaa4df380f86d2e147b73286a590417/500px/3-Figure3-1.png",
+              "caption": "⁶⁸Ga-NYM046和¹⁸F-FDG在OS-RC-2移植瘤模型中的体内生物分布及肿瘤摄取对比曲线"
+            },
+            {
+              "url": "https://figures.semanticscholar.org/4a9333187eaa4df380f86d2e147b73286a590417/500px/4-Figure4-1.png",
+              "caption": "5例ccRCC患者⁶⁸Ga-NYM046与¹⁸F-FDG PET/CT最大密度投影对比图，⁶⁸Ga-NYM046在原发灶、肺转移和胸膜转移检出方面优于¹⁸F-FDG"
+            },
+            {
+              "url": "https://figures.semanticscholar.org/4a9333187eaa4df380f86d2e147b73286a590417/500px/5-Figure5-1.png",
+              "caption": "⁶⁸Ga-NYM046与¹⁸F-FDG PET/CT典型病例对比图像，展示原发灶和转移灶的示踪剂摄取差异"
+            }
+          ]
         }
       },
       {
@@ -3927,6 +4013,20 @@ function openPoster(idx) {
       });
     }
 
+    // 图表与影像 (full width, between tables and conclusion)
+    if (poster.figures && poster.figures.length > 0) {
+      const figClass = poster.figures.length === 1 ? 'poster-figures single' : 'poster-figures';
+      html += `<div class="\${figClass}">`;
+      poster.figures.forEach((fig, fi) => {
+        html += `<div class="poster-figure-card">
+          <img class="poster-figure-img" src="\${fig.url}" alt="\${escapeAttr(fig.caption || 'Figure '+(fi+1))}" 
+               onclick="zoomFigure(this.src)" onerror="this.parentElement.style.display='none'"/>
+          <div class="poster-figure-caption"><strong>Figure \${fi+1}.</strong> \${escapeHtml(fig.caption || '')}</div>
+        </div>`;
+      });
+      html += `</div>`;
+    }
+
     // 结论与临床意义 (full width, bottom)
     if (poster.conclusion || poster.clinical_significance) {
       const concText = poster.conclusion || poster.clinical_significance;
@@ -3977,6 +4077,20 @@ function closePoster() {
 
 // Close poster on ESC or clicking overlay background
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePoster(); });
+
+function zoomFigure(src) {
+  let overlay = document.getElementById('figureZoomOverlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'figureZoomOverlay';
+    overlay.className = 'figure-zoom-overlay';
+    overlay.onclick = function(){ overlay.classList.remove('active'); };
+    document.body.appendChild(overlay);
+  }
+  overlay.innerHTML = `<img src="\${src}" />`;
+  overlay.classList.add('active');
+}
+
 document.getElementById('posterOverlay').addEventListener('click', e => {
   if (e.target === document.getElementById('posterOverlay')) closePoster();
 });
