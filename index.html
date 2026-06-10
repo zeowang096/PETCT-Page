@@ -55,29 +55,66 @@ body{overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","
 .changelog-link:hover{text-decoration:underline}
 
 /* Academic Poster Overlay */
-.poster-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:1000;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.poster-overlay.active{display:flex;justify-content:center;align-items:flex-start;padding:20px}
-.poster-container{background:#fff;border-radius:16px;max-width:900px;width:100%;margin:20px auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);overflow:hidden;position:relative}
-.poster-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:#f0f0f0;border:none;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:background .2s}
-.poster-close:hover{background:#e0e0e0}
-.poster-header{background:linear-gradient(135deg,#6c3483,#8e44ad);color:#fff;padding:36px 40px 28px}
-.poster-header h2{font-size:22px;font-weight:700;line-height:1.5;margin-bottom:12px}
-.poster-meta{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;opacity:0.9}
-.poster-meta span{background:rgba(255,255,255,0.2);border-radius:12px;padding:4px 14px}
-.poster-body{padding:32px 40px}
-.poster-section{margin-bottom:28px}
-.poster-section-title{font-size:16px;font-weight:700;color:#6c3483;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #e8d5f5;display:flex;align-items:center;gap:8px}
-.poster-section-title .icon{font-size:18px}
-.poster-section-content{font-size:14px;line-height:1.9;color:#34495e}
-.poster-section-content ul{margin:8px 0;padding-left:20px}
-.poster-section-content li{margin-bottom:6px}
-.poster-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
-.poster-table th{background:#f5f0fa;color:#6c3483;padding:10px 14px;text-align:left;font-weight:600;border-bottom:2px solid #e8d5f5}
-.poster-table td{padding:10px 14px;border-bottom:1px solid #f0f0f0;color:#34495e}
-.poster-table tr:hover td{background:#faf5ff}
-.poster-footer{padding:20px 40px 28px;text-align:center;border-top:1px solid #eee}
-.poster-link{display:inline-block;padding:12px 32px;background:linear-gradient(135deg,#6c3483,#8e44ad);color:#fff;border-radius:28px;text-decoration:none;font-size:15px;font-weight:500;transition:transform .2s,box-shadow .2s}
-.poster-link:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(142,68,175,0.3)}
+.poster-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:1000;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.poster-overlay.active{display:flex;justify-content:center;align-items:flex-start;padding:24px}
+.poster-container{background:#f8fafe;border-radius:4px;max-width:1100px;width:100%;margin:20px auto;box-shadow:0 8px 40px rgba(0,0,0,0.3);overflow:hidden;position:relative}
+.poster-close{position:sticky;top:0;float:right;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.9);border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;margin:10px 10px 0 0;transition:background .2s;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.poster-close:hover{background:#e74c3c;color:#fff}
+/* Header */
+.poster-header{background:linear-gradient(135deg,#1a3a5c,#2c5f8a);color:#fff;padding:32px 40px 24px}
+.poster-header h2{font-size:20px;font-weight:700;line-height:1.6;margin-bottom:14px;letter-spacing:0.3px}
+.poster-authors{font-size:13px;opacity:0.9;margin-bottom:6px;line-height:1.6}
+.poster-affiliation{font-size:12px;opacity:0.75;font-style:italic;margin-bottom:10px}
+.poster-journal-tag{display:inline-block;background:rgba(255,255,255,0.2);border-radius:14px;padding:3px 14px;font-size:12px;margin-right:8px;margin-top:4px}
+/* Body - two column grid */
+.poster-body{padding:24px 32px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.poster-section{background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06);margin-bottom:0}
+.poster-section-title{background:#1a3a5c;color:#fff;font-size:14px;font-weight:700;padding:10px 16px;letter-spacing:0.5px}
+.poster-section-content{padding:14px 16px;font-size:13px;line-height:1.85;color:#2c3e50}
+.poster-section-content ul{margin:6px 0;padding-left:18px}
+.poster-section-content li{margin-bottom:5px;position:relative}
+.poster-section-content li::before{content:'';position:absolute;left:-14px;top:8px;width:5px;height:5px;border-radius:50%;background:#2c5f8a}
+.poster-section-content p{margin:6px 0}
+.poster-section-content strong{color:#1a3a5c}
+/* Full-width section (conclusion) */
+.poster-section-full{grid-column:1/-1;background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.poster-section-full .poster-section-title{background:#1a5c3a}
+/* Table */
+.poster-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:12px}
+.poster-table th{background:#e8eef5;color:#1a3a5c;padding:8px 12px;text-align:left;font-weight:600;border-bottom:2px solid #c5d3e3}
+.poster-table td{padding:8px 12px;border-bottom:1px solid #edf0f5;color:#2c3e50}
+.poster-table tr:hover td{background:#f5f8fc}
+.poster-table-caption{font-size:11px;color:#666;text-align:center;margin-top:4px;font-style:italic}
+/* Footer */
+.poster-footer{padding:16px 32px 24px;text-align:center;border-top:1px solid #dde5ef;background:#f8fafe}
+.poster-link{display:inline-block;padding:10px 28px;background:linear-gradient(135deg,#1a3a5c,#2c5f8a);color:#fff;border-radius:20px;text-decoration:none;font-size:14px;font-weight:500;transition:transform .2s,box-shadow .2s}
+.poster-link:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(26,58,92,0.3)}
+.poster-loading{text-align:center;padding:50px 20px;color:#999;font-size:14px}
+/* Numbered items in sections */
+.poster-section-content .num-item{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start}
+.poster-section-content .num-badge{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#2c5f8a;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.poster-section-content .num-text{flex:1}
+/* Mobile responsive */
+@media(max-width:768px){
+.poster-overlay.active{padding:0}
+.poster-container{border-radius:0;margin:0;min-height:100vh}
+.poster-header{padding:20px 18px 16px}
+.poster-header h2{font-size:16px}
+.poster-authors{font-size:12px}
+.poster-affiliation{font-size:11px}
+.poster-body{padding:16px 12px;grid-template-columns:1fr;gap:14px}
+.poster-section-title{font-size:13px;padding:8px 12px}
+.poster-section-content{font-size:12px;padding:10px 12px}
+.poster-table{font-size:11px}
+.poster-table th,.poster-table td{padding:6px 8px}
+.poster-footer{padding:14px 12px 20px}
+.poster-link{padding:9px 22px;font-size:13px}
+}
+@media(max-width:400px){
+.poster-header h2{font-size:14px}
+.poster-body{padding:10px 8px;gap:10px}
+.poster-section-content{padding:8px 10px;font-size:11px}
+}
 .poster-loading{text-align:center;padding:60px;color:#999;font-size:16px}
 
 /* Mobile responsive */
@@ -142,7 +179,6 @@ body{overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","
   .changelog-date{font-size:14px}
   .changelog-title{font-size:14px}
 }</style>
-</head>
 <body>
 <div class="header">
 <h1>🔬 核医学PET-CT资讯</h1>
@@ -1313,7 +1349,10 @@ const DATA = {
             "标志中国核医学诊疗一体化定量分析达到国际先进水平"
           ],
           "tables": [],
-          "clinical_significance": "该认证使中山医院可参与国际多中心诊疗一体化临床试验，为患者提供符合国际标准的精准核素治疗，推动中国核医学诊疗一体化规范化发展。"
+          "clinical_significance": "该认证使中山医院可参与国际多中心诊疗一体化临床试验，为患者提供符合国际标准的精准核素治疗，推动中国核医学诊疗一体化规范化发展。",
+          "background": "复旦大学附属中山医院核医学科获得欧洲核医学会EARL机构颁发的Theranostics Advanced-L2认证，成为中国首家获此国际权威认证的医疗机构。",
+          "methods": "EARL（EANM Research Ltd.）是欧洲核医学会下属的质量认证机构，Theranostics Advanced-L2是诊疗一体化领域的最高级别认证。 认证涵盖68Ga/177Lu-PSMA、68Ga/177Lu-DOTATATE等多种诊疗一体化探针的质量控制标准 要求PET/CT系统在多中心研究中达到统一的定量标准和图像质量 L2级别认证要求更高水平的定量精度和可重复性",
+          "conclusion": "该认证使中山医院可参与国际多中心诊疗一体化临床试验，为患者提供符合国际标准的精准核素治疗，推动中国核医学诊疗一体化规范化发展。"
         }
       },
       {
@@ -1333,7 +1372,10 @@ const DATA = {
             "盆腔局部复发的诊断准确率因MRI软组织分辨率而提高"
           ],
           "tables": [],
-          "clinical_significance": "18F-PSMA PET/MRI可为前列腺癌术后复发患者提供更精准的再分期，指导挽救性放疗靶区勾画，有望成为生化复发患者的一线影像检查方法。"
+          "clinical_significance": "18F-PSMA PET/MRI可为前列腺癌术后复发患者提供更精准的再分期，指导挽救性放疗靶区勾画，有望成为生化复发患者的一线影像检查方法。",
+          "background": "评估18F-PSMA PET/MRI在前列腺癌根治术后生化复发患者中的诊断价值，PET/MRI一体化成像在复发灶检出方面优于传统PET/CT。",
+          "methods": "研究纳入前列腺癌根治术后PSA升高的生化复发患者，对比18F-PSMA-1007 PET/MRI与常规影像学检查的诊断效能。 PET/MRI结合PSMA靶向分子成像与高分辨率MRI解剖成像 在盆腔局部复发检测中，MRI软组织对比度优势明显 对骨转移和淋巴结转移检出率显著高于常规CT",
+          "conclusion": "18F-PSMA PET/MRI可为前列腺癌术后复发患者提供更精准的再分期，指导挽救性放疗靶区勾画，有望成为生化复发患者的一线影像检查方法。"
         }
       },
       {
@@ -1353,7 +1395,10 @@ const DATA = {
             "首次将FAPI PET拓展至良性纤维化疾病领域"
           ],
           "tables": [],
-          "clinical_significance": "FAPI PET/MRI可能成为子宫内膜异位症术前评估的新工具，弥补传统影像对深部浸润型病灶检出不足的局限，指导手术方案制定。"
+          "clinical_significance": "FAPI PET/MRI可能成为子宫内膜异位症术前评估的新工具，弥补传统影像对深部浸润型病灶检出不足的局限，指导手术方案制定。",
+          "background": "首次评估FAPI PET/MRI在子宫内膜异位症范围评估中的应用，探索FAP靶向成像在良性纤维化疾病中的新适应证。",
+          "methods": "子宫内膜异位症是常见良性妇科疾病，传统影像对深部浸润型病灶检出有限。FAP在子宫内膜异位症纤维化间质中表达，为FAPI PET成像提供理论基础。 纳入子宫内膜异位症患者行68Ga-FAPI-46 PET/MRI检查 评估FAPI摄取与手术病理结果的一致性 首次将FAPI PET应用于良性纤维化疾病评估",
+          "conclusion": "FAPI PET/MRI可能成为子宫内膜异位症术前评估的新工具，弥补传统影像对深部浸润型病灶检出不足的局限，指导手术方案制定。"
         }
       },
       {
@@ -1373,7 +1418,10 @@ const DATA = {
             "225Ac/177Lu-FAPI-46在GBM临床前模型中显示显著抗肿瘤效果"
           ],
           "tables": [],
-          "clinical_significance": "FAPI-46诊疗一体化策略为GBM提供了新的精准治疗方向，有望突破传统放化疗局限，改善GBM患者预后。"
+          "clinical_significance": "FAPI-46诊疗一体化策略为GBM提供了新的精准治疗方向，有望突破传统放化疗局限，改善GBM患者预后。",
+          "background": "探索FAPI-46作为胶质母细胞瘤（GBM）精准医学工具的转化治疗潜力，评估68Ga-FAPI-46成像和225Ac/177Lu-FAPI-46治疗在临床前模型中的疗效。",
+          "methods": "胶质母细胞瘤是最具侵袭性的脑肿瘤，预后极差。FAP在GBM肿瘤相关成纤维细胞中高表达。 68Ga-FAPI-46 PET成像显示GBM肿瘤内FAP表达分布 177Lu-FAPI-46在GBM临床前模型中显示抗肿瘤活性 225Ac-FAPI-46 α核素治疗在动物模型中诱导肿瘤细胞凋亡",
+          "conclusion": "FAPI-46诊疗一体化策略为GBM提供了新的精准治疗方向，有望突破传统放化疗局限，改善GBM患者预后。"
         }
       },
       {
@@ -1393,7 +1441,10 @@ const DATA = {
             "FAPI PET/MRI首次应用于子宫内膜异位症"
           ],
           "tables": [],
-          "clinical_significance": "本期JNM体现了核医学从单纯诊断向诊疗一体化转化的趋势，FAPI和PSMA两大靶向平台持续拓展新适应证。"
+          "clinical_significance": "本期JNM体现了核医学从单纯诊断向诊疗一体化转化的趋势，FAPI和PSMA两大靶向平台持续拓展新适应证。",
+          "background": "Journal of Nuclear Medicine 2026年6月刊出版，涵盖肿瘤核医学、神经影像、心血管影像及诊疗一体化等前沿研究。",
+          "methods": "JNM Volume 67 Issue 6（2026年6月）主要内容包括： 肿瘤核医学： PSMA PET/MRI前列腺癌复发诊断、FAPI-46 GBM诊疗一体化、FAPI PET/MRI子宫内膜异位症评估 神经影像： Alpha-synuclein PET示踪剂进展 心血管影像： 18F-Flurpiridaz心肌灌注成像临床数据 诊疗一体化： 177Lu/225Ac标记FAPI-46的转化研究",
+          "conclusion": "本期JNM体现了核医学从单纯诊断向诊疗一体化转化的趋势，FAPI和PSMA两大靶向平台持续拓展新适应证。"
         }
       },
       {
@@ -1413,7 +1464,10 @@ const DATA = {
             "该机制为TSPO靶向PET成像与FDG PET联合应用提供理论依据"
           ],
           "tables": [],
-          "clinical_significance": "该发现深化了对FDG PET成像机制的理解，为开发TSPO靶向新型PET示踪剂提供理论支撑，有望实现乳腺癌代谢亚型的精准分型。"
+          "clinical_significance": "该发现深化了对FDG PET成像机制的理解，为开发TSPO靶向新型PET示踪剂提供理论支撑，有望实现乳腺癌代谢亚型的精准分型。",
+          "background": "探讨TSPO单体与VDAC1结合导致乳腺癌细胞系中18F-FDG摄取增加的分子机制，为理解肿瘤代谢成像提供新见解。",
+          "methods": "线粒体转位蛋白（TSPO）在肿瘤细胞中高表达，与肿瘤代谢密切相关。研究揭示了TSPO单体与VDAC1的相互作用机制。 TSPO单体与VDAC1结合促进线粒体膜通透性增加 该结合增强了葡萄糖跨膜转运和糖酵解活性 导致18F-FDG在乳腺癌细胞中的摄取显著增加",
+          "conclusion": "该发现深化了对FDG PET成像机制的理解，为开发TSPO靶向新型PET示踪剂提供理论支撑，有望实现乳腺癌代谢亚型的精准分型。"
         }
       },
       {
@@ -1464,7 +1518,10 @@ const DATA = {
               ]
             }
           ],
-          "clinical_significance": "68Ga-NYM046 PET/CT有望成为ccRCC诊断和分期的新标准，特别适合FDG PET/CT诊断困难的病例。"
+          "clinical_significance": "68Ga-NYM046 PET/CT有望成为ccRCC诊断和分期的新标准，特别适合FDG PET/CT诊断困难的病例。",
+          "background": "评估新型PET示踪剂68Ga-NYM046 PET/CT在透明细胞肾细胞癌诊断中的价值，其诊断效能优于传统18F-FDG PET/CT。",
+          "methods": "透明细胞肾癌是肾癌中最常见亚型，传统FDG PET/CT因肾脏生理性排泄影响诊断效能。68Ga-NYM046靶向碳酸酐酶IX（CAIX）。 CAIX在ccRCC中高表达，是理想的分子靶点 68Ga-NYM046通过靶向CAIX实现ccRCC特异性成像 避免了FDG经肾脏排泄造成的本底干扰",
+          "conclusion": "68Ga-NYM046 PET/CT有望成为ccRCC诊断和分期的新标准，特别适合FDG PET/CT诊断困难的病例。"
         }
       },
       {
@@ -1484,7 +1541,10 @@ const DATA = {
             "临床前模型中靶向性优异，初步临床研究验证了安全性"
           ],
           "tables": [],
-          "clinical_significance": "该探针为Claudin 18.2靶向治疗的伴随诊断提供影像学工具，可筛选适合Claudin 18.2靶向治疗的患者，实现精准医疗。"
+          "clinical_significance": "该探针为Claudin 18.2靶向治疗的伴随诊断提供影像学工具，可筛选适合Claudin 18.2靶向治疗的患者，实现精准医疗。",
+          "background": "开发低肾脏摄取的纳米抗体探针用于胃癌Claudin 18.2靶向PET成像，在临床前和初步临床研究中验证其应用潜力。",
+          "methods": "Claudin 18.2是胃癌治疗新兴靶点，研究开发了18F标记的纳米抗体探针实现Claudin 18.2的PET成像。 纳米抗体（VHH）分子量小、组织穿透力强 工程化改造降低肾脏摄取，改善成像质量 18F-THP-APN09探针可快速清除，成像时间短",
+          "conclusion": "该探针为Claudin 18.2靶向治疗的伴随诊断提供影像学工具，可筛选适合Claudin 18.2靶向治疗的患者，实现精准医疗。"
         }
       },
       {
@@ -1541,7 +1601,10 @@ const DATA = {
               ]
             }
           ],
-          "clinical_significance": "建议在FUO常规检查未能明确诊断时尽早行FDG PET/CT，以缩短诊断时间、指导进一步检查方向。"
+          "clinical_significance": "建议在FUO常规检查未能明确诊断时尽早行FDG PET/CT，以缩短诊断时间、指导进一步检查方向。",
+          "background": "意大利多中心研究纳入929例不明原因发热患者，评估18F-FDG PET/CT的诊断效能，为发热待查诊断提供高级别循证依据。",
+          "methods": "这是迄今最大规模的FDG PET/CT在FUO中应用的多中心研究，纳入929例患者。 评估FDG PET/CT对最终诊断的帮助率 分析不同病因（感染、肿瘤、自身免疫等）的FDG摄取特征 阴性PET/CT对排除恶性肿瘤的价值",
+          "conclusion": "建议在FUO常规检查未能明确诊断时尽早行FDG PET/CT，以缩短诊断时间、指导进一步检查方向。"
         }
       },
       {
@@ -1604,7 +1667,10 @@ const DATA = {
               ]
             }
           ],
-          "clinical_significance": "68Ga-FAPI-46 PET/CT是腹膜癌病术前评估的最优影像方法，尤其对接受过化疗的患者仍保持良好诊断效能，应考虑纳入腹膜癌病术前评估流程。"
+          "clinical_significance": "68Ga-FAPI-46 PET/CT是腹膜癌病术前评估的最优影像方法，尤其对接受过化疗的患者仍保持良好诊断效能，应考虑纳入腹膜癌病术前评估流程。",
+          "background": "68Ga-FAPI-46 PET/CT在腹膜癌病术前评估中与手术病理一致性优于MRI和FDG PET/CT，前瞻性II期研究验证。",
+          "methods": "前瞻性II期研究（FAPeCa, NCT06061874），纳入61例结直肠癌或卵巢癌腹膜转移患者，比较FAPI PET、FDG PET和MRI与手术病理PCI评分的一致性。",
+          "conclusion": "68Ga-FAPI-46 PET/CT是腹膜癌病术前评估的最优影像方法，尤其对接受过化疗的患者仍保持良好诊断效能，应考虑纳入腹膜癌病术前评估流程。"
         }
       },
       {
@@ -1624,7 +1690,10 @@ const DATA = {
             "FAPI PET可为肾脏肿瘤无创分子分型提供参考"
           ],
           "tables": [],
-          "clinical_significance": "68Ga-FAPI-46 PET为肾脏肿瘤无创分子分型提供了新工具，有助于术前鉴别诊断和治疗方案制定。"
+          "clinical_significance": "68Ga-FAPI-46 PET为肾脏肿瘤无创分子分型提供了新工具，有助于术前鉴别诊断和治疗方案制定。",
+          "background": "通过68Ga-FAPI-46 PET成像评估肾脏肿瘤中的FAP表达，为肾脏肿瘤的分子分型提供新方法。",
+          "methods": "肾脏肿瘤的影像学鉴别诊断是临床难题。研究分析不同肾脏肿瘤亚型的FAPI摄取差异，探讨FAPI PET对肾脏肿瘤良恶性鉴别和亚型区分的价值。",
+          "conclusion": "68Ga-FAPI-46 PET为肾脏肿瘤无创分子分型提供了新工具，有助于术前鉴别诊断和治疗方案制定。"
         }
       },
       {
@@ -1644,7 +1713,10 @@ const DATA = {
             "适度的炎症反应与更好的心功能恢复相关"
           ],
           "tables": [],
-          "clinical_significance": "CXCR4 PET/CT为心梗后心功能恢复预测提供了无创评估方法，可辅助临床制定个体化康复策略。"
+          "clinical_significance": "CXCR4 PET/CT为心梗后心功能恢复预测提供了无创评估方法，可辅助临床制定个体化康复策略。",
+          "background": "CXCR4 PET/CT可预测急性心肌梗死8个月后的左心室功能恢复，为心肌修复评估提供新指标。",
+          "methods": "纳入急性心肌梗死患者，于发病后早期行68Ga-Pentixafor PET/CT，8个月后随访心脏MRI评估LVEF变化，分析梗死区域CXCR4摄取与心功能恢复的关联。",
+          "conclusion": "CXCR4 PET/CT为心梗后心功能恢复预测提供了无创评估方法，可辅助临床制定个体化康复策略。"
         }
       },
       {
@@ -1664,7 +1736,10 @@ const DATA = {
             "与传统方法相比，灌注定量结果一致性好"
           ],
           "tables": [],
-          "clinical_significance": "该方法使15O-水PET全身灌注成像更加高效和可重复，有望推动灌注PET从研究走向临床常规应用。"
+          "clinical_significance": "该方法使15O-水PET全身灌注成像更加高效和可重复，有望推动灌注PET从研究走向临床常规应用。",
+          "background": "开发基于基函数的15O-水PET自动全身灌注成像方法，提高全身血流量测量的效率和准确性。",
+          "methods": "15O-水是评估组织灌注的金标准示踪剂，但传统动态采集和动力学建模耗时复杂。研究开发了基于基函数的自动分析方法。 基函数方法简化了动力学建模的参数估计过程 实现全身灌注参数的自动化计算 支持长轴PET/CT一站式全身动态灌注成像",
+          "conclusion": "该方法使15O-水PET全身灌注成像更加高效和可重复，有望推动灌注PET从研究走向临床常规应用。"
         }
       },
       {
@@ -1721,7 +1796,10 @@ const DATA = {
               ]
             }
           ],
-          "clinical_significance": "FAP-RADS 1.0为FAPI PET/CT规范化报告提供了统一标准，有助于减少不同机构间的报告差异，提高临床应用的一致性和可比较性。"
+          "clinical_significance": "FAP-RADS 1.0为FAPI PET/CT规范化报告提供了统一标准，有助于减少不同机构间的报告差异，提高临床应用的一致性和可比较性。",
+          "background": "验证FAP-RADS 1.0版本在FAPI显像结构化报告中的可靠性和实用性，为FAPI PET/CT的规范化报告提供标准。",
+          "methods": "FAPI PET/CT临床应用日益广泛，但缺乏标准化的报告系统。FAP-RADS参考LI-RADS和PET-RADS框架，建立了FAPI PET的结构化报告分类系统。 FAP-RADS将FAPI摄取病灶分为5类（1-5级） 多中心多读片者研究评估一致性和可重复性 涵盖不同器官和不同FAPI探针",
+          "conclusion": "FAP-RADS 1.0为FAPI PET/CT规范化报告提供了统一标准，有助于减少不同机构间的报告差异，提高临床应用的一致性和可比较性。"
         }
       },
       {
@@ -1772,7 +1850,10 @@ const DATA = {
               ]
             }
           ],
-          "clinical_significance": "核医学显像是ATTR心脏淀粉样变无创诊断的基石，99mTc-PYP SPECT/CT应作为首选筛查手段。"
+          "clinical_significance": "核医学显像是ATTR心脏淀粉样变无创诊断的基石，99mTc-PYP SPECT/CT应作为首选筛查手段。",
+          "background": "综述核医学显像在ATTR心脏淀粉样变诊断中的应用，包括99mTc-PYP、123I-MIBG和18F-Florbetapir等示踪剂的诊断价值。",
+          "methods": "ATTR心脏淀粉样变是心力衰竭重要病因，核医学显像是无创诊断的核心手段。 99mTc-磷酸盐（PYP/DPD/HMDP）是首选筛查方法 123I-MIBG评估心脏交感神经受损程度 18F-Florbetapir PET可定量评估淀粉样蛋白沉积",
+          "conclusion": "核医学显像是ATTR心脏淀粉样变无创诊断的基石，99mTc-PYP SPECT/CT应作为首选筛查手段。"
         }
       },
       {
@@ -1792,7 +1873,10 @@ const DATA = {
             "有助于早期和不确定病例的诊断"
           ],
           "tables": [],
-          "clinical_significance": "99mTc-PYP动态SPECT/CT有望提高ATTR心脏淀粉样变诊断准确性，减少假阳性和不确定结果。"
+          "clinical_significance": "99mTc-PYP动态SPECT/CT有望提高ATTR心脏淀粉样变诊断准确性，减少假阳性和不确定结果。",
+          "background": "评估99mTc-PYP SPECT/CT动态采集在转甲状腺素蛋白心脏淀粉样变中的应用价值，动态采集相比静态采集有优势。",
+          "methods": "传统静态采集可能受血液本底影响，动态采集可观察示踪剂动力学变化，提高诊断准确性。",
+          "conclusion": "99mTc-PYP动态SPECT/CT有望提高ATTR心脏淀粉样变诊断准确性，减少假阳性和不确定结果。"
         }
       },
       {
@@ -1812,7 +1896,10 @@ const DATA = {
             "随访期FDG摄取可能与短期心血管事件风险增加相关"
           ],
           "tables": [],
-          "clinical_significance": "FDG PET/CT可用于监测心脏结节病治疗反应，持续FDG摄取提示需要调整治疗方案。"
+          "clinical_significance": "FDG PET/CT可用于监测心脏结节病治疗反应，持续FDG摄取提示需要调整治疗方案。",
+          "background": "探讨心脏结节病患者免疫抑制治疗后FDG摄取与心脏事件的关系，随访期FDG摄取可能与短期事件风险增加相关。",
+          "methods": "纳入心脏结节病患者，免疫抑制治疗前后行FDG PET/CT，分析FDG摄取变化与心脏事件的关联。",
+          "conclusion": "FDG PET/CT可用于监测心脏结节病治疗反应，持续FDG摄取提示需要调整治疗方案。"
         }
       },
       {
@@ -1834,7 +1921,11 @@ const DATA = {
             "血清稳定性提高可能转化为更好的治疗指数"
           ],
           "tables": [],
-          "clinical_significance": "177Lu-Lu-AMTG有望成为GRPR靶向核素治疗新选择，为PSMA阴性/低表达的前列腺癌患者提供替代治疗路径。"
+          "clinical_significance": "177Lu-Lu-AMTG有望成为GRPR靶向核素治疗新选择，为PSMA阴性/低表达的前列腺癌患者提供替代治疗路径。",
+          "background": "研究证实177Lu-Lu-AMTG在mCRPC患者中安全可行，与现有GRPR配体相比具有更优的体内血清稳定性。",
+          "methods": "胃泌素释放肽受体（GRPR）在前列腺癌中高表达。177Lu-Lu-AMTG是新型GRPR靶向放射配体，首个人体血清稳定性研究。",
+          "conclusion": "177Lu-Lu-AMTG有望成为GRPR靶向核素治疗新选择，为PSMA阴性/低表达的前列腺癌患者提供替代治疗路径。",
+          "authors": "Thomas Günther, Bernd J. Krause等"
         }
       },
       {
@@ -1887,7 +1978,11 @@ const DATA = {
               ]
             }
           ],
-          "clinical_significance": "18F-CTT1057为前列腺癌生化复发患者提供了额外的PSMA PET选择，特别适合低PSA水平人群。"
+          "clinical_significance": "18F-CTT1057为前列腺癌生化复发患者提供了额外的PSMA PET选择，特别适合低PSA水平人群。",
+          "background": "GuideView II/III期研究显示18F-CTT1057在低PSA首次生化复发人群中达到预设终点，是准确的PSMA靶向PET示踪剂。",
+          "methods": "前瞻性多中心II/III期研究，以组织病理学为标准真相，评估18F-CTT1057在前列腺癌生化复发患者中的检测效能。",
+          "conclusion": "18F-CTT1057为前列腺癌生化复发患者提供了额外的PSMA PET选择，特别适合低PSA水平人群。",
+          "authors": "研究团队"
         }
       },
       {
@@ -1909,7 +2004,11 @@ const DATA = {
             "可辅助筛选适合免疫治疗的患者"
           ],
           "tables": [],
-          "clinical_significance": "18F-F-THP-APN09 PET/CT有望成为NSCLC免疫治疗疗效预测的无创影像学工具，实现全身PD-L1表达动态监测。"
+          "clinical_significance": "18F-F-THP-APN09 PET/CT有望成为NSCLC免疫治疗疗效预测的无创影像学工具，实现全身PD-L1表达动态监测。",
+          "background": "北大肿瘤医院研究证实PD-L1纳米抗体探针18F-F-THP-APN09 PET/CT可预测NSCLC免疫联合化疗疗效。",
+          "methods": "纳入可切除NSCLC患者，术前行18F-F-THP-APN09 PET/CT，接受新辅助免疫联合化疗，分析PD-L1 PET摄取与病理缓解的关联。",
+          "conclusion": "18F-F-THP-APN09 PET/CT有望成为NSCLC免疫治疗疗效预测的无创影像学工具，实现全身PD-L1表达动态监测。",
+          "authors": "Xin Zhou等"
         }
       },
       {
@@ -1931,7 +2030,11 @@ const DATA = {
             "大幅缩短质量评估所需时间"
           ],
           "tables": [],
-          "clinical_significance": "该AI驱动的评估范式为PET设备质量控制和多中心研究标准化提供了新工具。"
+          "clinical_significance": "该AI驱动的评估范式为PET设备质量控制和多中心研究标准化提供了新工具。",
+          "background": "提出AI驱动的PET图像质量幻影采集与分析新范式，支持各种轴向视野PET系统的标准化评价。",
+          "methods": "传统NEMA标准不适应长轴PET和数字PET，研究提出AI辅助的自动化图像质量评估流程。",
+          "conclusion": "该AI驱动的评估范式为PET设备质量控制和多中心研究标准化提供了新工具。",
+          "authors": "Timothy Turkington等"
         }
       },
       {
@@ -1983,7 +2086,11 @@ const DATA = {
               ]
             }
           ],
-          "clinical_significance": "该共识为NENs核素诊疗一体化在中国的规范化应用提供了统一标准，有助于提高诊疗水平。"
+          "clinical_significance": "该共识为NENs核素诊疗一体化在中国的规范化应用提供了统一标准，有助于提高诊疗水平。",
+          "background": "神经内分泌肿瘤核素诊疗一体化临床应用专家共识(2025版)，阐述NENs核素诊疗的适应证及实施规范。",
+          "methods": "68Ga-DOTATATE显像与177Lu-DOTATATE治疗已在全球获批，共识规范了NENs核素诊疗的操作流程。 规范了68Ga/64Cu-SST显像的操作流程和报告标准 明确了177Lu-DOTATATE治疗的剂量方案和安全管理 提出了疗效评估和随访的标准流程",
+          "conclusion": "该共识为NENs核素诊疗一体化在中国的规范化应用提供了统一标准，有助于提高诊疗水平。",
+          "authors": "杨志、汪静、陆明等"
         }
       },
       {
@@ -2041,7 +2148,11 @@ const DATA = {
               ]
             }
           ],
-          "clinical_significance": "PET/CT是淋巴瘤诊疗全程管理不可或缺的影像工具，2025版新增免疫治疗和CAR-T后评估内容。"
+          "clinical_significance": "PET/CT是淋巴瘤诊疗全程管理不可或缺的影像工具，2025版新增免疫治疗和CAR-T后评估内容。",
+          "background": "淋巴瘤PET/CT及PET/MR显像临床应用指南（2025版），规范化指导淋巴瘤分子影像技术的临床应用。",
+          "methods": "2025版指南对2021版进行更新，新增免疫治疗和CAR-T治疗后的PET评估指导。 更新PET/CT在HL和NHL中的适应证 规范PET/MR在淋巴瘤中的应用场景 明确Deauville评分和Lugano疗效分类标准",
+          "conclusion": "PET/CT是淋巴瘤诊疗全程管理不可或缺的影像工具，2025版新增免疫治疗和CAR-T后评估内容。",
+          "authors": "中华医学会核医学分会"
         }
       },
       {
@@ -2094,7 +2205,11 @@ const DATA = {
               ]
             }
           ],
-          "clinical_significance": "该共识为国内PSMA PET显像规范化操作提供了统一标准，有助于提高不同机构间检查结果的可比性。"
+          "clinical_significance": "该共识为国内PSMA PET显像规范化操作提供了统一标准，有助于提高不同机构间检查结果的可比性。",
+          "background": "前列腺癌PSMA PET显像操作中国专家共识，规范PSMA PET显像的操作流程。",
+          "methods": "共识规范了68Ga-PSMA-11和18F-PSMA示踪剂的操作流程、报告模板和半定量评估方法。",
+          "conclusion": "该共识为国内PSMA PET显像规范化操作提供了统一标准，有助于提高不同机构间检查结果的可比性。",
+          "authors": "中华医学会核医学分会"
         }
       },
       {
@@ -2116,7 +2231,11 @@ const DATA = {
             "有助于识别ER表达异质性，指导精准治疗"
           ],
           "tables": [],
-          "clinical_significance": "FES PET/CT为乳腺癌ER状态的全身评估提供了无创方法，特别适用于需要评估全身ER表达异质性的患者。"
+          "clinical_significance": "FES PET/CT为乳腺癌ER状态的全身评估提供了无创方法，特别适用于需要评估全身ER表达异质性的患者。",
+          "background": "乳腺癌18F-FES PET/CT显像技术操作规范及报告解读要素，为ER靶向显像提供标准化指导。",
+          "methods": "18F-氟雌二醇（FES）靶向雌激素受体（ER），可无创评估乳腺癌ER表达状态，对内分泌治疗选择具有指导价值。",
+          "conclusion": "FES PET/CT为乳腺癌ER状态的全身评估提供了无创方法，特别适用于需要评估全身ER表达异质性的患者。",
+          "authors": "中华医学会核医学分会、上海市抗癌协会肿瘤核医学专业委员会"
         }
       },
       {
@@ -2174,7 +2293,11 @@ const DATA = {
               ]
             }
           ],
-          "clinical_significance": "这些技术进步将核医学成像从定性诊断推向精准定量，全身长轴PET和CZT技术有望成为下一代核医学设备的标准配置。"
+          "clinical_significance": "这些技术进步将核医学成像从定性诊断推向精准定量，全身长轴PET和CZT技术有望成为下一代核医学设备的标准配置。",
+          "background": "综合评述核医学成像技术最新进展，涵盖CZT探测器、TOF、DOI、长轴PET和数字PET等前沿技术。",
+          "methods": "核医学成像技术近年取得重大进展： CZT半导体探测器： 直接将γ光子转换为电信号，能量和空间分辨率显著提高 TOF技术： 从200-500ps提升至 DOI检测： 减少空间分辨率的径向退化 长轴PET： 148-194cm轴向视野，实现全身一次成像 数字PET： 采用dSiPM取代传统PMT",
+          "conclusion": "这些技术进步将核医学成像从定性诊断推向精准定量，全身长轴PET和CZT技术有望成为下一代核医学设备的标准配置。",
+          "authors": "Shuyu Xu, Ge Liu, Qingyang Wei等"
         }
       }
     ],
@@ -3387,73 +3510,89 @@ function openPoster(idx) {
 
   let html = `<button class="poster-close" onclick="closePoster()">✕</button>`;
 
-  // Header
+  // Header: title + authors + affiliation
   html += `<div class="poster-header">
     <h2>${escapeHtml(item.title)}</h2>
-    <div class="poster-meta">
-      ${item.journal ? `<span>📓 ${escapeHtml(item.journal)}</span>` : ''}
-      ${item.authors ? `<span>✍️ ${escapeHtml(item.authors)}</span>` : ''}
-      ${item.date ? `<span>📅 ${escapeHtml(item.date)}</span>` : ''}
-      ${item.category ? `<span>🏷️ ${escapeHtml(item.category)}</span>` : ''}
+    <div class="poster-authors">${poster && poster.authors ? escapeHtml(poster.authors) : (item.authors ? escapeHtml(item.authors) : '')}</div>
+    ${poster && poster.affiliation ? `<div class="poster-affiliation">${escapeHtml(poster.affiliation)}</div>` : ''}
+    <div>
+      ${item.journal ? `<span class="poster-journal-tag">📓 ${escapeHtml(item.journal)}</span>` : ''}
+      ${item.date ? `<span class="poster-journal-tag">📅 ${escapeHtml(item.date)}</span>` : ''}
+      ${item.category ? `<span class="poster-journal-tag">🏷️ ${escapeHtml(item.category)}</span>` : ''}
     </div>
   </div>`;
 
   if (poster) {
-    // Full poster content
     html += `<div class="poster-body">`;
 
-    // Central idea
-    if (poster.central_idea) {
+    // 研究背景/目的 (left column)
+    if (poster.background || poster.central_idea) {
+      const bgText = poster.background || poster.central_idea;
+      const bgNums = bgText.split(/[。；]/).filter(s => s.trim().length > 10);
       html += `<div class="poster-section">
-        <div class="poster-section-title"><span class="icon">💡</span> 中心思想</div>
-        <div class="poster-section-content">${poster.central_idea}</div>
+        <div class="poster-section-title">🎯 研究背景与目的</div>
+        <div class="poster-section-content">
+          ${bgNums.length > 1 ? bgNums.map((t,i) => `<div class="num-item"><span class="num-badge">${i+1}</span><span class="num-text">${t.trim()}</span></div>`).join('') : bgText}
+        </div>
       </div>`;
     }
 
-    // Core content
-    if (poster.core_content) {
+    // 研究方法 (left column)
+    if (poster.methods || poster.core_content) {
+      const mText = poster.methods || poster.core_content;
+      const mNums = mText.replace(/<[^>]+>/g, '').split(/[。；]/).filter(s => s.trim().length > 8);
       html += `<div class="poster-section">
-        <div class="poster-section-title"><span class="icon">🔬</span> 核心内容</div>
-        <div class="poster-section-content">${poster.core_content}</div>
+        <div class="poster-section-title">🔬 研究方法</div>
+        <div class="poster-section-content">
+          ${mNums.length > 1 ? mNums.map((t,i) => `<div class="num-item"><span class="num-badge">${i+1}</span><span class="num-text">${t.trim()}</span></div>`).join('') : mText}
+        </div>
       </div>`;
     }
 
-    // Key findings
+    // 结果与发现 (right column)
     if (poster.key_findings && poster.key_findings.length > 0) {
       html += `<div class="poster-section">
-        <div class="poster-section-title"><span class="icon">📊</span> 关键发现</div>
-        <div class="poster-section-content"><ul>${poster.key_findings.map(f=>`<li>${f}</li>`).join('')}</ul></div>
+        <div class="poster-section-title">📊 结果与发现</div>
+        <div class="poster-section-content">
+          ${poster.key_findings.map((f,i) => `<div class="num-item"><span class="num-badge">${i+1}</span><span class="num-text">${f}</span></div>`).join('')}
+        </div>
       </div>`;
     }
 
-    // Key tables
+    // 关键表格 (right column)
     if (poster.tables && poster.tables.length > 0) {
       poster.tables.forEach((table, ti) => {
         html += `<div class="poster-section">
-          <div class="poster-section-title"><span class="icon">📋</span> ${escapeHtml(table.title || '关键表格 '+(ti+1))}</div>
-          <div class="poster-section-content"><table class="poster-table"><thead><tr>${(table.headers||[]).map(h=>`<th>${escapeHtml(h)}</th>`).join('')}</tr></thead><tbody>${(table.rows||[]).map(row=>`<tr>${row.map(cell=>`<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+          <div class="poster-section-title">📋 ${escapeHtml(table.title || '关键表格 '+(ti+1))}</div>
+          <div class="poster-section-content">
+            <table class="poster-table">
+              <thead><tr>${(table.headers||[]).map(h=>`<th>${escapeHtml(h)}</th>`).join('')}</tr></thead>
+              <tbody>${(table.rows||[]).map(row=>`<tr>${row.map(cell=>`<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody>
+            </table>
+            ${table.caption ? `<div class="poster-table-caption">${escapeHtml(table.caption)}</div>` : ''}
+          </div>
         </div>`;
       });
     }
 
-    // Clinical significance
-    if (poster.clinical_significance) {
-      html += `<div class="poster-section">
-        <div class="poster-section-title"><span class="icon">🏥</span> 临床意义</div>
-        <div class="poster-section-content">${poster.clinical_significance}</div>
+    // 结论与临床意义 (full width, bottom)
+    if (poster.conclusion || poster.clinical_significance) {
+      const concText = poster.conclusion || poster.clinical_significance;
+      html += `<div class="poster-section-full">
+        <div class="poster-section-title">💡 结论与临床意义</div>
+        <div class="poster-section-content">${concText}</div>
       </div>`;
     }
 
     html += `</div>`;
   } else {
-    // No detailed poster data yet - show summary
-    html += `<div class="poster-body">
+    html += `<div class="poster-body" style="grid-template-columns:1fr">
       <div class="poster-section">
-        <div class="poster-section-title"><span class="icon">📝</span> 摘要</div>
+        <div class="poster-section-title">📝 摘要</div>
         <div class="poster-section-content">${escapeHtml(item.summary)}</div>
       </div>
       <div class="poster-section">
-        <div class="poster-section-title"><span class="icon">ℹ️</span> 文献信息</div>
+        <div class="poster-section-title">ℹ️ 文献信息</div>
         <div class="poster-section-content">
           <ul>
             ${item.journal ? `<li><strong>期刊：</strong>${escapeHtml(item.journal)}</li>` : ''}
@@ -3467,7 +3606,7 @@ function openPoster(idx) {
     </div>`;
   }
 
-  // Footer with original link
+  // Footer
   html += `<div class="poster-footer">
     <a class="poster-link" href="${escapeAttr(item.url)}" target="_blank">🔗 查看原文</a>
   </div>`;
@@ -3476,6 +3615,7 @@ function openPoster(idx) {
   overlay.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
+
 
 function closePoster() {
   const overlay = document.getElementById('posterOverlay');
