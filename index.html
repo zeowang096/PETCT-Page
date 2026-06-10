@@ -3400,10 +3400,10 @@ function renderCards(sectionKey, items) {
   return items.map((item, idx) => {
     const isJournal = sectionKey === 'journals';
     const posterReady = isJournal && item.poster
-      && (item.poster.central_idea || '').length > 30
-      && (item.poster.core_content || '').length > 80
+      && ((item.poster.background || item.poster.central_idea || '').length > 30)
+      && ((item.poster.methods || item.poster.core_content || '').length > 80)
       && (item.poster.key_findings || []).length >= 3
-      && (item.poster.clinical_significance || '').length > 30;
+      && ((item.poster.conclusion || item.poster.clinical_significance || '').length > 30);
     const clickAction = isJournal
       ? (posterReady ? `onclick="openPoster(${idx})"` : '')
       : `onclick="window.open('${escapeAttr(item.url)}','_blank')"`;
