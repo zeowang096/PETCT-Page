@@ -201,7 +201,7 @@ body{overflow-x:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","
 <body>
 <div class="header">
 <h1>🔬 核医学PET-CT资讯</h1>
-<div class="date-badge">📅 2026年06月09日 更新</div>
+<div class="date-badge" id="dateBadge">📅 更新</div>
 <div class="stats" id="stats"></div>
 <div class="search-box">
 <input type="text" id="searchInput" placeholder="搜索标题、摘要、来源..." oninput="doSearch()">
@@ -7235,6 +7235,13 @@ function updateStats() {
     if (s.key !== 'changelog') total += (DATA[s.key]?.items?.length || 0);
   });
   document.getElementById('stats').textContent = `收录 ${total} 条资讯 · 6大板块`;
+  // Update date badge from changelog
+  const badge = document.getElementById('dateBadge');
+  if (badge && DATA.changelog && DATA.changelog.update_time) {
+    const dt = DATA.changelog.update_time.split(' ')[0]; // "2026-06-15"
+    const parts = dt.split('-');
+    badge.textContent = `📅 ${parts[0]}年${parts[1]}月${parts[2]}日 更新`;
+  }
 }
 
 /* Academic Poster */
