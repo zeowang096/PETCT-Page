@@ -19968,16 +19968,15 @@ function renderCards(sectionKey, items) {
       && ((item.poster.methods || item.poster.core_content || '').length > 80)
       && (item.poster.key_findings || []).length >= 3
       && ((item.poster.conclusion || item.poster.clinical_significance || '').length > 30);
-    const clickAction = isJournal
-      ? (posterReady ? `onclick="openPoster(${idx})"` : `onclick="window.open('${escapeAttr(item.url)}','_blank')"`)
-      : `onclick="window.open('${escapeAttr(item.url)}','_blank')"`;
+    const clickAction = `onclick="window.open('${escapeAttr(item.url)}','_blank')"`;
     const cardStyle = '';
     return `<div class="card ${sectionKey}" ${clickAction} ${cardStyle}>
       <div class="title">${escapeHtml(item.title)}</div>
       <div class="summary">${escapeHtml(item.summary)}</div>
       ${isJournal ? (posterReady
-        ? '<div class="poster-hint">📄 点击查看学术海报</div>'
-        : '<div class="poster-hint-disabled">🔗 点击查看原文</div>') : ''}
+        ? '<div class="poster-hint" onclick="event.stopPropagation();openPoster(' + idx + ')">📄 点击查看学术海报</div>'
+        : '') : ''}
+      ${isJournal ? '<div class="poster-hint" style="cursor:pointer">🔗 点击查看原文</div>' : ''}
       <div class="meta">
         <span class="source">${escapeHtml(item.source || '')}</span>
         <span class="cat">${escapeHtml(item.category || '')}</span>
