@@ -8639,15 +8639,104 @@ const DATA = {
         "url": "https://m.ebiotrade.com/newsf/2026-9/20260905000124418.htm",
         "source": "Frontiers in Endocrinology（生物通编译，2026-09-05）",
         "date": "2026-09-05",
-        "category": "期刊论文"
+        "category": "期刊论文",
+        "posterReady": true,
+        "poster": {
+          "authors": "山东第一医科大学附属省立医院核医学科团队",
+          "affiliation": "中国，山东第一医科大学附属省立医院核医学科（单中心回顾性队列）",
+          "background": "分化型甲状腺癌（DTC）术后放射性碘治疗（RAIT）后约10%-30%患者长期随访出现复发或转移，传统疗效评估存在时间滞后、难以早期识别高风险患者。研究拟整合RAI前基线至RAI后1-3个月首次随访的多维临床信息，构建可解释的双模式机器学习框架，同时实现不佳治疗反应的早期分类与持续/复发无生存（PRFS）预测。",
+          "methods": "回顾性纳入2021年8月至2025年6月接受全甲状腺切除+标准化初始131I治疗、随访≥6个月的550例DTC患者（初筛829例）。按2025年ATA动态风险分层，ER/IndR归为有利反应，BIR/SIR归为不佳反应（113例，20.5%）。数据按7:3分训练/测试队列；Boruta+LASSO筛选分类特征，RSF置换重要性筛选生存特征；构建DT/RF/LightGBM/ANN分类模型与Cox PH/GBSA/RSF/EST生存模型，以AUC、C-index、校准曲线、DCA评估，SHAP框架解释决策。",
+          "key_findings": [
+            "ANN分类模型测试队列AUC 0.932（95%CI 0.888-0.967）、准确率0.879、特异度0.947、Brier 0.091，DCA净获益最高",
+            "RSF预测PRFS的C-index 0.886、平均时间依赖性AUC 0.910（95%CI 0.867-0.940），9/12/18/24个月均保持高判别力",
+            "7个分类预测因子：甲状腺外侵犯ETE、T分期、摄碘淋巴结、RAI剂量、转移淋巴结MLN、RAI前刺激性Tg、TgAb",
+            "SHAP示pre_sTg、MLN、RAI剂量贡献最大；MLN接近10个时不佳反应风险显著升高",
+            "非摄碘淋巴结风险最高，提示肿瘤去分化/向碘难治转变；低TgAb者预后反而较差（桥本免疫保护缺失）"
+          ],
+          "tables": [
+            {
+              "title": "表1 最优模型性能与关键预测因子",
+              "headers": [
+                "任务",
+                "最优模型",
+                "核心性能",
+                "关键预测因子"
+              ],
+              "rows": [
+                [
+                  "不佳反应分类",
+                  "ANN",
+                  "AUC 0.932 / 准确率0.879 / 特异度0.947",
+                  "pre_sTg、MLN、RAI剂量、ETE、T分期、iodine_LN、TgAb"
+                ],
+                [
+                  "PRFS生存预测",
+                  "随机生存森林RSF",
+                  "C-index 0.886 / 时间依赖AUC 0.910",
+                  "pre_sTg、Tg_FU1、Tg/TSH比值、MLN、RAI剂量、TSH_FU1、TgAb下降率"
+                ]
+              ],
+              "caption": "数据来源：Frontiers in Endocrinology 2026（生物通编译，n=550，单中心）"
+            }
+          ],
+          "conclusion": "ANN与RSF模型分别在DTC初始RAIT后不佳反应分类和PRFS预测中展现良好内部性能，SHAP分析揭示pre_sTg、转移淋巴结负荷与RAI剂量为核心驱动因素，为RAI后早期预后分层提供了概念验证。尚需前瞻性多中心外部验证后方可临床落地。"
+        }
       },
       {
         "title": "EJNMMI Research：[18F]SiTATE PET摄取与脑膜瘤SSTR2组织学表达强相关（r=0.80）——12例离体组织学试点研究，SUVmin 4阈值可致MTV低估",
         "summary": "《EJNMMI Research》开放获取原创研究（生物通2026-09-05编译，figshare合集DOI:10.6084/m9.figshare.c.8692458）：脑膜瘤高表达生长抑素受体（SSTR）亚型2，放射性标记生长抑素类似物（SSA）用于其PET成像；相较68Ga标记示踪剂，18F标记SSTR示踪剂[18F]SiTATE具回旋加速器生产、单次合成活度高、正电子能量低空间分辨率优、半衰期长等后勤与经济优势（虽尚未获FDA/EMA批准，已在临床使用）。本探索性离体组织学试点研究在12例患者（42%女性，平均年龄68.8±7.2岁）中分析[18F]SiTATE PET摄取（SUV值）与免疫组化SSTR2表达的相关性。结果：[18F]SiTATE摄取（SUVmean）与组织学SSTR2免疫反应性评分（SSTR2-IRS）呈强且显著相关（r=0.80，p=0.002）；低SSTR表达病灶（评分0-1）与高表达病灶（评分2-3）间SUVmean差异显著（p=0.006）；值得注意的是，4例病例中使用SUVmin 4阈值勾画导致分子肿瘤体积（MTV）被低估，提示固定阈值策略在低摄取脑膜瘤中存在局限。研究为[18F]SiTATE PET定量反映脑膜瘤SSTR2表达提供了组织学验证。",
-        "url": "https://springernature.figshare.com/collections/Correlation_of_18F_SiTATE-PET-tracer_with_somatostatin_receptor_expression_in_meningiomas_an_exploratory_ex_vivo_histological_pilot_study/8692458",
+        "url": "https://doi.org/10.1186/s13550-026-01505-w",
         "source": "EJNMMI Research（figshare数据合集，2026-09-04；生物通编译）",
         "date": "2026-09-05",
-        "category": "期刊论文"
+        "category": "期刊论文",
+        "doi": "10.1186/s13550-026-01505-w",
+        "posterReady": true,
+        "poster": {
+          "authors": "Rieke Gerdes, Jens Schittenhelm, Stephan Singer, Gerald Reischl, Hannes Becker, Marcos Tatagiba, Salvador G. Castaneda-Vega, Christian la Fougère, Benjamin Bender, Nils F. Trautwein",
+          "affiliation": "德国图宾根大学医院（University Hospital Tübingen）核医学科、神经病理科、神经外科与放射药学科",
+          "background": "脑膜瘤高表达生长抑素受体2亚型（SSTR2），放射性标记生长抑素类似物（SSA）PET已成其重要影像手段。相较68Ga标记示踪剂，18F标记的[18F]SiTATE可回旋加速器生产、单次合成活度高、正电子能量低（空间分辨率更优）、半衰期长，具后勤与经济优势；尽管尚未获FDA/EMA批准，已在临床使用。但[18F]SiTATE摄取与SSTR2组织学表达的对应关系此前缺乏离体验证。",
+          "methods": "探索性离体组织学试点研究：纳入12例脑膜瘤手术患者（女性42%，平均年龄68.8±7.2岁），术前行[18F]SiTATE PET并测量病灶SUVmean/SUVmax；术后标本行SSTR2免疫组化，按免疫反应性评分（SSTR2-IRS，0-3分）定量表达水平。分析PET摄取与SSTR2-IRS的相关性（Spearman/Pearson相关），比较低表达（0-1分）与高表达（2-3分）病灶间SUVmean差异；并评估SUVmin 4固定阈值与50%等浓度线两种方法勾画的分子肿瘤体积（MTV）与MRI体积的吻合度。",
+          "key_findings": [
+            "[18F]SiTATE摄取（SUVmean）与组织学SSTR2-IRS呈强且显著正相关（r=0.80，p=0.002）",
+            "低SSTR表达病灶（评分0-1）与高表达病灶（评分2-3）间SUVmean差异显著（p=0.006）",
+            "4例病例中SUVmin 4固定阈值导致MTV被低估（多为SUVmax偏低病灶）",
+            "50%等浓度线阈值在2个高SUVmax病灶中同样造成MTV低估",
+            "两种阈值方法均无法在所有病例中得到与MRI一致的MTV，阈值选择需结合病灶摄取水平"
+          ],
+          "tables": [
+            {
+              "title": "表1 关键结果汇总",
+              "headers": [
+                "分析项",
+                "结果"
+              ],
+              "rows": [
+                [
+                  "样本量",
+                  "12例脑膜瘤患者（女42%，均龄68.8±7.2岁）"
+                ],
+                [
+                  "SUVmean vs SSTR2-IRS相关性",
+                  "r=0.80，p=0.002"
+                ],
+                [
+                  "低表达(0-1) vs 高表达(2-3) SUVmean",
+                  "p=0.006，差异显著"
+                ],
+                [
+                  "SUVmin 4阈值低估MTV",
+                  "4/12例"
+                ],
+                [
+                  "50%等浓度线低估MTV",
+                  "2例高SUVmax病灶"
+                ]
+              ],
+              "caption": "数据来源：EJNMMI Research 2026（DOI: 10.1186/s13550-026-01505-w），2026-09-04在线"
+            }
+          ],
+          "conclusion": "[18F]SiTATE PET摄取与脑膜瘤SSTR2组织学表达强相关，为其定量反映SSTR2表达提供了离体组织学验证，支持18F标记SSTR示踪剂在脑膜瘤显像中的可靠性。但固定SUV阈值与等浓度线法均不能 universally 准确勾画MTV，后续需更大样本明确各阈值的适用条件。"
+        }
       },
       {
         "title": "EJNMMI：[18F]NaF PET/CT评估734例新诊断前列腺癌骨转移——总体敏感性0.90/特异性0.99，但不利中危ISUP GG3组阳性率仅0.8%，常规骨成像价值有限",
@@ -8655,7 +8744,60 @@ const DATA = {
         "url": "https://m.ebiotrade.com/newsf/2026-9/20260905224328747.htm",
         "source": "European Journal of Nuclear Medicine and Molecular Imaging（生物通编译，2026-09-06）",
         "date": "2026-09-06",
-        "category": "期刊论文"
+        "category": "期刊论文",
+        "posterReady": true,
+        "poster": {
+          "authors": "哥本哈根大学医院Herlev/Gentofte分院核医学科团队",
+          "affiliation": "丹麦哥本哈根大学医院 Herlev/Gentofte 分院（单中心回顾性队列）",
+          "background": "国际指南推荐对高危及不利中危前列腺癌患者行骨转移评估，但证据多基于老旧的99mTc平面骨闪烁扫描。随着[18F]NaF PET/CT与PSMA PET/CT普及、且MRI靶向活检导致风险组迁移，旧推荐是否适用于当代队列存疑。研究旨在评价[18F]NaF PET/CT对新诊断前列腺癌骨转移的诊断准确性，并重点评估不利中危ISUP GG3亚组常规骨成像的临床价值。",
+          "methods": "单中心回顾性队列（2019-2020年）：连续纳入734例新诊断、活检证实前列腺癌并接受[18F]NaF PET/CT初始分期患者（静脉注射约200 MBq，30分钟后采集）。按现行EAU风险分类分组：高危607例（83%）、不利中危且ISUP GG3者127例（17%）。骨转移诊断以随访影像（MRI、PSMA PET/CT）与临床资料为参考标准；10名核医学医师报告、疑难例双专家共识；logistic回归计算比值比。",
+          "key_findings": [
+            "总体骨转移检出225例（31%）：高危组224/607（37%）阳性，不利中危GG3组仅1/127（0.8%）阳性",
+            "参考标准明确者（n=689）敏感性0.90、特异性0.99；高危亚组0.91/0.98",
+            "[18F]NaF PET/CT不确定率仅3%，远低于平面骨扫的16-26%",
+            "多变量分析：PSA升高、T分期、ISUP GG升高均显著增加骨转移比值比",
+            "中危组随访另发现1例潜在假阴性；孤立PSMA骨摄取需警惕非特异性摄取"
+          ],
+          "tables": [
+            {
+              "title": "表1 各风险组骨转移检出与诊断性能",
+              "headers": [
+                "分组",
+                "例数",
+                "骨转移阳性",
+                "阳性率"
+              ],
+              "rows": [
+                [
+                  "全队列",
+                  "734",
+                  "225",
+                  "31%"
+                ],
+                [
+                  "高危组",
+                  "607",
+                  "224",
+                  "37%"
+                ],
+                [
+                  "不利中危ISUP GG3组",
+                  "127",
+                  "1",
+                  "0.8%"
+                ],
+                [
+                  "诊断性能（n=689）",
+                  "敏感性0.90 / 特异性0.99",
+                  "高危亚组0.91/0.98",
+                  "不确定率3%"
+                ]
+              ],
+              "caption": "数据来源：European Journal of Nuclear Medicine and Molecular Imaging 2026（生物通编译）"
+            }
+          ],
+          "conclusion": "[18F]NaF PET/CT对新诊断前列腺癌骨转移检出准确性高、不确定率低；但不利中危ISUP GG3患者骨转移患病率极低（<1%），即便PSMA PET/CT该组也仅3-4%，故对该亚组常规骨重塑成像临床价值有限。局限：参考标准非组织学验证、单中心回顾性、中危事件数少致敏感性估计不精确。"
+        }
       },
       {
         "title": "JNM：68Ga-PSMA-11 PET/CT引导机器人活检对比mpMRI认知融合TRUS活检——PI-RADS 4/5病灶前列腺癌检出率97.1% vs 81.0%，并发症10.8% vs 51.4%",
@@ -8664,7 +8806,65 @@ const DATA = {
         "source": "Journal of Nuclear Medicine 2026;67(9):1401-1408（2026-09期）",
         "date": "2026-09-02",
         "category": "期刊论文",
-        "doi": "10.2967/jnumed.125.（卷期页67(9):1401-1408）"
+        "doi": "10.2967/jnumed.125.272036",
+        "posterReady": true,
+        "poster": {
+          "authors": "Rajender Kumar, Aravindh Ram, Santosh Kumar, Harmandeep Singh, Nandita Kakkar, Ujjwal Gorsi, Anupam Lal, Bhagwant Rai Mittal, Shrawan Kumar Singh",
+          "affiliation": "印度单中心前瞻性随机临床试验（NCT05137561）",
+          "background": "PI-RADS 4/5级病灶提示前列腺癌高度可能，指南推荐靶向活检。标准路径mpMRI认知融合经直肠超声（TRUS）活检漏诊率与并发症率仍高；68Ga-PSMA-11 PET/CT可直接显示肿瘤分子靶点并引导机械臂精准穿刺，但其对初次活检人群的诊断价值与安全性此前缺乏随机对照证据。",
+          "methods": "前瞻性单中心随机临床试验（NCT05137561）：纳入50-90岁、未接受过活检、PSA升高（≥4 ng/mL）且直肠指检异常的疑似前列腺癌男性267人，均行mpMRI；217人（81.3%）存在PI-RADS 4/5级病灶，随机分入68Ga-PSMA-11 PET/CT引导机械臂辅助活检组（PGPB，n=112）或mpMRI认知融合TRUS活检组（MCFB，n=105）。PET阴性者补做MCFB，活检阴性者补做PET与PGPB。主要终点为前列腺癌检出率，次要终点包括并发症率与患者报告疼痛（VAS评分）。",
+          "key_findings": [
+            "PGPB组前列腺癌检出率97.1%（101/104），显著高于MCFB组81.0%（85/105），P<0.05",
+            "PI-RADS 5病灶中PGPB诊断准确率100% vs MCFB 95.1%（P=0.09）",
+            "并发症率PGPB组10.8% vs MCFB组51.4%（P<0.01）；重大并发症（n=5）仅见于MCFB组",
+            "疼痛VAS中位数PGPB组3分 vs MCFB组5分；PGPB组阳性针芯率60%±20%",
+            "PET阴性者经MCFB补活检、活检阴性者经PET+PGPB补查的交叉设计保证病灶不遗漏"
+          ],
+          "tables": [
+            {
+              "title": "表1 两组主要结局对比",
+              "headers": [
+                "指标",
+                "PSMA PET/CT引导机器人活检(PGPB)",
+                "MRI认知融合TRUS活检(MCFB)"
+              ],
+              "rows": [
+                [
+                  "随机入组",
+                  "112人",
+                  "105人"
+                ],
+                [
+                  "前列腺癌检出率",
+                  "97.1%（101/104）",
+                  "81.0%（85/105）"
+                ],
+                [
+                  "PI-RADS 5病灶准确率",
+                  "100%",
+                  "95.1%"
+                ],
+                [
+                  "总并发症率",
+                  "10.8%",
+                  "51.4%"
+                ],
+                [
+                  "重大并发症",
+                  "0例",
+                  "5例"
+                ],
+                [
+                  "疼痛VAS中位数",
+                  "3",
+                  "5"
+                ]
+              ],
+              "caption": "数据来源：JNM 2026;67(9):1401-1408（DOI: 10.2967/jnumed.125.272036）"
+            }
+          ],
+          "conclusion": "在高疑似、初次活检且PI-RADS 4/5的人群中，68Ga-PSMA-11 PET/CT引导机械臂靶向活检在前列腺癌检出率、并发症发生率与患者疼痛体验上均显著优于mpMRI认知融合TRUS活检。局限为单中心、仅纳入PI-RADS 4/5人群，多机构与更广泛人群的表现有待验证。"
+        }
       },
       {
         "title": "JNM：多示踪剂纵向PET揭示心梗前巨噬细胞耗竭损害心脏修复机制——CCR2信号持续、左室血栓微钙化2周起4周达峰，雄性小鼠死亡风险更高",
@@ -28004,7 +28204,7 @@ const DATA = {
         {
           "name": "EJNMMI Research：[18F]SiTATE PET摄取与脑膜瘤SSTR2组织学表达强相关r=0.80——12例离体组织学试点，SUVmin 4阈值可致MTV低估（figshare合集DOI:10.6084/m9.figshare.c.8692458）",
           "category": "期刊论文",
-          "url": "https://springernature.figshare.com/collections/Correlation_of_18F_SiTATE-PET-tracer_with_somatostatin_receptor_expression_in_meningiomas_an_exploratory_ex_vivo_histological_pilot_study/8692458"
+          "url": "https://doi.org/10.1186/s13550-026-01505-w"
         },
         {
           "name": "Frontiers in Endocrinology：可解释机器学习+生存分析预测分化型甲状腺癌初始放射性碘治疗不佳反应——ANN分类AUC 0.932，RSF预测PRFS C-index 0.886",
