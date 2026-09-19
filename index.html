@@ -1966,6 +1966,22 @@ const DATA = {
   "research": {
     "items": [
       {
+        "category": "临床研究",
+        "title": "波兰医学研究署（ABM）资助雅盖隆大学开展161Tb-CP04诊疗一体化治疗甲状腺髓样癌非商业临床试验：CCK2受体靶向，111In诊断+161Tb治疗配对（Opalińska牵头）",
+        "summary": "波兰医学研究署（Agencja Badań Medycznych, ABM）2026年9月公布肿瘤领域非商业临床试验与研究实验资助名单，雅盖隆大学Collegium Medicum内分泌科Marta Opalińska博士牵头项目获批。项目拟开发并临床评估新型放射性核素治疗：[161Tb]Tb-CP04（胃泌素类似物CP04标记铽-161）靶向超过90%甲状腺髓样癌（MTC）细胞过表达的CCK2受体；研究同时使用[111In]In-CP04做定位诊断、[161Tb]Tb-CP04做治疗，构成诊疗一体化方案。铽-161除常规β−射线外还发射俄歇电子和转换电子，理论上可更有效清除手术不可及的微转移灶。MTC约占甲状腺癌5%但贡献13.4%死亡，现有RET抑制剂仅对约25%特定突变患者有效，该项目为难治性MTC提供靶向放射性核素治疗新方向。",
+        "url": "https://abm.gov.pl/pl/aktualnosci/3261,Radioizotopowa-terapia-celowana-szansa-dla-pacjentow-z-rakiem-rdzeniastym-tarczy.html",
+        "source": "波兰医学研究署ABM官网（abm.gov.pl，政府资助公告）",
+        "date": "2026-09-17"
+      },
+      {
+        "category": "AI影像",
+        "title": "宁波诺丁汉大学联合多家医院提出CrossPET-Adapt：少样本跨域适应实现无需CT的PET衰减与散射校正，泛化到新示踪剂/剂量/医院，仅需3例目标域数据",
+        "summary": "宁波诺丁汉大学（UNNC）与宁波市第一医院、宁波大学附属第一医院、宁波市妇儿医院、英国诺丁汉大学医院等合作开发CrossPET-Adapt深度学习框架，无需配套CT即可完成PET的衰减与散射校正（PET-only attenuation & scatter correction, ASC）。该框架通过少样本跨域适应，仅需3例目标域数据即可将基础模型迁移到新的PET示踪剂（18F-FDG/68Ga-DOTATATE/68Ga-FAPI）、不同注射剂量和不同医院/设备，200例真实患者验证显示校正后图像在病灶检出和SUV定量精度上接近CT-based PET，作者认为对PET-only/MRI-only扫描仪、降低辐射剂量和CT不可用场景有临床价值。成果以《Generalizable CT-free PET attenuation and scatter correction via few-shot cross domain adaptation》发表于npj Digital Medicine（2026年5月14日在线，DOI:10.1038/s41746-026-02760-w；UNNC 9月16日发布研究成果报道）。",
+        "url": "https://doi.org/10.1038/s41746-026-02760-w",
+        "source": "npj Digital Medicine（Nature，DOI:10.1038/s41746-026-02760-w）",
+        "date": "2026-09-16"
+      },
+      {
         "category": "AI影像",
         "title": "首个PSMA PET/CT统一视觉-语言模型：单框架同时完成报告生成、视觉问答与病灶分割，5747例报告+AutoPET训练，优于PET2REP/SegAnyPET（arXiv 9月14日）",
         "summary": "2026-09-14 arXiv预印本（arXiv:2609.15603，Yang Xing、Kuang Gong等，耶鲁/联影等团队）提出面向PSMA PET/CT的统一视觉-语言模型，可在单一多任务架构内同时完成结构化报告生成、视觉问答（VQA）和病灶分割（voxel-level grounding）。方法采用LLaVA式架构：PET/CT视觉编码器+MLP-Mixer投影模块+LoRA微调大语言模型+3D分割分支，按视觉编码器预训练、投影层对齐、VLM微调、多任务联合微调四阶段训练；语言任务用5747例配对报告的PSMA PET/CT数据，分割用AutoPET的PSMA子集。结果显示报告生成各项指标优于PET2REP及CT基线，VQA各类问题表现提升，分割Dice及病灶级重叠F1高于SegAnyPET与nnUNet。研究支持以统一框架实现结构化、可交互、可解释的PSMA PET/CT分析（预印本，尚未经同行评审）。",
@@ -8733,11 +8749,56 @@ const DATA = {
         "category": "research"
       }
     ],
-    "last_updated": "2026-09-18 07:45",
+    "last_updated": "2026-09-19",
     "lastUpdated": "2026-09-18 07:45"
   },
   "journals": {
     "items": [
+      {
+        "category": "期刊论文",
+        "title": "Journal of Pharmaceutical Analysis：225Ac靶向α治疗单时点患者影像+临床前药代动力学异速缩放实现个体化剂量学——24h单张SPECT误差<10%，225Ac-PSMA肾剂量26.8mGy/MBq（韩国原子力医学院KIRAMS）",
+        "summary": "《Journal of Pharmaceutical Analysis》（IF 11.2，Q1）2026年9月15日在线发表（DOI:10.1016/j.jpha.2026.101798）。韩国原子力医学院（KIRAMS）团队提出一种简化225Ac靶向α治疗个体化剂量评估的新方法：将动物实验获得的药物体内分布/排泄数据经异速缩放（allometric scaling）换算到人，再与患者单次显像测得的器官摄取结合——器官内“有多少药物”取自真实患者影像，“以多快速度清除”取自动物换算的药代曲线。验证结果：10例患者两种诊断用放射性药物，投药后24小时单张影像计算的剂量与多次显像金标准误差<10%（1小时或48小时影像误差更大）；应用于进展期前列腺癌225Ac-PSMA-I&T时，24小时SPECT算得肾吸收剂量26.8mGy/MBq，与国际报告34±12mGy/MBq相符，SPECT较全身平面显像更准确。该方法有望减轻225Ac治疗中重复长时显像负担（韩国科技部“α核素放射性药物靶向治疗临床研究”支持）。",
+        "url": "https://doi.org/10.1016/j.jpha.2026.101798",
+        "source": "Journal of Pharmaceutical Analysis（Elsevier，IF 11.2）",
+        "date": "2026-09-15",
+        "doi": "10.1016/j.jpha.2026.101798"
+      },
+      {
+        "category": "期刊论文",
+        "title": "EJNMMI：基线血清CEA是177Lu-PSMA治疗转移性去势抵抗性前列腺癌的独立预后标志物——142例前瞻研究，CEA升高与更短PFS/OS相关，CEA+PSA优于PSA单用（意大利IRST）",
+        "summary": "《European Journal of Nuclear Medicine and Molecular Imaging》2026年9月11日在线发表（PMID 42722919，DOI:10.1007/s00259-026-08173-x）。意大利IRCCS IRST “Dino Amadori”肿瘤研究所对142例接受177Lu-PSMA放射性配体治疗（RLT）的转移性去势抵抗性前列腺癌（mCRPC）患者开展前瞻性生物学观察研究，基线采血分析血红蛋白、碱性磷酸酶、PSA、癌胚抗原（CEA）等常规实验室指标，用单/多变量Cox回归评估与无进展生存（PFS）和总生存（OS）的关系。结果：中位随访44.0个月，中位PFS和OS分别为7.0和16.8个月；基线CEA升高独立关联更短PFS（p=0.026）和OS（p=0.003）；CEA联合PSA的预后区分度优于单用PSA。结论：基线CEA有望成为mCRPC患者177Lu-PSMA治疗的预后生物标志物，辅助筛选获益人群，其预测价值仍需进一步验证。",
+        "url": "https://doi.org/10.1007/s00259-026-08173-x",
+        "source": "European Journal of Nuclear Medicine and Molecular Imaging（Springer，PMID 42722919）",
+        "date": "2026-09-11",
+        "doi": "10.1007/s00259-026-08173-x"
+      },
+      {
+        "category": "期刊论文",
+        "title": "EJNMMI：肝癌90Y选择性内放疗中膈下动脉（IPA）处理的分层介入策略——290例中78例对照研究，直接灌注组3个月ORR 82.3%，栓塞后88%区域再分布（北京清华长庚医院）",
+        "summary": "《European Journal of Nuclear Medicine and Molecular Imaging》2026年9月18日在线发表（PMID 42754697，DOI:10.1007/s00259-026-08170-0）。北京清华长庚医院钇-90精准介入放疗中心回顾2022年10月至2025年12月连续290例接受90Y-SIRT的不可切除肝细胞癌患者，对DSA联合锥形束CT（CBCT）确认存在膈下动脉肿瘤供血的78例，按肿瘤体积及非靶血管解剖分为经IPA直接灌注90Y组（45例）与IPA栓塞组（33例）。结果：按mRECIST，灌注组1/3个月客观缓解率分别为60.0%/82.3%，栓塞组48.5%/69.7%；IPA栓塞后90Y微球在原IPA供血区代偿再分布率约88%；两组仅见轻度可逆胸部不良反应、无严重并发症。结论：DSA-CBCT联合评估对术前IPA解剖判断至关重要；非靶血管可处理且IPA供血肿瘤体积≥20mL时直接经IPA灌注疗效更优，反之栓塞是可靠替代，为90Y-SIRT的IPA处理提供分层算法（单中心，待外部验证）。",
+        "url": "https://doi.org/10.1007/s00259-026-08170-0",
+        "source": "European Journal of Nuclear Medicine and Molecular Imaging（Springer，PMID 42754697）",
+        "date": "2026-09-18",
+        "doi": "10.1007/s00259-026-08170-0"
+      },
+      {
+        "category": "期刊论文",
+        "title": "EJNMMI：深部与浅表型子宫内膜异位症FAP表达及其与MRI/经阴道超声可见度的关系——22例免疫组化H评分研究，为FAP靶向显像提供病理依据（Mayo Clinic）",
+        "summary": "《European Journal of Nuclear Medicine and Molecular Imaging》2026年9月18日在线发表（PMID 42758302，DOI:10.1007/s00259-026-08189-3）。Mayo Clinic团队回顾13例深部子宫内膜异位症（DE）和9例浅表型（SE）患者标本，免疫组化评估成纤维细胞活化蛋白（FAP）H评分，两名腹部放射医师按0-3分独立评定病灶在MRI和经阴道超声（TVUS）上的可见度。结果：DE与SE的FAP表达无显著差异（中位H评分170对200，p=0.738）；异位内膜均呈显著FAP表达（虽低于结直肠腺癌对照）；部分常规影像显示不佳的SE病灶同样高表达FAP。结论：DE与SE间质均有显著FAP表达，包括常规影像上难以显示的浅表病灶，为子宫内膜异位症FAP靶向PET显像（如FAPI）提供了组织病理学依据。",
+        "url": "https://doi.org/10.1007/s00259-026-08189-3",
+        "source": "European Journal of Nuclear Medicine and Molecular Imaging（Springer，PMID 42758302）",
+        "date": "2026-09-18",
+        "doi": "10.1007/s00259-026-08189-3"
+      },
+      {
+        "category": "期刊论文",
+        "title": "JNM：18F-FDG PET/CT评估肾髓质癌病变范围并影响治疗决策——49例单中心研究，98%病灶高摄取，31例发现解剖影像漏诊病灶、21%改变治疗（67卷9期，NIH/梅奥等）",
+        "summary": "《Journal of Nuclear Medicine》2026年9月期（67卷9期1372-1378页，DOI:10.2967/jnumed.126.272258）在线发表。研究回顾49例肾髓质癌（RMC，一种与镰状红细胞性状相关、好发于年轻男性的高度侵袭性罕见肾癌）患者的18F-FDG PET/CT资料，与30天内CT/MRI解剖影像对比。结果：48/49例（98%）病灶呈明确FDG高摄取；15例原发灶中位SUVmax 13.4（9.5-23.5），43例淋巴结转移（中位SUVmax 8.9），结外病变以肺（24例）、骨（19例）最常见；31例PET/CT发现解剖影像漏诊病灶（骨18、淋巴结13、软组织11），其中10例（21%）因此改变临床管理；无解剖影像检出而PET漏诊的病灶。结论：RMC为高FDG亲和肿瘤，FDG PET/CT常能发现常规影像漏诊的转移灶，有助于病期评估与治疗策略优化。",
+        "url": "https://doi.org/10.2967/jnumed.126.272258",
+        "source": "Journal of Nuclear Medicine（SNMMI，67(9):1372-1378）",
+        "date": "2026-09-18",
+        "doi": "10.2967/jnumed.126.272258"
+      },
       {
         "category": "期刊论文",
         "title": "EJNMMI：临床不确定帕金森综合征黑质纹状体显像头对头比较——[123I]FP-CIT SPECT与[18F]FE-PE2I PET诊断效能完全一致且均优于黑质MRI（35例，哥本哈根大学医院）",
@@ -18583,11 +18644,19 @@ const DATA = {
         }
       }
     ],
-    "last_updated": "2026-09-18 15:55",
+    "last_updated": "2026-09-19",
     "lastUpdated": "2026-09-18 15:55"
   },
   "radiopharma": {
     "items": [
+      {
+        "category": "核素生产",
+        "title": "中国同辐、中核高通与德国ITM公司镥-177市场开发合作会议召开：签署合作协议、成立镥-177市场开发协调委员会，并交流锕-225研发成果与新型核素合作方向",
+        "summary": "据中国同辐官网2026年9月18日消息，9月16日中国同辐、中核高通与德国ITM公司在中核高通召开镥-177市场开发合作会议，中核集团四川市场开发部、四川省工办及三方相关负责人参会。三方肯定前期技术转移成果，就镥-177海内外市场协同开发、深化核素领域产业合作达成共识；ITM与中国同辐明确从全球布局、销售策略、产业协同、资源整合等维度为合作提供支撑；会上成立镥-177市场开发协调委员会并签署合作协议，同时交流锕-225最新研发成果、探讨新型核素合作方向。会议旨在整合技术与渠道优势，加速镥-177国产化、产业化进程，推动靶向放射性药物产业发展。",
+        "url": "https://circ.com.cn/zgtf/xwdt38/gsxw25/2026091817451987624/index.html",
+        "source": "中国同辐股份有限公司官网（circ.com.cn，公司新闻）",
+        "date": "2026-09-18"
+      },
       {
         "category": "核素生产",
         "title": "JNM发布「β图谱」（Beta Atlas）：非常规β发射核素67Cu/153Sm/161Tb/166Ho/186Re/188Re全球生产版图与临床评估全景盘点",
@@ -24195,7 +24264,7 @@ const DATA = {
         "summary": "核药的预靶向策略JNM葫芦脲金刚烷"
       }
     ],
-    "last_updated": "2026-09-18 15:55",
+    "last_updated": "2026-09-19",
     "lastUpdated": "2026-09-18 15:55"
   },
   "equipment": {
@@ -29805,6 +29874,53 @@ const DATA = {
     "lastUpdated": "2026-09-18 15:55"
   },
   "changelog": [
+    {
+      "date": "2026-09-19",
+      "time": "08:05",
+      "title": "早晨更新（净新增8条）：期刊5（PubMed esearch+esummary+efetch逐条核对PMID↔标题↔DOI，efetch XML的ArticleId DOI被参考文献污染已按esummary/Crossref纠正）：①JNM 67(9):1372-1378 49例肾髓质癌FDG PET/CT、98%病灶高摄取、31例发现解剖影像漏诊、21%改变管理，DOI 10.2967/jnumed.126.272258；②EJNMMI Mayo 22例深部/浅表子宫内膜异位症FAP表达与MRI/TVUS可见度、为FAP靶向显像提供病理依据，DOI .08189-3；③EJNMMI 北京清华长庚78例肝癌90Y-SIRT膈下动脉IPA处理分层策略、直接灌注3月ORR82.3%，DOI .08170-0；④EJNMMI 意大利IRST 142例基线CEA独立预测177Lu-PSMA治疗mCRPC的PFS/OS，DOI .08173-x；⑤J Pharm Anal(IF11.2) KIRAMS 225Ac单时点影像+临床前异速缩放剂量学、24h SPECT误差<10%，DOI 10.1016/j.jpha.2026.101798（归期刊论文）。研究2：宁波诺丁汉CrossPET-Adapt少样本跨域无CT PET衰减/散射校正（npj Digital Medicine，DOI 10.1038/s41746-026-02760-w）；波兰ABM资助雅盖隆大学161Tb-CP04 CCK2诊疗一体化治疗甲状腺髓样癌非商业临床试验（abm.gov.pl官方公告）。核药1：中国同辐/中核高通与德国ITM镥-177市场开发合作会议签署协议并成立协调委员会、交流锕-225（circ.com.cn官网具体页，已fetch核对正文）。指南0：V/Q肺灌注/肺通气显像操作指南（.273689/.273011）与阿尔茨海默病一体化PET/MRI脑成像指南2026版库内均已收录，今日无新增符合纯净性规则文档，不硬凑；装机0：安庆一院2000万PET-CT采购意向仅第三方聚合页、官方ccgp具体URL未定位，按链接规范放弃；浙大二院1800万PET-CT合同9/15已收录。微信搜狗5关键词agent-browser实机列表抓取成功（中国核医学医师/PETCT医学影像论坛/小核说核药各10条=30条；联影医疗核医学/核医之家因墙下耗时长未跑完），点开探测9/9全部wappoc验证码墙、0篇拿到mp.weixin永久链，按最高优先级0条入库（非云电脑故障，bash+浏览器连通正常，前台timeout重跑验证一致）。已排除重复/旧闻：三模态PSMA PET/CT-MRI-US融合穿刺308例（.08181-x）核对为库内已收；DPI-4452土耳其多中心（.273011）、BEXLUTRY仿制药、Pixclara FET、MICSI、Rockford、JBS-003、Cardiac PET Alliance、18F-FET FDA、Beta Atlas、florbetapir小脑偏倚、APN-1607深圳III期（无权威具体页）等已收或无合规链；F-ATD001 TTR心肌淀粉论文DOI无法Crossref/PubMed可靠验证，按红线不猜链放弃。",
+      "items": [
+        {
+          "name": "JNM：18F-FDG PET/CT评估肾髓质癌病变范围并影响治疗决策（49例，98%高摄取，21%改变管理）",
+          "category": "期刊论文",
+          "url": "https://doi.org/10.2967/jnumed.126.272258"
+        },
+        {
+          "name": "EJNMMI：深部与浅表子宫内膜异位症FAP表达与MRI/经阴道超声可见度关系（Mayo，FAP靶向显像病理依据）",
+          "category": "期刊论文",
+          "url": "https://doi.org/10.1007/s00259-026-08189-3"
+        },
+        {
+          "name": "EJNMMI：肝癌90Y-SIRT膈下动脉处理分层介入策略（78例，直接灌注3月ORR82.3%，清华长庚）",
+          "category": "期刊论文",
+          "url": "https://doi.org/10.1007/s00259-026-08170-0"
+        },
+        {
+          "name": "EJNMMI：基线CEA是177Lu-PSMA治疗mCRPC独立预后标志物（142例，意大利IRST）",
+          "category": "期刊论文",
+          "url": "https://doi.org/10.1007/s00259-026-08173-x"
+        },
+        {
+          "name": "Journal of Pharmaceutical Analysis：225Ac α治疗单时点影像+异速缩放个体化剂量学（KIRAMS，误差<10%）",
+          "category": "期刊论文",
+          "url": "https://doi.org/10.1016/j.jpha.2026.101798"
+        },
+        {
+          "name": "宁波诺丁汉CrossPET-Adapt：少样本跨域适应实现无CT的PET衰减与散射校正（npj Digital Medicine）",
+          "category": "AI影像",
+          "url": "https://doi.org/10.1038/s41746-026-02760-w"
+        },
+        {
+          "name": "波兰ABM资助雅盖隆大学161Tb-CP04 CCK2诊疗一体化治疗甲状腺髓样癌非商业临床试验",
+          "category": "临床研究",
+          "url": "https://abm.gov.pl/pl/aktualnosci/3261,Radioizotopowa-terapia-celowana-szansa-dla-pacjentow-z-rakiem-rdzeniastym-tarczy.html"
+        },
+        {
+          "name": "中国同辐、中核高通与德国ITM镥-177市场开发合作会议召开（签署协议、成立协调委员会、交流锕-225）",
+          "category": "核素生产",
+          "url": "https://circ.com.cn/zgtf/xwdt38/gsxw25/2026091817451987624/index.html"
+        }
+      ]
+    },
     {
       "date": "2026-09-18",
       "time": "15:55",
@@ -43313,7 +43429,7 @@ const DATA = {
     }
   ]
 };
-const TODAY = "2026-09-18";
+const TODAY = "2026-09-19";
 
 const SECTIONS = [
   {key:"guidelines",name:"📋 学会指南",color:"#27ae60"},
